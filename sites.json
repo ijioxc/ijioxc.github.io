@@ -111,5 +111,13 @@
     "url": "web/hs-project/",
     "shot": "hs-project.jpg",
     "group": "高中專題"
+  },
+  {
+    "id": "event-kit",
+    "title": "活動視覺任務",
+    "desc": "系學會活動要做的圖與溝通事項，名單自動排版",
+    "url": "web/event-kit/",
+    "shot": "event-kit.jpg",
+    "group": "系學會"
   }
 ]

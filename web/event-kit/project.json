@@ -1,0 +1,107 @@
+{
+  "title": "活動視覺任務",
+  "subtitle": "115 機械工程系學會",
+  "font": "PingFang TC",
+  "sections": [
+    {
+      "title": "貼文海報",
+      "tag": "發 IG",
+      "items": [
+        { "id": "promo-post", "title": "宣傳貼文", "size": [1080, 1350] },
+        { "id": "promo-poster", "title": "宣傳海報", "size": [1696, 2528] },
+        {
+          "id": "signup-ok",
+          "title": "報名成功貼文",
+          "size": [1080, 1350],
+          "layers": [
+            { "type": "text", "text": "報名成功名單", "x": 128, "y": 250, "size": 64, "weight": 600, "fill": "#333333", "spacing": 0.2 },
+            {
+              "type": "names",
+              "src": "names/signup-ok.txt",
+              "area": [128, 330, 824, 880],
+              "columns": 5,
+              "labelWidth": 0,
+              "size": 30,
+              "labelSize": 26,
+              "rowHeight": 56,
+              "groupGap": 28,
+              "spacing": 0.15,
+              "fill": "#333333",
+              "labelFill": "#a33f3c"
+            }
+          ]
+        },
+        { "id": "success", "title": "活動大成功貼文", "size": [1080, 1350] }
+      ]
+    },
+    {
+      "title": "活動佈置",
+      "items": [
+        { "id": "backdrop", "title": "背板", "size": [3000, 2000] },
+        { "id": "decor-props", "title": "佈置道具", "size": [2480, 3508] }
+      ]
+    },
+    {
+      "title": "遊戲道具",
+      "items": [
+        { "id": "game-props", "title": "遊戲道具", "size": [2480, 3508] }
+      ]
+    },
+    {
+      "title": "名牌",
+      "items": [
+        {
+          "id": "badge-staff",
+          "title": "工作人員名牌",
+          "size": [1063, 1535],
+          "layers": [
+            {
+              "type": "each",
+              "src": "names/badge-staff.txt",
+              "name": { "x": 531, "y": 860, "size": 150, "weight": 600, "fill": "#333333", "anchor": "middle", "spacing": 0.15 },
+              "label": { "x": 531, "y": 1010, "size": 54, "weight": 400, "fill": "#a33f3c", "anchor": "middle", "spacing": 0.3 }
+            }
+          ]
+        },
+        {
+          "id": "badge-guest",
+          "title": "參與人員名牌",
+          "size": [1063, 1535],
+          "layers": [
+            {
+              "type": "each",
+              "src": "names/badge-guest.txt",
+              "name": { "x": 531, "y": 860, "size": 150, "weight": 600, "fill": "#333333", "anchor": "middle", "spacing": 0.15 },
+              "label": { "x": 531, "y": 1010, "size": 54, "weight": 400, "fill": "#a33f3c", "anchor": "middle", "spacing": 0.3 }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "報名表單",
+      "items": [
+        { "id": "form-header", "title": "表單封面圖", "size": [1600, 400] }
+      ]
+    },
+    {
+      "title": "協調事項",
+      "items": [
+        {
+          "id": "purchase",
+          "title": "採購清單",
+          "kind": "note",
+          "with": "採購組",
+          "todo": ["列出要買的東西與數量", "把清單交給採購組", "確認到貨日期"]
+        },
+        {
+          "id": "venue",
+          "title": "活動場地",
+          "kind": "note",
+          "with": "場地協助",
+          "todo": ["確認需要協助的場地", "聯絡場地協助", "確認佈置時間"]
+        }
+      ]
+    }
+  ]
+}

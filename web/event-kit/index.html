@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>活動視覺任務</title>
+<style>
+:root{--bg:#f7f6f3;--fg:#1c1b19;--mute:#8a867f;--line:#e2dfd9;--card:#fff;--ph:#d6d6d6;--accent:#a33f3c}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--fg);font:16px/1.5 "PingFang TC","Noto Sans TC",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:var(--fg)}
+.mono{font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--mute);letter-spacing:.02em}
+[hidden]{display:none!important}
+
+/* 清單 */
+#hub{max-width:720px;margin:0 auto;padding:48px 20px 80px}
+#hub header{margin-bottom:36px}
+#hub h1{font-size:30px;font-weight:600;margin:6px 0 4px;letter-spacing:.04em}
+.sec{margin-top:34px}
+.sec h2{font-size:13px;font-weight:600;color:var(--mute);letter-spacing:.2em;margin:0 0 8px;display:flex;gap:10px;align-items:center}
+.pill{font-size:11px;letter-spacing:.05em;border:1px solid var(--line);border-radius:99px;padding:1px 8px;color:var(--mute);font-weight:400;white-space:nowrap}
+.pill.hot{color:var(--accent);border-color:currentColor}
+.row{display:grid;grid-template-columns:56px 1fr auto 20px;gap:14px;align-items:center;padding:12px 4px;border-top:1px solid var(--line)}
+.sec .row:last-child{border-bottom:1px solid var(--line)}
+.row:hover{background:#fff}
+.row:hover .arrow{transform:translateX(4px)}
+.thumb{width:56px;height:56px;display:grid;place-items:center}
+.thumb i,.thumb img{display:block;max-width:56px;max-height:56px;background:var(--ph);border-radius:3px;object-fit:cover}
+.thumb .dot{width:10px;height:10px;border-radius:50%;background:none;border:1.5px solid var(--mute)}
+.row b{font-weight:500;display:block}
+.tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.arrow{transition:transform .2s;color:var(--mute)}
+
+/* 看圖 */
+#view{height:100%;display:grid;grid-template-rows:auto 1fr}
+.bar{display:flex;align-items:center;gap:14px;padding:12px 18px;border-bottom:1px solid var(--line);background:var(--bg)}
+.bar b{font-weight:600}
+.bar .sp{flex:1}
+.pager{display:flex;align-items:center;gap:8px}
+.pager button{padding:2px 10px}
+.body{display:grid;grid-template-columns:1fr 320px;min-height:0}
+#stage{display:grid;place-items:center;padding:28px;min-height:0;min-width:0;overflow:hidden}
+#stage svg{display:block;box-shadow:0 1px 2px rgba(0,0,0,.08),0 12px 40px rgba(0,0,0,.12);background:#fff}
+#cap{align-self:end;margin:0 24px 24px 0;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:16px 18px;font-size:13px;line-height:1.7;max-height:calc(100vh - 100px);overflow:auto}
+#cap h3{margin:0 0 2px;font-size:15px;font-weight:600}
+#cap dl{margin:10px 0;display:grid;grid-template-columns:auto 1fr;gap:2px 12px}
+#cap dt{color:var(--mute)}
+#cap dd{margin:0;word-break:break-all}
+#cap code{font:12px ui-monospace,Menlo,monospace;background:var(--bg);padding:1px 5px;border-radius:4px}
+#cap .btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+#cap button{font-size:12px;padding:4px 10px}
+#cap textarea{width:100%;height:180px;margin-top:10px;font:12px/1.6 ui-monospace,Menlo,monospace;border:1px solid var(--line);border-radius:6px;padding:8px;resize:vertical}
+#cap .hint{color:var(--mute);font-size:12px;margin:8px 0 0}
+#cap label{display:flex;gap:8px;align-items:flex-start;padding:3px 0}
+.note .body{grid-template-columns:1fr}
+.note #stage{display:none}
+.note #cap{align-self:start;justify-self:center;margin:48px 16px;width:min(420px,calc(100% - 32px));font-size:15px}
+@media(max-width:820px){
+  .body{grid-template-columns:1fr;grid-template-rows:minmax(300px,60vh) auto;overflow:auto}
+  #cap{margin:0 16px 24px;max-height:none}
+  .row{grid-template-columns:44px 1fr 20px}.tags{display:none}
+}
+</style>
+</head>
+<body>
+
+<main id="hub" hidden>
+  <header>
+    <a class="mono" href="../../">← 簡報庫</a>
+    <h1 id="h-title"></h1>
+    <div class="mono" id="h-sub"></div>
+  </header>
+  <div id="list"></div>
+</main>
+
+<main id="view" hidden>
+  <div class="bar">
+    <a href="#" class="mono">← 任務清單</a>
+    <b id="v-title"></b>
+    <span class="mono" id="v-meta"></span>
+    <span class="sp"></span>
+    <span class="pager" id="pager" hidden>
+      <button id="prev" aria-label="上一頁">‹</button>
+      <span class="mono" id="pageno"></span>
+      <button id="next" aria-label="下一頁">›</button>
+    </span>
+  </div>
+  <div class="body">
+    <div id="stage"></div>
+    <aside id="cap"></aside>
+  </div>
+</main>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let P, ITEMS = {};
+const S = { id: null, page: 0, grid: false, built: null, hasArt: false };
+const texts = {};      // src -> 名單文字（可在頁面上暫時改）
+const artCache = {};   // id -> Promise<boolean>
+
+const artUrl = id => `art/${id}.png`;
+const hasArt = id => artCache[id] ??= new Promise(r => {
+  const im = new Image(); im.onload = () => r(true); im.onerror = () => r(false); im.src = artUrl(id);
+});
+async function getText(src) {
+  if (!(src in texts)) texts[src] = await fetch(src).then(r => r.ok ? r.text() : '').catch(() => '');
+  return texts[src];
+}
+
+/* ---------- 名單解析與排版 ---------- */
+function parseNames(text) {
+  const groups = []; let cur = null;
+  for (const raw of text.split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line || line.startsWith('//')) continue;
+    if (line.startsWith('#')) { cur = { label: line.replace(/^#+\s*/, ''), names: [] }; groups.push(cur); continue; }
+    if (!cur) { cur = { label: '', names: [] }; groups.push(cur); }
+    cur.names.push(...line.split(/[\s、,，]+/).filter(Boolean));
+  }
+  return groups.filter(g => g.names.length);
+}
+// 兩個字的名字中間補一格全形空白，和三個字對齊
+const pad2 = n => { const c = [...n]; return c.length === 2 ? c[0] + '　' + c[1] : n; };
+const baseline = (top, rh, size) => top + rh / 2 + size * 0.36;
+
+function layoutNames(L, groups) {
+  const [ax, ay, aw, ah] = L.area, cols = L.columns, lw = L.labelWidth || 0;
+  const cw = (aw - lw) / cols, rh = L.rowHeight, ls = L.labelSize || L.size;
+  const pages = [[]]; let y = 0;
+  const put = (t, x, top, size, fill, weight) =>
+    pages[pages.length - 1].push({ t, x, y: baseline(ay + top, rh, size), size, fill, weight, spacing: L.spacing });
+  const label = g => put(g.label, ax, y, ls, L.labelFill || L.fill, L.labelWeight || 600);
+  for (const g of groups) {
+    const ownRow = !lw && g.label;
+    if (y > 0) y += L.groupGap || 0;
+    if (y > 0 && y + (ownRow ? 2 : 1) * rh > ah) { pages.push([]); y = 0; }
+    for (let i = 0; i < g.names.length; i += cols) {
+      let fresh = i === 0;
+      if (y > 0 && y + rh > ah) { pages.push([]); y = 0; fresh = true; }
+      if (fresh && g.label) { label(g); if (ownRow) y += rh; }
+      g.names.slice(i, i + cols).forEach((n, c) => put(pad2(n), ax + lw + c * cw, y, L.size, L.fill, L.weight || 400));
+      y += rh;
+    }
+  }
+  const guides = [`<rect x="${ax}" y="${ay}" width="${aw}" height="${ah}"/>`];
+  for (let c = 0; c <= cols; c++) { const x = ax + lw + c * cw; guides.push(`<line x1="${x}" y1="${ay}" x2="${x}" y2="${ay + ah}"/>`); }
+  for (let r = rh; r < ah; r += rh) guides.push(`<line x1="${ax}" y1="${ay + r}" x2="${ax + aw}" y2="${ay + r}"/>`);
+  return { pages, guides };
+}
+
+async function build(item) {
+  const fixed = [], paged = [], guides = []; let count = 0;
+  for (const L of item.layers || []) {
+    if (L.type === 'text') fixed.push({ ...L, t: L.text });
+    else {
+      const groups = parseNames(await getText(L.src));
+      count += groups.reduce((n, g) => n + g.names.length, 0);
+      if (L.type === 'names') { const r = layoutNames(L, groups); paged.push(r.pages); guides.push(...r.guides); }
+      if (L.type === 'each') paged.push(groups.flatMap(g => g.names.map(n =>
+        [{ ...L.name, t: pad2(n) }, ...(g.label && L.label ? [{ ...L.label, t: g.label }] : [])])));
+    }
+  }
+  const total = Math.max(1, ...paged.map(p => p.length));
+  const pages = Array.from({ length: total }, (_, i) => [...fixed, ...paged.flatMap(p => p[i] || [])]);
+  return { pages, guides, count };
+}
+
+/* ---------- SVG ---------- */
+function textEl(e, font) {
+  const sp = e.spacing ? ` letter-spacing="${(e.spacing * e.size).toFixed(2)}"` : '';
+  const an = e.anchor && e.anchor !== 'start' ? ` text-anchor="${e.anchor}"` : '';
+  return `<text x="${e.x}" y="${e.y}" font-family="${esc(font)}" font-size="${e.size}" font-weight="${e.weight || 400}" fill="${e.fill || '#333'}"${an}${sp}>${esc(e.t)}</text>`;
+}
+function svgFor(item, built, pi, { bg, placeholder, grid } = {}) {
+  const [W, H] = item.size, font = P.font || 'sans-serif';
+  let out = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">`;
+  if (bg) out += `<image href="${bg}" width="${W}" height="${H}" preserveAspectRatio="xMidYMid slice"/>`;
+  else if (placeholder) {
+    out += `<rect width="${W}" height="${H}" fill="#d6d6d6"/>`;
+    if (!(item.layers || []).length) {
+      const s = Math.min(W, H) / 14;
+      out += `<text x="${W / 2}" y="${H / 2}" font-family="${esc(font)}" font-size="${s}" fill="#9a9a9a" text-anchor="middle">${esc(item.title)}</text>`
+           + `<text x="${W / 2}" y="${H / 2 + s * 1.2}" font-family="${esc(font)}" font-size="${s * .45}" fill="#aaa" text-anchor="middle">尚未設計・${W} × ${H}</text>`;
+    }
+  }
+  out += built.pages[pi].map(e => textEl(e, font)).join('');
+  if (grid && built.guides.length) out += `<g fill="none" stroke="#e0007a" stroke-width="${Math.max(1, W / 800)}" opacity=".7">${built.guides.join('')}</g>`;
+  return out + '</svg>';
+}
+
+/* ---------- 清單頁 ---------- */
+async function renderHub() {
+  document.title = P.title;
+  $('#h-title').textContent = P.title;
+  const arts = Object.values(ITEMS).filter(i => i.kind !== 'note');
+  const done = (await Promise.all(arts.map(i => hasArt(i.id)))).filter(Boolean).length;
+  $('#h-sub').textContent = `${P.subtitle || ''}　圖檔 ${done} / ${arts.length}`;
+  let html = '';
+  for (const s of P.sections) {
+    html += `<section class="sec"><h2>${esc(s.title)}${s.tag ? `<span class="pill">${esc(s.tag)}</span>` : ''}</h2>`;
+    for (const it of s.items) {
+      const note = it.kind === 'note', ok = !note && await hasArt(it.id);
+      const [w, h] = it.size || [1, 1], k = 56 / Math.max(w, h);
+      const thumb = note ? '<i class="dot"></i>'
+        : ok ? `<img src="${artUrl(it.id)}" alt="">` : `<i style="width:${w * k}px;height:${h * k}px"></i>`;
+      const tags = [
+        note ? `<span class="pill hot">找${esc(it.with)}</span>` : `<span class="pill">${ok ? '已有圖' : '未設計'}</span>`,
+        it.layers ? '<span class="pill hot">要加文字</span>' : ''
+      ].join('');
+      html += `<a class="row" href="#${it.id}"><span class="thumb">${thumb}</span>
+        <span><b>${esc(it.title)}</b><span class="mono">${note ? '溝通事項' : w + ' × ' + h}</span></span>
+        <span class="tags">${tags}</span><span class="arrow">→</span></a>`;
+    }
+    html += '</section>';
+  }
+  $('#list').innerHTML = html;
+}
+
+/* ---------- 看圖頁 ---------- */
+async function openItem(item) {
+  S.id = item.id; S.page = 0; S.grid = false;
+  $('#v-title').textContent = item.title;
+  $('#view').classList.toggle('note', item.kind === 'note');
+  $('#cap').onchange = null;
+  if (item.kind === 'note') return renderNote(item);
+  S.hasArt = await hasArt(item.id);
+  await refresh(item);
+  renderCaption(item);
+}
+async function refresh(item) {
+  S.built = await build(item);
+  S.page = Math.min(S.page, S.built.pages.length - 1);
+  draw(item);
+}
+function draw(item) {
+  const n = S.built.pages.length, [W, H] = item.size;
+  $('#v-meta').textContent = `${W} × ${H}`;
+  $('#pager').hidden = n < 2;
+  $('#pageno').textContent = `${S.page + 1} / ${n}`;
+  $('#stage').innerHTML = svgFor(item, S.built, S.page, { bg: S.hasArt ? artUrl(item.id) : null, placeholder: true, grid: S.grid });
+  fit();
+  const c = $('#cap-count'); if (c) c.textContent = `${S.built.count} 人，共 ${n} 頁`;
+}
+function fit() {
+  const svg = $('#stage svg'), it = ITEMS[S.id]; if (!svg || !it?.size) return;
+  const st = $('#stage'), [W, H] = it.size;
+  const k = Math.min((st.clientWidth - 56) / W, (st.clientHeight - 56) / H);
+  svg.style.width = W * k + 'px'; svg.style.height = H * k + 'px';
+}
+function renderCaption(item) {
+  const L = (item.layers || []).find(l => l.src);
+  let h = `<h3>${esc(item.title)}</h3><span class="mono">${esc(item.section)}</span><dl>
+    <dt>狀態</dt><dd>${S.hasArt ? '已放入圖檔' : '尚未設計，先用灰色方塊代替'}</dd>
+    <dt>圖檔</dt><dd><code>art/${item.id}.png</code></dd>
+    <dt>尺寸</dt><dd>${item.size.join(' × ')} px</dd>`;
+  if (L) h += `<dt>文字</dt><dd><code>${esc(L.src)}</code></dd><dt>目前</dt><dd id="cap-count"></dd>`;
+  h += '</dl>';
+  if (L) h += `<div class="btns"><button id="b-ai">複製給 AI 的指令</button><button id="b-edit">貼名單預覽</button><button id="b-grid">顯示網格</button></div>
+    <textarea id="ta" hidden spellcheck="false"></textarea>
+    <p class="hint">名單太多會自動換到下一頁。這裡貼的只是預覽，要存起來請用「複製給 AI 的指令」。</p>
+    <div class="btns"><button id="b-png">下載這頁 PNG</button><button id="b-svg">下載文字層 SVG</button></div>
+    <p class="hint">文字層 SVG 是透明底，可以直接拖進 Affinity 疊在主視覺上。</p>`;
+  else h += `<p class="hint">Affinity 匯出 PNG，存成上面的檔名就會出現在這裡。這張要加文字時，請 AI 在 <code>project.json</code> 幫這項加 <code>layers</code>。</p>`;
+  $('#cap').innerHTML = h;
+  if (!L) return;
+  $('#cap-count').textContent = `${S.built.count} 人，共 ${S.built.pages.length} 頁`;
+  $('#b-grid').onclick = () => { S.grid = !S.grid; draw(item); };
+  $('#b-edit').onclick = async () => { const ta = $('#ta'); ta.hidden = !ta.hidden; ta.value = await getText(L.src); };
+  $('#ta').oninput = e => { texts[L.src] = e.target.value; refresh(item); };
+  $('#b-ai').onclick = e => {
+    const msg = `在 ppt repo 的 web/event-kit：把下面的名單寫進 ${L.src}（格式看 README.md），然後開 index.html#${item.id} 確認每一頁都沒有超出網格。\n\n名單：\n（貼在這裡）`;
+    navigator.clipboard.writeText(msg).then(() => { e.target.textContent = '已複製'; setTimeout(() => e.target.textContent = '複製給 AI 的指令', 1500); });
+  };
+  $('#b-svg').onclick = () => save(new Blob([svgFor(item, S.built, S.page)], { type: 'image/svg+xml' }), fileName(item, 'svg'));
+  $('#b-png').onclick = () => exportPng(item);
+}
+function renderNote(item) {
+  $('#v-meta').textContent = '溝通事項'; $('#pager').hidden = true; $('#stage').innerHTML = '';
+  const key = 'event-kit:' + item.id, done = JSON.parse(localStorage.getItem(key) || '[]');
+  $('#cap').innerHTML = `<h3>${esc(item.title)}</h3><span class="mono">需要找：${esc(item.with)}</span><div style="margin-top:10px">`
+    + (item.todo || []).map((t, i) => `<label><input type="checkbox" data-i="${i}" ${done.includes(i) ? 'checked' : ''}>${esc(t)}</label>`).join('')
+    + '</div><p class="hint">勾選只存在這台瀏覽器。</p>';
+  $('#cap').onchange = () => localStorage.setItem(key, JSON.stringify(
+    [...document.querySelectorAll('#cap input:checked')].map(c => +c.dataset.i)));
+}
+
+/* ---------- 匯出 ---------- */
+const fileName = (item, ext) => `${item.id}${S.built.pages.length > 1 ? '-' + (S.page + 1) : ''}.${ext}`;
+function save(blob, name) {
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+}
+async function exportPng(item) {
+  const [W, H] = item.size;
+  let bg = null;
+  if (S.hasArt) bg = await fetch(artUrl(item.id)).then(r => r.blob()).then(b => new Promise(res => {
+    const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(b);
+  }));
+  const url = URL.createObjectURL(new Blob([svgFor(item, S.built, S.page, { bg, placeholder: true })], { type: 'image/svg+xml' }));
+  const im = new Image();
+  im.onload = () => {
+    const c = document.createElement('canvas'); c.width = W; c.height = H;
+    c.getContext('2d').drawImage(im, 0, 0, W, H);
+    URL.revokeObjectURL(url);
+    c.toBlob(b => save(b, fileName(item, 'png')), 'image/png');
+  };
+  im.src = url;
+}
+
+/* ---------- 路由 ---------- */
+function route() {
+  const item = ITEMS[decodeURIComponent(location.hash.slice(1))];
+  $('#hub').hidden = !!item; $('#view').hidden = !item;
+  if (item) openItem(item); else { S.id = null; renderHub(); }
+}
+$('#prev').onclick = () => { if (S.page > 0) { S.page--; draw(ITEMS[S.id]); } };
+$('#next').onclick = () => { if (S.page < S.built.pages.length - 1) { S.page++; draw(ITEMS[S.id]); } };
+addEventListener('keydown', e => {
+  if (!S.id || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === 'ArrowLeft') $('#prev').click();
+  if (e.key === 'ArrowRight') $('#next').click();
+  if (e.key === 'Escape') location.hash = '';
+});
+addEventListener('resize', fit);
+addEventListener('hashchange', route);
+fetch('project.json').then(r => r.json()).then(p => {
+  P = p;
+  for (const s of P.sections) for (const it of s.items) { it.section = s.title; ITEMS[it.id] = it; }
+  route();
+});
+</script>
+</body>
+</html>
