@@ -31,3 +31,13 @@
 
 - 維持現有樣式：方格底、題卡一次一題、藍色重點色。方格只是 `quiz.css` 裡的 CSS 背景，沒有圖檔，保留。
 - 不要新增裝飾。要改樣式時才讀 `quiz.css`。
+
+## 活動視覺任務（`web/event-kit/`）
+
+網址：https://ijioxc.github.io/ppt/web/event-kit/
+
+系學會活動的任務清單，點項目開圖；名單由網頁照網格排版。
+
+- 做法都在 `web/event-kit/README.md`，只讀這份就夠。
+- 更新名單只改 `names/*.txt`；放圖只把 PNG 存成 `art/<id>.png`；調位置只改 `project.json`。
+- 不要改 `index.html`，除非要加新功能。
