@@ -3,7 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>簡報庫</title>
+<title>資料庫 Data Tank</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#ececec">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="資料庫">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <style>
 :root{--bg:#ececec;--fg:#111113;--mute:#6c6c73;--faint:#a5a5ab;--line:rgba(0,0,0,.09);--panel:rgba(0,0,0,.05);--ring:rgba(0,0,0,.1);--bar:rgba(246,246,246,.78);--glow:rgba(255,255,255,.6);--btn:#111113;--on-btn:#fff;--shadow:0 24px 50px -24px rgba(0,0,0,.35)}
 *{box-sizing:border-box}
@@ -335,7 +343,7 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;display:flex;justify
 </head>
 <body>
 <header><div class="wrap">
-  <a class="brand" href="#" title="簡報庫" aria-label="簡報庫"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.0 13.0L22.6 13.7M16.4 14.6L19.8 16.7M13.6 15.6L14.8 18.4M10.4 15.6L9.2 18.4M7.6 14.6L4.2 16.7M6.0 13.0L1.4 13.7M6.0 11.0L1.4 10.3M7.6 9.4L4.2 7.3M10.4 8.4L9.2 5.6M13.6 8.4L14.8 5.6M16.4 9.4L19.8 7.3M18.0 11.0L22.6 10.3"/></svg><span class="mono" id="total"></span></a>
+  <a class="brand" href="#" title="資料庫" aria-label="資料庫"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.0 13.0L22.6 13.7M16.4 14.6L19.8 16.7M13.6 15.6L14.8 18.4M10.4 15.6L9.2 18.4M7.6 14.6L4.2 16.7M6.0 13.0L1.4 13.7M6.0 11.0L1.4 10.3M7.6 9.4L4.2 7.3M10.4 8.4L9.2 5.6M13.6 8.4L14.8 5.6M16.4 9.4L19.8 7.3M18.0 11.0L22.6 10.3"/></svg><span class="mono" id="total"></span></a>
   <a class="quizbtn" href="web/quiz/" title="刷題本" aria-label="刷題本"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 4l1.2 1.2L6.4 3M3 9.5l1.2 1.2 2.2-2.2M8.8 4.2H14M8.8 9.7H14M3 13.6h11"/></svg></a>
   <div class="tabs" id="tabs">
     <button data-mode="map" class="on" title="地圖" aria-label="地圖"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 4.2v1.6M8 10.2v1.6"/><circle cx="8" cy="2.6" r="1.6"/><circle cx="8" cy="8" r="2.2"/><circle cx="8" cy="13.4" r="1.6"/></svg><span class="tl">地圖</span></button>
@@ -483,7 +491,7 @@ function listView(k){
     return cs.length?`<div class="sec mono"><b>${esc(name)}</b><span>${pad(cs.length)}</span></div><div class="grid">${cs.map(it=>card(it,i++)).join('')}</div>`:'';
   }).join('');
   return `<div class="wrap listv">${top?hero(top):'<div style="height:44px"></div>'}${secs||(top?'':'<div class="empty"><b>找不到東西</b>換個關鍵字試試</div>')}
-    <footer class="mono"><span>簡報庫</span><span>${pad(items.length)} 件 · ${pad(live().length)} 群組</span></footer></div>`;
+    <footer class="mono"><span>資料庫</span><span>${pad(items.length)} 件 · ${pad(live().length)} 群組</span></footer></div>`;
 }
 
 let eg=null,upOpen=false,dragIt=null,covFor=null;   // covFor：正在選封面頁的那張卡

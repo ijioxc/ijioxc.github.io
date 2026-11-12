@@ -101,7 +101,7 @@ def group_delete(b):
 def publish(_):
     def git(*a): return subprocess.run(["git", *a], cwd=ROOT, capture_output=True, text=True)
     git("add", "-A")
-    out = [git("commit", "-m", "更新簡報庫")]
+    out = [git("commit", "-m", "更新資料庫")]
     out.append(git("push"))
     log = "\n".join((r.stdout + r.stderr).strip() for r in out)
     if out[-1].returncode: raise ValueError("推送失敗：\n" + log)
@@ -179,5 +179,5 @@ class Handler(SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT") or (sys.argv[1] if len(sys.argv) > 1 else 8765))
-    print(f"簡報庫管理：http://localhost:{port}  （Ctrl+C 結束）")
+    print(f"資料庫管理：http://localhost:{port}  （Ctrl+C 結束）")
     ThreadingHTTPServer(("127.0.0.1", port), Handler).serve_forever()

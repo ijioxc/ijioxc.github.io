@@ -1,4 +1,4 @@
-# 簡報庫（ppt）
+# 資料庫（ppt）
 
 - 網址：https://ijioxc.github.io/ppt/ ，由 `main` 部署。
 - 改動從 `origin/main` 開分支再發 PR。本機 `main` 可能落後，也可能有未提交的改動，不要動那些改動。
@@ -10,7 +10,7 @@
 入口和版面都已完成，新增科目時不用重做，也不用重讀整個網站。
 
 ```
-簡報庫頂列的 .quizbtn（根目錄 index.html）
+資料庫頂列的 .quizbtn（根目錄 index.html）
   → web/quiz/index.html：依 exams.json 自動產生科目卡片，顯示題數和進度
   → play.html?exam=<id>：刷題／錯題本／觀念總覽三個分頁，由 engine.js 繪製
 ```

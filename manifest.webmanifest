@@ -1,0 +1,16 @@
+{
+  "name": "資料庫 Data Tank",
+  "short_name": "資料庫",
+  "description": "簡報、網站、課程報告與刷題本的總入口",
+  "lang": "zh-Hant",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ececec",
+  "theme_color": "#ececec",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
