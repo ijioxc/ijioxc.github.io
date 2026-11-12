@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='9' fill='%23ef8fb0'/><circle cx='16' cy='16' r='5' fill='white'/></svg>">
+<style>
+:root{
+  --bg:#ececec; --fg:#111113; --mute:#6c6c73; --faint:#a5a5ab;
+  --line:rgba(0,0,0,.09); --panel:rgba(0,0,0,.05); --ring:rgba(0,0,0,.1);
+  --bar:rgba(246,246,246,.6); --btn:#111113; --on-btn:#fff;
+  --glass:linear-gradient(150deg,rgba(255,214,228,.62),rgba(255,182,206,.30));
+  --glass-edge:rgba(255,255,255,.7);
+  --tile:linear-gradient(145deg,rgba(255,255,255,.85),rgba(255,255,255,.45));
+  --blob-o:.75; --late:#e5484d; --soon:#c76a00;
+  --shadow:0 24px 50px -24px rgba(120,20,60,.35);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c0b0e; --fg:#f2f0f3; --mute:#9a96a0; --faint:#625e68;
+    --line:rgba(255,255,255,.09); --panel:rgba(255,255,255,.07); --ring:rgba(255,255,255,.14);
+    --bar:rgba(14,12,16,.55); --btn:#f2f0f3; --on-btn:#111113;
+    --glass:linear-gradient(150deg,rgba(255,120,170,.16),rgba(255,90,150,.06));
+    --glass-edge:rgba(255,190,215,.22);
+    --tile:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.05));
+    --blob-o:.42; --shadow:0 24px 50px -24px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c0b0e; --fg:#f2f0f3; --mute:#9a96a0; --faint:#625e68;
+  --line:rgba(255,255,255,.09); --panel:rgba(255,255,255,.07); --ring:rgba(255,255,255,.14);
+  --bar:rgba(14,12,16,.55); --btn:#f2f0f3; --on-btn:#111113;
+  --glass:linear-gradient(150deg,rgba(255,120,170,.16),rgba(255,90,150,.06));
+  --glass-edge:rgba(255,190,215,.22);
+  --tile:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.05));
+  --blob-o:.42; --shadow:0 24px 50px -24px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:15px/1.5 -apple-system,"SF Pro Text","PingFang TC","Noto Sans TC",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* TOWAN-style colour field behind the glass */
+.field{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.field i{position:absolute;width:42vmax;height:42vmax;border-radius:50%;filter:blur(70px);opacity:var(--blob-o);animation:drift 26s ease-in-out infinite alternate}
+.field i:nth-child(1){background:#f06292;left:-8vmax;top:-10vmax}
+.field i:nth-child(2){background:#ff9e6b;right:-10vmax;top:6vmax;animation-delay:-6s}
+.field i:nth-child(3){background:#7aa7ff;left:30vw;top:40vh;animation-delay:-12s}
+.field i:nth-child(4){background:#ff6f7d;right:6vw;bottom:-18vmax;animation-delay:-18s}
+.field i:nth-child(5){background:#f8a5c2;left:-6vmax;bottom:-14vmax;animation-delay:-9s}
+@keyframes drift{to{transform:translate(6vw,-5vh) scale(1.12)}}
+@media (prefers-reduced-motion:reduce){.field i{animation:none}}
+
+header{position:sticky;top:0;z-index:10;background:var(--bar);backdrop-filter:saturate(1.6) blur(18px);-webkit-backdrop-filter:saturate(1.6) blur(18px);border-bottom:1px solid var(--line)}
+.bar{max-width:1180px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--fg);text-decoration:none;font-weight:650;letter-spacing:-.01em}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--fg)}
+.round{width:34px;height:34px;border-radius:999px;border:0;background:var(--panel);color:var(--mute);display:grid;place-items:center;cursor:pointer;transition:color .2s}
+.round:hover{color:var(--fg)}
+
+main{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 16px 64px}
+
+.hero{padding:64px 0 36px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.clock{font-size:clamp(64px,11vw,112px);font-weight:650;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.hero .mono{margin-top:12px}
+.search{margin-top:30px;width:min(640px,100%);display:flex;align-items:center;gap:10px;height:54px;padding:0 8px 0 20px;border-radius:999px;
+  background:var(--tile);box-shadow:0 0 0 1px var(--glass-edge),inset 0 1px 1px rgba(255,255,255,.6),var(--shadow);
+  backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);color:var(--mute)}
+.search:focus-within{color:var(--fg)}
+.search input{flex:1;min-width:0;border:0;background:none;outline:0;color:var(--fg);font:inherit;font-size:16px}
+.search input::placeholder{color:var(--faint)}
+.search .go{height:38px;padding:0 16px;border:0;border-radius:999px;background:var(--btn);color:var(--on-btn);font:inherit;font-size:13px;font-weight:500;cursor:pointer}
+.hint{margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.hint span{padding:3px 10px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--ring)}
+
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+/* TOWAN 粉紅玻璃：卡片本身是半透明桃紅，白字 */
+.glass{position:relative;border-radius:24px;padding:20px;overflow:hidden;
+  background:rgba(229,0,78,.55);
+  backdrop-filter:blur(48px) saturate(1.8);-webkit-backdrop-filter:blur(48px) saturate(1.8);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.1),inset 0 2px 20px rgba(255,255,255,.15),0 30px 60px -20px rgba(0,0,0,.3);
+  --fg:#fff; --mute:rgba(255,255,255,.75); --faint:rgba(255,255,255,.45);
+  --ring:rgba(255,255,255,.3); --panel:rgba(255,255,255,.14);
+  --tile:rgba(255,255,255,.14); --glass-edge:rgba(255,255,255,.22);
+  --btn:#fff; --on-btn:#e5004e; --soon:#ffd27a;
+  color:var(--fg)}
+.glass::before{content:"";position:absolute;inset:0;pointer-events:none;background:rgba(255,255,255,.03)}
+.glass::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:linear-gradient(135deg,rgba(255,255,255,.25) 0%,rgba(255,255,255,.05) 20%,transparent 50%,rgba(0,0,0,.1) 100%)}
+.glass .ic .sq{box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),inset 0 1px 1px rgba(255,255,255,.35),0 8px 20px -12px rgba(80,0,30,.6)}
+.glass .ic.key .sq{box-shadow:0 10px 24px -10px rgba(80,0,30,.6)}
+.glass .ic.empty .sq{box-shadow:none}
+.glass .days.late{background:#fff;color:#e5004e}
+.glass .add input::placeholder{color:rgba(255,255,255,.6)}
+.glass .add input{color-scheme:dark}
+.glass > *{position:relative;z-index:1}
+.head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}
+.head b{font-size:17px;font-weight:650;letter-spacing:-.01em}
+.head a{color:var(--mute);text-decoration:none}
+.head a:hover{color:var(--fg)}
+.school{grid-column:1/9}
+.tasks{grid-column:9/13;grid-row:1/4;display:flex;flex-direction:column}
+.mine{grid-column:1/6}
+.ai{grid-column:6/9}
+.race{grid-column:1/9}
+@media (max-width:940px){
+  .school,.tasks,.mine,.ai,.race{grid-column:1/-1;grid-row:auto}
+}
+
+/* icon tiles */
+.icons{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:14px 6px}
+.ic{display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;color:var(--fg);border-radius:16px;padding:4px 0;outline:0}
+.ic .sq{width:60px;height:60px;border-radius:18px;display:grid;place-items:center;background:var(--tile);
+  box-shadow:0 0 0 1px var(--glass-edge),inset 0 1px 1px rgba(255,255,255,.8),0 8px 20px -12px rgba(120,20,60,.5);
+  transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+:root[data-theme="dark"] .ic .sq{box-shadow:0 0 0 1px var(--glass-edge),inset 0 1px 0 rgba(255,255,255,.12)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .ic .sq{box-shadow:0 0 0 1px var(--glass-edge),inset 0 1px 0 rgba(255,255,255,.12)}}
+.ic svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ic span{font-size:12px;font-weight:500;color:var(--mute);transition:color .2s;white-space:nowrap}
+.ic:hover .sq,.ic:focus-visible .sq{transform:translateY(-4px);box-shadow:0 0 0 1.5px var(--fg),0 14px 26px -12px rgba(120,20,60,.55)}
+.ic:hover span,.ic:focus-visible span{color:var(--fg)}
+.ic.empty .sq{background:none;box-shadow:none;border:1.5px dashed var(--faint);color:var(--faint)}
+.ic.empty span{color:var(--faint)}
+.brand svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
+.ic.key .sq{background:var(--btn);color:var(--on-btn);box-shadow:0 10px 24px -10px rgba(120,20,60,.6)}
+
+/* tasks */
+.list{flex:1;display:flex;flex-direction:column;gap:8px;min-height:120px}
+.task{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:12px 12px 12px 14px;border-radius:16px;background:var(--tile);box-shadow:0 0 0 1px var(--glass-edge)}
+.chk{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--faint);background:none;cursor:pointer;display:grid;place-items:center;color:transparent;padding:0}
+.chk:hover{border-color:var(--fg)}
+.task.done .chk{background:var(--fg);border-color:var(--fg);color:var(--on-btn)}
+.task .n{font-weight:600;font-size:14px;line-height:1.35}
+.task.done .n{color:var(--faint);text-decoration:line-through}
+.task .m{font-size:12px;color:var(--mute)}
+.task .r{display:flex;align-items:center;gap:4px}
+.days{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11px;padding:3px 8px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--ring);white-space:nowrap}
+.days.soon{color:var(--soon);box-shadow:inset 0 0 0 1px currentColor}
+.days.late{color:#fff;background:var(--late);box-shadow:none}
+.x{width:24px;height:24px;border:0;border-radius:50%;background:none;color:var(--faint);cursor:pointer;font-size:15px;opacity:0;transition:opacity .2s,background .2s,color .2s}
+.task:hover .x{opacity:1}
+.x:hover{background:var(--late);color:#fff}
+.meter{height:4px;border-radius:99px;background:var(--panel);overflow:hidden;margin:-6px 0 14px}
+.meter i{display:block;height:100%;width:0;background:var(--fg);transition:width .4s}
+.add{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:14px}
+.add input{min-width:0;font:inherit;font-size:13px;padding:10px 14px;border:0;border-radius:999px;background:var(--tile);box-shadow:0 0 0 1px var(--glass-edge);color:var(--fg);outline:0}
+.add input:focus{box-shadow:0 0 0 1.5px var(--fg)}
+.add .wide{grid-column:1/-1}
+.add button{border:0;border-radius:999px;background:var(--btn);color:var(--on-btn);font:inherit;font-size:13px;font-weight:500;padding:0 18px;cursor:pointer}
+.none{color:var(--mute);font-size:13px;text-align:center;padding:24px 0}
+footer{position:relative;z-index:1;text-align:center;padding-bottom:28px}
+</style>
+</head>
+<body>
+<div class="field" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
+<header>
+  <div class="bar">
+    <a class="brand" href="https://ijioxc.github.io/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.0 13.0L22.6 13.7M16.4 14.6L19.8 16.7M13.6 15.6L14.8 18.4M10.4 15.6L9.2 18.4M7.6 14.6L4.2 16.7M6.0 13.0L1.4 13.7M6.0 11.0L1.4 10.3M7.6 9.4L4.2 7.3M10.4 8.4L9.2 5.6M13.6 8.4L14.8 5.6M16.4 9.4L19.8 7.3M18.0 11.0L22.6 10.3"/></svg>Data Tank<span class="mono" style="margin-left:4px">/ start</span></a>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span class="mono" id="date"></span>
+      <button class="round" id="theme" title="切換深淺色">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="clock" id="clock">00:00</div>
+    <div class="mono" id="greet"></div>
+    <form class="search" id="search" autocomplete="off">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" placeholder="搜尋或輸入網址" autofocus>
+      <button class="go">搜尋</button>
+    </form>
+    <div class="hint mono"><span>/ 聚焦</span><span>yt 影片</span><span>gh 程式碼</span><span>nk 高科站內</span></div>
+  </section>
+
+  <section class="bento">
+    <div class="glass school">
+      <div class="head"><b>高科</b><a class="mono" href="https://www.nkust.uk/systems">全部系統 ↗</a></div>
+      <nav class="icons" id="school"></nav>
+    </div>
+
+    <aside class="glass tasks">
+      <div class="head"><b>大任務</b><span class="mono" id="count"></span></div>
+      <div class="meter"><i id="meter"></i></div>
+      <div class="list" id="list"></div>
+      <form class="add" id="add">
+        <input class="wide" id="tn" placeholder="新任務" required>
+        <input id="td" type="date" title="截止日">
+        <button>加入</button>
+      </form>
+    </aside>
+
+    <div class="glass mine">
+      <div class="head"><b>我的</b><a class="mono" href="https://github.com/ijioxc/ijioxc">GitHub ↗</a></div>
+      <nav class="icons" id="mine"></nav>
+    </div>
+
+    <div class="glass ai">
+      <div class="head"><b>AI</b></div>
+      <nav class="icons" id="ai"></nav>
+    </div>
+
+    <div class="glass race">
+      <div class="head"><b>NKUST Racing</b><a class="mono" href="https://ijioxc.github.io/nkust-racing/">車隊 ↗</a></div>
+      <nav class="icons" id="race"></nav>
+    </div>
+  </section>
+</main>
+<footer class="mono">任務存在這台瀏覽器</footer>
+
+<script>
+/* ── 連結：要改就改這裡 ── */
+const I = {
+  book:'<path d="M2 5h7a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H2z"/><path d="M22 5h-7a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h8z"/>',
+  bank:'<path d="M3 21h18M4 10h16M12 3 3 8h18zM6 10v8M10 10v8M14 10v8M18 10v8"/>',
+  cap:'<path d="M22 9 12 4 2 9l10 5 10-5z"/><path d="M6 11.5V16c3 2.2 9 2.2 12 0v-4.5M22 9v5"/>',
+  pick:'<rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M8 3v4M16 3v4M9 15l2 2 4-4"/>',
+  people:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14a6 6 0 0 1 3.5 6"/>',
+  swap:'<path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/>',
+  cal:'<rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M8 3v4M16 3v4M8 14h2M12 14h2M8 17h2"/>',
+  grid:'<rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/>',
+  tank:'<path d="M18.0 13.0L22.6 13.7M16.4 14.6L19.8 16.7M13.6 15.6L14.8 18.4M10.4 15.6L9.2 18.4M7.6 14.6L4.2 16.7M6.0 13.0L1.4 13.7M6.0 11.0L1.4 10.3M7.6 9.4L4.2 7.3M10.4 8.4L9.2 5.6M13.6 8.4L14.8 5.6M16.4 9.4L19.8 7.3M18.0 11.0L22.6 10.3"/>',
+  plus:'<path d="M12 7v10M7 12h10"/>',
+  git:'<path d="M9 19c-4.5 1.4-4.5-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/>',
+  quiz:'<rect x="4" y="3" width="16" height="18" rx="3"/><path d="m8 9 2 2 4-4M8 16h8"/>',
+  doc:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
+  slides:'<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M12 16v4M8 20h8"/>',
+  chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/>',
+  note:'<path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6z"/><path d="M6 3v18M10 8h5M10 12h5"/>',
+  spark:'<path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/>',
+  gauge:'<path d="M4 18a8 8 0 1 1 16 0"/><path d="m12 14 4-5"/><circle cx="12" cy="14" r="1.2"/>',
+  car:'<path d="M3 15h18l-2-5h-5l-2-3H8l-2 3H4z"/><circle cx="7" cy="16.5" r="2"/><circle cx="17" cy="16.5" r="2"/>',
+  manual:'<path d="M4 4h10a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4z"/><path d="M8 9h6M8 13h6"/>',
+};
+const LINKS = {
+  school: [
+    { t:"教學平台", i:"book",   u:"https://elearning.nkust.edu.tw/moocs/#/home", key:true },
+    { t:"校務系統", i:"bank",   u:"https://webap.nkust.edu.tw/", key:true },
+    { t:"選課",     i:"pick",   u:"https://stdsel.nkust.edu.tw/dispatch" },
+    { t:"教務資訊", i:"cap",    u:"https://stdsys.nkust.edu.tw/student/Account/Login" },
+    { t:"學務系統", i:"people", u:"https://oosaf.nkust.edu.tw/" },
+    { t:"學分抵免", i:"swap",   u:"https://ws3.nkust.edu.tw/Waiver" },
+    { t:"行事曆",   i:"cal",    u:"https://acad.nkust.edu.tw/var/file/4/1004/img/273/cal115-1.pdf" },
+    { t:"高科好大", i:"grid",   u:"https://www.nkust.uk/" },
+  ],
+  mine: [
+    { t:"Data Tank", i:"tank",   u:"https://ijioxc.github.io/", key:true },
+    { t:"刷題本",    i:"quiz",   u:"https://ijioxc.github.io/quiz/" },
+    { t:"課程報告",  i:"doc",    u:"https://ijioxc.github.io/reports/" },
+    { t:"專題",      i:"plus",   u:"" },   // 之後填網址
+    { t:"空位",      i:"plus",   u:"" },
+  ],
+  ai: [
+    { t:"ChatGPT",    i:"chat", u:"https://chatgpt.com/" },
+    { t:"NotebookLM", i:"note", u:"https://notebooklm.google.com/" },
+    { t:"Claude",     i:"spark", u:"https://claude.ai/" },
+  ],
+  race: [
+    { t:"工作台",   i:"gauge",  u:"https://ijioxc.github.io/nkust-racing/#dashboard" },
+    { t:"車體圖解", i:"car",    u:"https://ijioxc.github.io/nkust-racing/#blueprint" },
+    { t:"技術手冊", i:"manual", u:"https://ijioxc.github.io/nkust-racing/#essay" },
+    { t:"簡報",     i:"slides", u:"https://ijioxc.github.io/nkust-racing/#deck" },
+  ],
+};
+const ENGINES = {
+  "":  "https://www.google.com/search?q=%s",
+  yt:  "https://www.youtube.com/results?search_query=%s",
+  gh:  "https://github.com/search?q=%s",
+  nk:  "https://www.google.com/search?q=site%3Ankust.edu.tw+%s",
+};
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const store = {
+  get(k, fb){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : fb; }catch(e){ return fb; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} },
+};
+
+for (const [id, list] of Object.entries(LINKS)) {
+  $("#" + id).innerHTML = list.map(l => !l.u
+    ? `<span class="ic empty" title="尚未設定"><span class="sq"><svg viewBox="0 0 24 24">${I[l.i]}</svg></span><span>${esc(l.t)}</span></span>`
+    : `<a class="ic${l.key ? " key" : ""}" href="${esc(l.u)}" title="${esc(l.t)}">
+       <span class="sq"><svg viewBox="0 0 24 24">${I[l.i]}</svg></span><span>${esc(l.t)}</span></a>`).join("");
+}
+
+/* clock */
+const WD = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+function tick(){
+  const n = new Date(), p = x => String(x).padStart(2, "0");
+  $("#clock").textContent = `${p(n.getHours())}:${p(n.getMinutes())}`;
+  $("#date").textContent = `${n.getFullYear()}.${p(n.getMonth()+1)}.${p(n.getDate())} ${WD[n.getDay()]}`;
+  const h = n.getHours();
+  $("#greet").textContent = h < 5 ? "夜深了，早點睡" : h < 11 ? "早安" : h < 14 ? "午安" : h < 18 ? "下午好" : "晚安";
+}
+tick(); setInterval(tick, 1000);
+
+/* theme */
+const root = document.documentElement;
+const th = store.get("sp:theme", null); if (th) root.dataset.theme = th;
+$("#theme").onclick = () => {
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark"; store.set("sp:theme", root.dataset.theme);
+};
+
+/* search */
+$("#search").onsubmit = e => {
+  e.preventDefault();
+  let q = $("#q").value.trim(); if (!q) return;
+  let url = ENGINES[""];
+  const m = q.match(/^(\w+)\s+(.+)$/);
+  if (m && ENGINES[m[1].toLowerCase()]) { url = ENGINES[m[1].toLowerCase()]; q = m[2]; }
+  else if (/^(https?:\/\/)?[\w-]+(\.[\w-]+)+(\/\S*)?$/.test(q)) { location.href = /^https?:/.test(q) ? q : "https://" + q; return; }
+  location.href = url.replace("%s", encodeURIComponent(q));
+};
+addEventListener("keydown", e => {
+  if (e.key === "/" && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); $("#q").focus(); }
+});
+
+/* tasks */
+let tasks = store.get("sp:tasks2", []);
+const left = d => { if (!d) return null; const t = new Date(); t.setHours(0,0,0,0); return Math.round((new Date(d + "T00:00") - t) / 864e5); };
+function render(){
+  const s = [...tasks].sort((a, b) => (a.done - b.done) || (a.due || "9").localeCompare(b.due || "9"));
+  const done = tasks.filter(t => t.done).length;
+  $("#count").textContent = tasks.length ? `${done} / ${tasks.length}` : "";
+  $("#meter").style.width = tasks.length ? done / tasks.length * 100 + "%" : "0";
+  $("#list").innerHTML = s.length ? s.map(t => {
+    const d = left(t.due);
+    let tag = "";
+    if (d !== null && !t.done) {
+      const c = d < 0 ? "late" : d <= 3 ? "soon" : "";
+      tag = `<span class="days ${c}">${d < 0 ? `逾期 ${-d}d` : d === 0 ? "今天" : `D-${d}`}</span>`;
+    }
+    return `<div class="task${t.done ? " done" : ""}">
+      <button class="chk" data-id="${t.id}" title="完成"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg></button>
+      <div><div class="n">${esc(t.name)}</div>${t.due ? `<div class="m">${t.due.replace(/-/g, ".")}</div>` : ""}</div>
+      <div class="r">${tag}<button class="x" data-id="${t.id}" title="刪除">✕</button></div></div>`;
+  }).join("") : `<div class="none">還沒有大任務</div>`;
+  document.querySelectorAll(".chk").forEach(b => b.onclick = () => { const t = tasks.find(t => t.id == b.dataset.id); t.done = !t.done; save(); });
+  document.querySelectorAll(".x").forEach(b => b.onclick = () => { tasks = tasks.filter(t => t.id != b.dataset.id); save(); });
+}
+function save(){ store.set("sp:tasks2", tasks); render(); }
+$("#add").onsubmit = e => {
+  e.preventDefault();
+  tasks.push({ id: Date.now(), name: $("#tn").value.trim(), due: $("#td").value, done: false });
+  e.target.reset(); save();
+};
+render();
+</script>
+</body>
+</html>
