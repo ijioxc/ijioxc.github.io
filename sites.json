@@ -67,7 +67,7 @@
     "id": "dynamics",
     "title": "Dynamics Final Report",
     "desc": "動力學期末報告：電梯傳動系統（網頁版，含 3D 與轉場）",
-    "url": "web/dynamics/",
+    "url": "/reports/dynamics/",
     "shot": "dynamics.jpg",
     "group": "課程報告"
   },
@@ -75,9 +75,9 @@
     "id": "missile-journey",
     "title": "認識軍工產業：從一枚 1.3 億元的飛彈說起",
     "desc": "通識報告：全球化的挑戰與因應（網頁版，下載為 PDF）",
-    "url": "web/missile-journey/",
+    "url": "/reports/missile-journey/",
     "shot": "missile-journey.jpg",
-    "download": "web/missile-journey/missile-journey.pdf",
+    "download": "/reports/missile-journey/missile-journey.pdf",
     "group": "課程報告"
   },
   {
@@ -100,7 +100,7 @@
     "id": "ev-motor-drive",
     "title": "第五章 電動車馬達驅動控制與電能轉換",
     "desc": "重點報告（網頁版，可用方向鍵換頁）：轉換器、功率半導體、變頻器、預充電路，含 800V、SiC 等新技術",
-    "url": "web/ev-motor-drive/",
+    "url": "/reports/ev-motor-drive/",
     "shot": "ev-motor-drive.jpg",
     "group": "課程報告"
   },
@@ -108,7 +108,7 @@
     "id": "hs-project",
     "title": "高中專題：車輛非廢氣排放回收",
     "desc": "高中專題簡報（網頁版，含 3D 模型與轉場動畫）",
-    "url": "web/hs-project/",
+    "url": "/reports/hs-project/",
     "shot": "hs-project.jpg",
     "group": "高中專題"
   },
