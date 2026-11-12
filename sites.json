@@ -92,7 +92,7 @@
     "id": "quiz",
     "title": "刷題本",
     "desc": "所有科目的題目都在這裡：機械設計、英文、流體力學",
-    "url": "web/quiz/",
+    "url": "/quiz/",
     "shot": "quiz.jpg",
     "group": "課程報告"
   },
