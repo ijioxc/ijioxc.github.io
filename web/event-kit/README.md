@@ -44,6 +44,8 @@ Affinity 匯出 PNG，尺寸照 `project.json` 的 `size`，存成 `art/<id>.png
   "columns": 5,                   // 一列幾個名字
   "rowHeight": 56, "groupGap": 28,
   "labelWidth": 0,                // 0 = 科系自己一列；>0 = 科系放左欄，寬度多少 px
+  "groupPerPage": true,           // 一個科系一頁（同科系排不下才接下一頁）
+  "labelAt": { "x": 900, "y": 520, "size": 40, "anchor": "end" },  // 科系固定放這裡（接在大標題後面），不佔網格
   "size": 30, "labelSize": 26, "spacing": 0.15,
   "fill": "#333", "labelFill": "#a33f3c" }
 
@@ -67,3 +69,12 @@ id 定了就不要改（圖檔名和勾選紀錄都跟著它）。
 
 - **下載這頁 PNG**：圖 + 文字合好，直接發 IG。
 - **下載文字層 SVG**：透明底、只有文字，拖進 Affinity 疊在主視覺上還能再調。
+
+## 草稿圖（`drafts/`）
+
+還沒正式設計的圖，先用 `drafts/index.html` 的 HTML 版型算成 PNG 頂著（米色底、紅色塊、邱比特，照模板七）。
+
+- 改草稿：改 `drafts/index.html` 裡對應 `<section id="…">`，再跑 `sh drafts/render.sh <id>`，會覆蓋 `art/<id>.png`。
+- 正式稿從 Affinity 匯出後直接蓋掉 `art/<id>.png`，並把那一段 section 和 `render.sh` 裡的 id 刪掉，免得之後又被草稿蓋回去。
+- `promo-post.png`、`promo-poster.png`（兩張同一張圖）、`signup-ok.png` 是 Affinity 模板七匯出的正式稿，不在草稿裡。
+- 浮水印大字（Tue、高科大）的顏色是 `.wm`：`#b82f2d`、不透明度 30%，照模板七量的，不要調亮。

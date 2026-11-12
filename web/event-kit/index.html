@@ -59,7 +59,9 @@ button:hover{border-color:var(--fg)}
 .note #stage{display:none}
 .note #cap{align-self:start;justify-self:center;margin:48px 16px;width:min(420px,calc(100% - 32px));font-size:15px}
 @media(max-width:820px){
-  .body{grid-template-columns:1fr;grid-template-rows:minmax(300px,60vh) auto;overflow:auto}
+  #view{height:auto;display:block}
+  .body{display:block}
+  #stage{height:70vh;padding:16px}
   #cap{margin:0 16px 24px;max-height:none}
   .row{grid-template-columns:44px 1fr 20px}.tags{display:none}
 }
@@ -102,7 +104,8 @@ const S = { id: null, page: 0, grid: false, built: null, hasArt: false };
 const texts = {};      // src -> 名單文字（可在頁面上暫時改）
 const artCache = {};   // id -> Promise<boolean>
 
-const artUrl = id => `art/${id}.png`;
+const V = Date.now();   // 每次開頁面都重新抓圖，換了圖不會看到舊的
+const artUrl = id => `art/${id}.png?v=${V}`;
 const hasArt = id => artCache[id] ??= new Promise(r => {
   const im = new Image(); im.onload = () => r(true); im.onerror = () => r(false); im.src = artUrl(id);
 });
@@ -133,11 +136,14 @@ function layoutNames(L, groups) {
   const pages = [[]]; let y = 0;
   const put = (t, x, top, size, fill, weight) =>
     pages[pages.length - 1].push({ t, x, y: baseline(ay + top, rh, size), size, fill, weight, spacing: L.spacing });
-  const label = g => put(g.label, ax, y, ls, L.labelFill || L.fill, L.labelWeight || 600);
+  const at = L.labelAt;   // 科系固定放在某個位置（例如接在大標題後面），不佔網格的列
+  const label = g => at
+    ? pages[pages.length - 1].push({ t: g.label, x: at.x, y: at.y, size: at.size || ls, fill: at.fill || L.labelFill || L.fill, weight: at.weight || 600, spacing: at.spacing ?? L.spacing, anchor: at.anchor })
+    : put(g.label, ax, y, ls, L.labelFill || L.fill, L.labelWeight || 600);
   for (const g of groups) {
-    const ownRow = !lw && g.label;
+    const ownRow = !lw && !at && g.label;
     if (y > 0) y += L.groupGap || 0;
-    if (y > 0 && y + (ownRow ? 2 : 1) * rh > ah) { pages.push([]); y = 0; }
+    if (y > 0 && (L.groupPerPage || y + (ownRow ? 2 : 1) * rh > ah)) { pages.push([]); y = 0; }
     for (let i = 0; i < g.names.length; i += cols) {
       let fresh = i === 0;
       if (y > 0 && y + rh > ah) { pages.push([]); y = 0; fresh = true; }
