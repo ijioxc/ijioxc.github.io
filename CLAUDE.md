@@ -8,6 +8,11 @@
 刷題本搬到獨立 repo `ijioxc/quiz`，網址 https://ijioxc.github.io/quiz/ 。新增科目、改刷題本都到那個 repo 做，規則看它的 CLAUDE.md。
 這裡的 `web/quiz/index.html`、`play.html` 只是轉址頁，讓舊連結跳到新網址，不要刪。
 
+## 課程報告（已拆出）
+
+`dynamics`、`hs-project`、`ev-motor-drive`、`missile-journey`、共用播放器 `player.js`/`player.css` 和 `pptx2web.py` 搬到獨立 repo `ijioxc/reports`，網址 https://ijioxc.github.io/reports/<資料夾>/ 。改這些報告或用 pptx2web 做新的網頁版簡報，都到那個 repo 做。
+這裡的 `web/<資料夾>/index.html` 只是轉址頁，讓舊連結跳到新網址，不要刪。
+
 ## 活動視覺任務（`web/event-kit/`）
 
 網址：https://ijioxc.github.io/web/event-kit/
