@@ -1,6 +1,6 @@
-# 資料庫（ppt）
+# 資料庫（ijioxc.github.io，原 ppt）
 
-- 網址：https://ijioxc.github.io/ppt/ ，由 `main` 部署。
+- 網址：https://ijioxc.github.io/ ，由 `main` 部署。
 - 改動從 `origin/main` 開分支再發 PR。本機 `main` 可能落後，也可能有未提交的改動，不要動那些改動。
 
 ## 刷題本（已拆出）
@@ -10,7 +10,7 @@
 
 ## 活動視覺任務（`web/event-kit/`）
 
-網址：https://ijioxc.github.io/ppt/web/event-kit/
+網址：https://ijioxc.github.io/web/event-kit/
 
 系學會活動的任務清單，點項目開圖；名單由網頁照網格排版。
 
