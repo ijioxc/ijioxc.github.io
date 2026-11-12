@@ -13,7 +13,7 @@
   --glass:linear-gradient(150deg,rgba(255,214,228,.62),rgba(255,182,206,.30));
   --glass-edge:rgba(255,255,255,.7);
   --tile:linear-gradient(145deg,rgba(255,255,255,.85),rgba(255,255,255,.45));
-  --blob-o:.75; --late:#e5484d; --soon:#c76a00;
+  --blob-o:.8; --sea:linear-gradient(180deg,#d7eef6 0%,#9ccfe4 45%,#3f8db8 100%); --late:#e5484d; --soon:#c76a00;
   --shadow:0 24px 50px -24px rgba(120,20,60,.35);
 }
 @media (prefers-color-scheme: dark){
@@ -24,7 +24,7 @@
     --glass:linear-gradient(150deg,rgba(255,120,170,.16),rgba(255,90,150,.06));
     --glass-edge:rgba(255,190,215,.22);
     --tile:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.05));
-    --blob-o:.42; --shadow:0 24px 50px -24px rgba(0,0,0,.7);
+    --blob-o:.5; --sea:linear-gradient(180deg,#0a2236 0%,#0b3350 50%,#06192b 100%); --shadow:0 24px 50px -24px rgba(0,0,0,.7);
   }
 }
 :root[data-theme="dark"]{
@@ -34,7 +34,7 @@
   --glass:linear-gradient(150deg,rgba(255,120,170,.16),rgba(255,90,150,.06));
   --glass-edge:rgba(255,190,215,.22);
   --tile:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.05));
-  --blob-o:.42; --shadow:0 24px 50px -24px rgba(0,0,0,.7);
+  --blob-o:.5; --sea:linear-gradient(180deg,#0a2236 0%,#0b3350 50%,#06192b 100%); --shadow:0 24px 50px -24px rgba(0,0,0,.7);
 }
 *{box-sizing:border-box}
 html,body{min-height:100%}
@@ -42,14 +42,14 @@ body{margin:0;background:var(--bg);color:var(--fg);
   font:15px/1.5 -apple-system,"SF Pro Text","PingFang TC","Noto Sans TC",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 .mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
 
-/* TOWAN-style colour field behind the glass */
-.field{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.field i{position:absolute;width:42vmax;height:42vmax;border-radius:50%;filter:blur(70px);opacity:var(--blob-o);animation:drift 26s ease-in-out infinite alternate}
-.field i:nth-child(1){background:#f06292;left:-8vmax;top:-10vmax}
-.field i:nth-child(2){background:#ff9e6b;right:-10vmax;top:6vmax;animation-delay:-6s}
-.field i:nth-child(3){background:#7aa7ff;left:30vw;top:40vh;animation-delay:-12s}
-.field i:nth-child(4){background:#ff6f7d;right:6vw;bottom:-18vmax;animation-delay:-18s}
-.field i:nth-child(5){background:#f8a5c2;left:-6vmax;bottom:-14vmax;animation-delay:-9s}
+/* 海洋藍模糊底色：淺海在上、深海在下 */
+.field{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--sea)}
+.field i{position:absolute;width:46vmax;height:46vmax;border-radius:50%;filter:blur(80px);opacity:var(--blob-o);animation:drift 30s ease-in-out infinite alternate}
+.field i:nth-child(1){background:#8fd6e8;left:-10vmax;top:-14vmax}
+.field i:nth-child(2){background:#3aa6c9;right:-12vmax;top:4vmax;animation-delay:-7s}
+.field i:nth-child(3){background:#1f6fa3;left:26vw;top:42vh;animation-delay:-14s}
+.field i:nth-child(4){background:#0f4c7a;right:4vw;bottom:-20vmax;animation-delay:-20s}
+.field i:nth-child(5){background:#2bb3a8;left:-8vmax;bottom:-16vmax;animation-delay:-10s}
 @keyframes drift{to{transform:translate(6vw,-5vh) scale(1.12)}}
 @media (prefers-reduced-motion:reduce){.field i{animation:none}}
 
@@ -79,8 +79,8 @@ main{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 16px 6
 .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
 /* TOWAN 粉紅玻璃：卡片本身是半透明桃紅，白字 */
 .glass{position:relative;border-radius:24px;padding:20px;overflow:hidden;
-  background:rgba(229,0,78,.55);
-  backdrop-filter:blur(48px) saturate(1.8);-webkit-backdrop-filter:blur(48px) saturate(1.8);
+  background:rgba(240,40,115,.8);
+  backdrop-filter:blur(48px) saturate(1.3);-webkit-backdrop-filter:blur(48px) saturate(1.3);
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.1),inset 0 2px 20px rgba(255,255,255,.15),0 30px 60px -20px rgba(0,0,0,.3);
   --fg:#fff; --mute:rgba(255,255,255,.75); --faint:rgba(255,255,255,.45);
   --ring:rgba(255,255,255,.3); --panel:rgba(255,255,255,.14);
