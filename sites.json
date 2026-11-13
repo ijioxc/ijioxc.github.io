@@ -5,7 +5,8 @@
     "desc": "賽車團隊工作台",
     "url": "https://ijioxc.github.io/nkust-racing/#dashboard",
     "shot": "nkust-racing-dashboard.jpg",
-    "group": "車隊"
+    "group": "車隊",
+    "date": "2026-10-12"
   },
   {
     "id": "nkust-racing-blueprint",
@@ -13,7 +14,8 @@
     "desc": "車體結構圖解",
     "url": "https://ijioxc.github.io/nkust-racing/#blueprint",
     "shot": "nkust-racing-blueprint.jpg",
-    "group": "車隊"
+    "group": "車隊",
+    "date": "2026-10-12"
   },
   {
     "id": "nkust-racing-essay",
@@ -21,7 +23,8 @@
     "desc": "技術手冊",
     "url": "https://ijioxc.github.io/nkust-racing/#essay",
     "shot": "nkust-racing-essay.jpg",
-    "group": "車隊"
+    "group": "車隊",
+    "date": "2026-10-12"
   },
   {
     "id": "nkust-racing-deck",
@@ -29,7 +32,8 @@
     "desc": "車隊簡報",
     "url": "https://ijioxc.github.io/nkust-racing/#deck",
     "shot": "nkust-racing-deck.jpg",
-    "group": "車隊"
+    "group": "車隊",
+    "date": "2026-10-12"
   },
   {
     "id": "ijiock",
@@ -37,7 +41,8 @@
     "desc": "自動盯盤：即時行情、技術分析、AI 顧問",
     "url": "https://ijioxc.github.io/ijiock/",
     "shot": "ijiock.jpg",
-    "group": "公司"
+    "group": "公司",
+    "date": "2026-10-12"
   },
   {
     "id": "calendar",
@@ -45,7 +50,8 @@
     "desc": "每月封面與行事曆",
     "url": "https://ijioxc.github.io/calendar/",
     "shot": "calendar.jpg",
-    "group": "系學會"
+    "group": "系學會",
+    "date": "2026-10-12"
   },
   {
     "id": "towan",
@@ -53,7 +59,8 @@
     "desc": "數位影像工作室網站",
     "url": "https://ijioxc.github.io/towan/",
     "shot": "towan.jpg",
-    "group": "公司"
+    "group": "公司",
+    "date": "2026-10-12"
   },
   {
     "id": "dynamics",
@@ -61,7 +68,8 @@
     "desc": "動力學期末報告：電梯傳動系統（網頁版，含 3D 與轉場）",
     "url": "/reports/dynamics/",
     "shot": "dynamics.jpg",
-    "group": "課程報告"
+    "group": "課程報告",
+    "date": "2026-10-12"
   },
   {
     "id": "missile-journey",
@@ -70,7 +78,8 @@
     "url": "/reports/missile-journey/",
     "shot": "missile-journey.jpg",
     "download": "/reports/missile-journey/missile-journey.pdf",
-    "group": "課程報告"
+    "group": "課程報告",
+    "date": "2026-10-12"
   },
   {
     "id": "jcut-auto-imposition",
@@ -78,7 +87,8 @@
     "desc": "Illustrator 自動落版與刀線輸出：多個圖形依數量排版，輸出印刷 PDF 與切割機 DXF",
     "url": "https://github.com/ijioxc/jcut-auto-imposition",
     "shot": "jcut-auto-imposition.jpg",
-    "group": "公司"
+    "group": "公司",
+    "date": "2026-10-12"
   },
   {
     "id": "quiz",
@@ -86,7 +96,8 @@
     "desc": "所有科目的題目都在這裡：機械設計、英文、流體力學",
     "url": "/quiz/",
     "shot": "quiz.jpg",
-    "group": "課程報告"
+    "group": "課程報告",
+    "date": "2026-10-31"
   },
   {
     "id": "ev-motor-drive",
@@ -94,7 +105,8 @@
     "desc": "重點報告（網頁版，可用方向鍵換頁）：轉換器、功率半導體、變頻器、預充電路，含 800V、SiC 等新技術",
     "url": "/reports/ev-motor-drive/",
     "shot": "ev-motor-drive.jpg",
-    "group": "課程報告"
+    "group": "課程報告",
+    "date": "2026-10-23"
   },
   {
     "id": "hs-project",
@@ -102,7 +114,8 @@
     "desc": "高中專題簡報（網頁版，含 3D 模型與轉場動畫）",
     "url": "/reports/hs-project/",
     "shot": "hs-project.jpg",
-    "group": "高中專題"
+    "group": "高中專題",
+    "date": "2026-10-12"
   },
   {
     "id": "event-kit",
@@ -110,6 +123,7 @@
     "desc": "12/22 聖誕晚會要做的圖與溝通事項，名單自動排版",
     "url": "web/event-kit/",
     "shot": "event-kit.jpg",
-    "group": "系學會"
+    "group": "系學會",
+    "date": "2026-11-12"
   }
 ]
