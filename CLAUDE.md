@@ -3,6 +3,12 @@
 - 網址：https://ijioxc.github.io/ ，由 `main` 部署。
 - 改動從 `origin/main` 開分支再發 PR。本機 `main` 可能落後，也可能有未提交的改動，不要動那些改動。
 
+## 首頁陳列方式（`index.html`）
+
+頂列的設定鈕可以切換首頁的陳列方式，選擇記在瀏覽器的 `localStorage.layout`：`ring` 環形（`mapView`）、`time` 時間線（`timeView`）。
+要加新的陳列方式：寫一個回傳 HTML 的 view 函式，在 `LAYOUTS`、`render()` 和 `#pop` 各加一項。右下角的大標題清單用 `gidx()`，各種陳列方式共用。
+時間線照 `date` 排；`sites.json` 的網站也要填 `date`。
+
 ## 刷題本（已拆出）
 
 刷題本搬到獨立 repo `ijioxc/quiz`，網址 https://ijioxc.github.io/quiz/ 。新增科目、改刷題本都到那個 repo 做，規則看它的 CLAUDE.md。
