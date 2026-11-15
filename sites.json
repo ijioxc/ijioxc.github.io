@@ -64,6 +64,15 @@
     "group": "課程報告"
   },
   {
+    "id": "tesla-spacex",
+    "title": "Tesla 與 SpaceX 最新發展：從賣產品到賣服務",
+    "desc": "通識報告（網頁版，可用方向鍵換頁，下載為 PDF）：Robotaxi、Starship、Starlink、2026 Q3 財報與四個追問",
+    "url": "web/tesla-spacex/",
+    "shot": "tesla-spacex.jpg",
+    "download": "web/tesla-spacex/tesla-spacex.pdf",
+    "group": "課程報告"
+  },
+  {
     "id": "missile-journey",
     "title": "認識軍工產業：從一枚 1.3 億元的飛彈說起",
     "desc": "通識報告：全球化的挑戰與因應（網頁版，下載為 PDF）",
