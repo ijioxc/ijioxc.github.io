@@ -24,7 +24,7 @@ b{color:var(--red);font-weight:900}
 
 .pg{position:relative;height:100vh;height:100svh;scroll-snap-align:start;overflow:hidden;
     display:flex;flex-direction:column;justify-content:center;padding:5.5rem 5.5rem 4rem}
-h2{font-size:3.4rem;line-height:1.25;font-weight:900;color:var(--ink);margin-bottom:2.6rem;letter-spacing:-.01em}
+h2{font-size:3.4rem;line-height:1.25;text-wrap:balance;font-weight:900;color:var(--ink);margin-bottom:2.6rem;letter-spacing:-.01em}
 h2 small{display:block;font-size:1.5rem;font-weight:700;color:var(--mute);margin-top:.6rem;letter-spacing:0}
 .say{font-size:2.1rem;line-height:1.5;color:var(--txt);margin-top:2rem}
 .src{position:absolute;left:5.5rem;right:9rem;bottom:1.4rem;font-size:1rem;color:var(--mute);line-height:1.4}
@@ -135,16 +135,17 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- 2 目錄 -->
 <section class="pg" id="p2" data-part="0">
-  <h2>今天的路線</h2>
+  <h2>報告架構</h2>
   <nav class="toc">
-    <a href="#p3" data-n="0"><h3>問題</h3><p>它們<br>變了嗎？</p></a>
-    <a href="#p4" data-n="1" class="key"><h3>Tesla</h3><p>從賣車<br>到賣里程</p></a>
-    <a href="#p9" data-n="2" class="key"><h3>SpaceX</h3><p>從賣發射<br>到賣網路</p></a>
-    <a href="#p15" data-n="3"><h3>比較</h3><p>同一套<br>做法</p></a>
-    <a href="#q1" data-n="4" class="key"><h3>拆開看</h3><p>四個<br>追問</p></a>
-    <a href="#p17" data-n="5"><h3>未來</h3><p>還有台灣</p></a>
+    <a href="#p3" data-n="0"><h3>開場</h3><p>提出<br>問題</p></a>
+    <a href="#p4" data-n="1" class="key"><h3>Tesla</h3><p>從賣車<br>到收車資</p></a>
+    <a href="#p9" data-n="2" class="key"><h3>SpaceX</h3><p>從賣發射<br>到收網路費</p></a>
+    <a href="#p15" data-n="3"><h3>比較</h3><p>兩家的<br>共同點</p></a>
+    <a href="#q1" data-n="4" class="key"><h3>疑問</h3><p>這個說法<br>的漏洞</p></a>
+    <a href="#p17" data-n="5"><h3>未來</h3><p>和台灣<br>的關係</p></a>
     <a href="#p19" data-n="6"><h3>結論</h3><p>回答問題</p></a>
   </nav>
+  <p class="say" style="margin-top:3rem">主線：Tesla 和 SpaceX 都在從「賣產品」轉向「收服務費」。<br>先看事實，再看這個說法有哪些疑問。</p>
 </section>
 
 <!-- 3 問題 -->
@@ -158,7 +159,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- 4 Tesla 時間線 -->
 <section class="pg" id="p4" data-part="1">
-  <h2>2026 年，Tesla 把重心移到 Robotaxi</h2>
+  <h2>Tesla 今年的重點：無人計程車（Robotaxi）</h2>
   <div class="tl">
     <div><div class="d">2 月</div><p>第一台 Cybercab 下線</p></div>
     <div class="hot"><div class="d">9 月</div><p>奧斯汀開始<br>無人載客</p></div>
@@ -170,7 +171,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- 5 Cybercab -->
 <section class="pg" id="p5" data-part="1">
-  <h2>Cybercab：沒有方向盤，也不賣給你</h2>
+  <h2>Cybercab：專當無人計程車，不賣給一般人</h2>
   <svg class="fig" viewBox="0 0 1200 330" role="img" aria-label="賣車只收一次錢，車隊每趟都收錢">
     <text x="0" y="40" font-size="32" fill="#6b6b6b">賣給車主</text>
     <rect x="260" y="0" width="230" height="64" fill="#1B3A6B"/>
@@ -189,7 +190,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- 6 Cybertruck -->
 <section class="pg" id="p6" data-part="1">
-  <h2>Cybertruck 讓路，但晚一點讓<small>2027 年的生產計畫</small></h2>
+  <h2>Cybertruck 會停產，但從 2027 年中延到夏末<small>停產是為了把產線改做 Cybercab</small></h2>
   <svg class="fig" viewBox="0 0 1200 250" role="img" aria-label="Cybertruck 停產時間由 2027 年 6–7 月延到夏末">
     <g font-size="28" fill="#6b6b6b">
       <text x="0" y="40">1月</text><text x="300" y="40">4月</text><text x="600" y="40">7月</text><text x="900" y="40">10月</text></g>
@@ -200,13 +201,13 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
     <rect x="90" y="168" width="760" height="46" fill="#C8102E"/>
     <text x="870" y="202" font-size="30" fill="#C8102E">延到夏末</text>
   </svg>
-  <p class="say">原因：<b>訂單還沒交完</b>。之後產線全部做 Cybercab。</p>
+  <p class="say">延後的原因：<b>還有很多訂單沒交車</b>。</p>
   <div class="src">示意時間軸。來源：Teslarati、EVXL（2026/11/11–12）</div>
 </section>
 
 <!-- 7 FSD -->
 <section class="pg" id="p7" data-part="1">
-  <h2>FSD 進歐洲：芬蘭核准</h2>
+  <h2>Tesla 自動駕駛（FSD）獲芬蘭核准</h2>
   <div class="nums">
     <div class="num"><div class="v r">11<small>國</small></div><div class="k">歐洲已核准</div></div>
     <div class="num"><div class="v">19<small>國</small></div><div class="k">全球已核准</div></div>
@@ -218,7 +219,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- 8 Tesla 帳本 -->
 <section class="pg" id="p8" data-part="1">
-  <h2>車沒有多賣，錢先花在 AI<small>2026 Q3 和去年同期比</small></h2>
+  <h2>Tesla 財報：營收沒成長，利潤變薄，投資加倍<small>2026 年第三季，和去年同期比</small></h2>
   <div class="nums">
     <div class="num"><div class="v">±0%</div><div class="k">總營收</div></div>
     <div class="num"><div class="v r">2.6%</div><div class="k">利益率，原 5.8%</div></div>
@@ -230,7 +231,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- 9 SpaceX 部門 -->
 <section class="pg" id="p9" data-part="2">
-  <h2>火箭最有名，Starlink 最賺錢<small>2026 Q3，單位：億美元</small></h2>
+  <h2>SpaceX 三個部門裡，最賺錢的是 Starlink<small>2026 年第三季，單位：億美元</small></h2>
   <svg class="fig" viewBox="0 0 1200 330" role="img" aria-label="SpaceX 各部門營收與營業利益">
     <g font-size="34" fill="#111">
       <text x="0" y="62">Starlink</text><text x="0" y="172">AI</text><text x="0" y="282">火箭</text></g>
@@ -248,7 +249,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- 10 Flight 15 -->
 <section class="pg" id="p10" data-part="2">
-  <h2>Flight 15：第一次接住從太空回來的 Starship</h2>
+  <h2>Starship 試飛：飛船回收成功，助推器失敗</h2>
   <div class="two" style="grid-template-columns:1fr 1fr 1fr;gap:3rem">
     <div class="rule"><h3>升空、分離</h3><p>11/13 發射<br>兩節正常分開</p></div>
     <div class="rule r"><h3 style="color:var(--red)">助推器落海</h3><p>引擎太早熄火<br>自動改落海、自毀</p></div>
@@ -259,7 +260,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- 11 重複使用 -->
 <section class="pg" id="p11" data-part="2">
-  <h2>接得回來，發射才便宜<small>每次發射要付的錢（示意）</small></h2>
+  <h2>為什麼要回收火箭？重複使用，發射才便宜<small>每次發射要付的錢（示意）</small></h2>
   <svg class="fig" viewBox="0 0 1200 300" role="img" aria-label="越多部分能回收，每次發射成本越低">
     <g font-size="32" fill="#111">
       <text x="0" y="58">全部丟掉</text><text x="0" y="158">回收一節</text><text x="0" y="258">兩節都回收</text></g>
@@ -273,7 +274,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- 12 Artemis -->
 <section class="pg" id="p12" data-part="2">
-  <h2>Starship 也是 NASA 的登月艙</h2>
+  <h2>Starship 也是 NASA 的登月艙<small>預計 2028 年載人登月</small></h2>
   <div class="tl">
     <div><div class="d">登月前</div><p>軌道加油<br>無人登月</p></div>
     <div><div class="d">2027</div><p>Artemis III<br>地球軌道對接演練</p></div>
@@ -285,7 +286,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- 13 Starlink -->
 <section class="pg" id="p13" data-part="2">
-  <h2>Starlink：每個月都在收錢</h2>
+  <h2>Starlink 衛星網路：1,360 萬人按月付費</h2>
   <div class="nums">
     <div class="num"><div class="v r">1,360<small>萬</small></div><div class="k">付費用戶</div></div>
     <div class="num"><div class="v">$69</div><div class="k">每人每月</div></div>
@@ -297,7 +298,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- 14 SpaceX 帳本 -->
 <section class="pg" id="p14" data-part="2">
-  <h2>轉虧為盈，但花得更兇<small>2026 Q3 和去年同期比</small></h2>
+  <h2>SpaceX 財報：由虧轉盈，但投資也大增<small>2026 年第三季，和去年同期比</small></h2>
   <div class="nums">
     <div class="num"><div class="v n">+161%</div><div class="k">總營收</div></div>
     <div class="num"><div class="v">44<small>億</small></div><div class="k">淨利（去年虧 10.5 億）</div></div>
@@ -308,15 +309,15 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- 15 同一條路 -->
 <section class="pg" id="p15" data-part="3">
-  <h2>兩家公司，走同一條路</h2>
+  <h2>共同點：從賣產品，轉向收服務費</h2>
   <div class="chain"><div class="who" style="color:var(--navy)">Tesla</div><div class="s">汽車</div><div class="ar">→</div><div class="s">自動駕駛</div><div class="ar">→</div><div class="s end">每趟收費</div></div>
   <div class="chain"><div class="who" style="color:var(--red)">SpaceX</div><div class="s">火箭</div><div class="ar">→</div><div class="s">回收再飛</div><div class="ar">→</div><div class="s end">每月收費</div></div>
-  <p class="say">硬體一直用，用的人越多，每個人的成本越低。</p>
+  <p class="say">車和火箭都重複使用；用的人越多，每人分攤的成本越低。</p>
 </section>
 
 <!-- 16 比較 -->
 <section class="pg" id="p16" data-part="3">
-  <h2>一個在減速，一個在加速<small>2026 Q3</small></h2>
+  <h2>兩家財報比較：Tesla 停滯，SpaceX 快速成長<small>2026 年第三季</small></h2>
   <table>
     <thead><tr><th></th><th>Tesla</th><th>SpaceX</th></tr></thead>
     <tbody>
@@ -333,7 +334,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- Q1 左腳踩右腳 -->
 <section class="pg" id="q1" data-part="4">
-  <h2>問題 1：錢在自家公司之間繞一圈？</h2>
+  <h2>疑問 1：馬斯克的公司互相投資，合理嗎？</h2>
   <svg class="fig" viewBox="0 0 1200 300" role="img" aria-label="Tesla 投資 xAI，xAI 再向 Tesla 買電池">
     <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#C8102E"/></marker></defs>
     <rect x="0" y="90" width="300" height="120" fill="#1B3A6B"/>
@@ -352,18 +353,18 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- Q2 火箭自用 -->
 <section class="pg" id="q2" data-part="4">
-  <h2>問題 2：火箭不賺錢，因為它在幫自己運貨</h2>
+  <h2>疑問 2：火箭不賺錢，因為多在發射自家衛星</h2>
   <div class="nums">
     <div class="num"><div class="v r">79%</div><div class="k">Falcon 9 發射是送自家 Starlink</div></div>
     <div class="num"><div class="v n">2028</div><div class="k">Falcon 9 排滿到 2028–29 年</div></div>
   </div>
-  <p class="say">自家發射不算火箭營收，價值算進 Starlink。<br>對手的衛星，只能跟競爭者排隊租火箭。</p>
+  <p class="say">發射自家衛星不收錢，所以火箭帳面上不賺錢，錢算在 Starlink。<br>其他衛星公司只能排隊向 SpaceX 租火箭。</p>
   <div class="src">2026 年統計。來源：Reuters 分析（2026/8/4）；SpaceX 上市說明書：「可能優先發射自己的酬載」</div>
 </section>
 
 <!-- Q3 買來的成長 -->
 <section class="pg" id="q3" data-part="4">
-  <h2>問題 3：+161% 的成長，多少是買來的？<small>SpaceX 2026 Q3 營收年增</small></h2>
+  <h2>疑問 3：營收成長 161%，多少靠併購？<small>SpaceX 2026 年第三季營收，和去年同期比</small></h2>
   <svg class="fig" viewBox="0 0 1200 230" role="img" aria-label="含 AI 部門營收年增 161%，不含 AI 部門年增 47%">
     <g font-size="32" fill="#111"><text x="0" y="62">全部</text><text x="0" y="172">不算 AI</text></g>
     <rect x="200" y="24" width="805" height="56" fill="#C8102E"/><text x="1020" y="64" font-size="40" fill="#C8102E">+161%</text>
@@ -375,18 +376,18 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- Q4 合併 -->
 <section class="pg" id="q4" data-part="4">
-  <h2>問題 4：如果合併，誰比較划算？</h2>
+  <h2>疑問 4：如果兩家合併，哪邊的股東比較吃虧？</h2>
   <div class="two">
     <div class="rule"><h3 style="color:var(--navy)">Tesla 股東</h3><p>拿本益比 400 倍的股票，<br>換 Starlink 和 AI</p></div>
     <div class="rule r"><h3 style="color:var(--red)">SpaceX 股東</h3><p>拿賺錢的 Starlink，<br>換 Robotaxi 的期待</p></div>
   </div>
-  <p class="say">馬斯克兩邊都是大股東，所以自己退出談判。<br>換股比例怎麼訂，決定哪一邊吃虧。</p>
+  <p class="say">馬斯克兩邊都是大股東，所以他不參加談判。<br>兩家股票怎麼換算，決定哪一邊吃虧。</p>
   <div class="src">來源：TechCrunch（2026/10/20）；NBC News。兩家尚未達成任何協議</div>
 </section>
 
 <!-- 17 未來 -->
 <section class="pg" id="p17" data-part="5">
-  <h2>接下來要看的時間點</h2>
+  <h2>接下來值得注意的時間點</h2>
   <div class="tl">
     <div class="hot"><div class="d">12 月?</div><p>合併消息</p></div>
     <div><div class="d">今冬</div><p>歐盟決定<br>FSD</p></div>
@@ -400,7 +401,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- 18 台灣 -->
 <section class="pg" id="p18" data-part="5">
-  <h2>台灣不造衛星，造衛星裡的零件</h2>
+  <h2>台灣的角色：不造衛星，但做衛星零件</h2>
   <div class="two" style="grid-template-columns:1fr 1fr 1fr;gap:3rem">
     <div class="rule"><h3>電路板</h3><p>華通 2313</p></div>
     <div class="rule"><h3>天線、網通</h3><p>啟碁 6285</p></div>
@@ -412,12 +413,12 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <!-- 19 結論 -->
 <section class="pg" id="p19" data-part="6">
-  <h2 style="font-size:4.2rem">硬體是入口，<br><span style="color:var(--red)">收費服務</span>才是目的</h2>
+  <h2 style="font-size:4rem">結論：兩家都從「賣東西」<br>轉向<span style="color:var(--red)">「收服務費」</span></h2>
   <div class="two">
-    <div class="rule"><h3>Tesla</h3><p>想當收里程費的交通公司</p></div>
+    <div class="rule"><h3>Tesla</h3><p>想變成收車資的交通公司</p></div>
     <div class="rule r"><h3>SpaceX</h3><p>更像收月費的太空網路公司</p></div>
   </div>
-  <p class="say" style="color:var(--mute)">還沒成功：Tesla 利潤變薄，助推器沒接回，<br>四個追問也還沒有答案。</p>
+  <p class="say" style="color:var(--mute)">但還沒成功：Tesla 利潤變薄、助推器沒回收，<br>四個疑問也還沒有答案。</p>
 </section>
 
 <!-- 20 來源 -->
@@ -445,7 +446,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 
 <script>
 const pages=[...document.querySelectorAll('section.pg')];
-const parts=['問題','Tesla','SpaceX','比較','拆開看','未來','結論'];
+const parts=['開場','Tesla','SpaceX','比較','四個疑問','未來','結論'];
 pages.forEach((p,i)=>{
   if(i){const no=document.createElement('div');no.className='pno';no.textContent=(i+1)+' / '+pages.length;p.appendChild(no)}
   if(i<2)return;
