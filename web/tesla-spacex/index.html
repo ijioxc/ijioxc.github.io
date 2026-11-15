@@ -178,6 +178,89 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 .rule.g{border-color:#9a9a9a}
 .two p strong{color:var(--ink);font-weight:900}
 
+/* ── 版面 v3：雜誌式留白 ──
+   1. 標題固定在頁首同一高度（像雜誌每頁的標題線），內容放在下方剩餘空間的中間，不再整頁擠成一團置中。
+   2. 標題前綴（「技術」「疑問 1」）改成紅色小標（kicker），主標題變短、層次清楚。
+   3. 拿掉沒有意義的裝飾線；用留白和顏色分組，不用框線。 */
+.pg{justify-content:flex-start;padding:5.2rem 5.5rem 4.4rem}
+#p1{justify-content:center;padding:5.5rem}
+.pg.dv{justify-content:flex-end;padding:5.5rem 5.5rem 6rem}
+.pg>h2+*{margin-top:auto}
+.pg>*:has(+ .src),.pg>*:has(+ .pno){margin-bottom:auto}
+h2{margin-bottom:2.4rem}
+h2 .kk{display:block;font-family:"Noto Sans TC",sans-serif;font-size:1.6rem;font-weight:900;color:var(--red);letter-spacing:.08em;line-height:1.3;margin-bottom:.6rem}
+.pg.dark h2 .kk{color:#ff5a72}
+h2 .kk i,.eh i{display:none}
+h2 small{font-family:"Noto Sans TC",sans-serif;font-weight:500;font-size:1.6rem;margin-top:.8rem}
+.say{margin-top:3.2rem;max-width:48em}
+
+/* 去掉裝飾線 */
+.rule,.rule.r,.rule.g,.era,.gen{border-top:0;padding-top:0}
+.num .k{border-top:0;padding-top:0;margin-top:1rem}
+th{border-bottom-width:2px}
+
+/* 欄距加大 */
+.two{gap:3rem 6rem}
+.two h3{margin-bottom:1rem}
+.two p+p{margin-top:.5rem}
+.nums{gap:4rem}
+.num .v{font-size:6rem}
+.num .v small{font-size:2.2rem}
+.num .k{font-size:1.9rem;line-height:1.4}
+.tl{gap:3rem}
+.chain{margin:1.6rem 0}
+td{padding:.55rem 1rem}
+#p16 .say{margin-top:2.2rem}
+.diag .diagram svg{max-height:30.5rem}
+.qs blockquote{font-family:"Noto Serif TC","Songti TC",serif;font-weight:700;margin:0 0 2.2rem}
+
+/* 目錄：大號序數＋標題，3×2，不用圓圈徽章和連線 */
+.toc{grid-template-columns:repeat(3,1fr);gap:4rem 5rem;margin-top:0}
+.toc::before{display:none}
+.toc a{padding-top:0;display:grid;grid-template-columns:5rem 1fr;align-items:baseline}
+.toc a::before{content:"0" attr(data-n);position:static;width:auto;height:auto;border-radius:0;background:none;color:#9a9a9a;
+  font-family:"Noto Serif TC","Songti TC",serif;font-size:3.2rem;line-height:1;display:block;grid-row:1/3;place-items:initial}
+.toc a.key::before{background:none;color:var(--red)}
+.toc h3{font-family:"Noto Serif TC","Songti TC",serif;font-size:2.8rem;line-height:1.2}
+.toc p{font-size:1.8rem;margin-top:.5rem}
+
+/* p3 開場：左白右黑對開，右半預告 SpaceX 的深色段落 */
+#p3{padding:0}
+#p3 .two{flex:1;gap:0;margin:0}
+#p3 .two>div{padding:6rem 3.5rem 5rem 5.5rem;display:flex;flex-direction:column;justify-content:center}
+#p3 .two>div.r{background:#0b111c;color:#e4e7ec}
+#p3 h3{font-family:"Noto Serif TC","Songti TC",serif;font-size:4rem;line-height:1.22;margin-bottom:2.6rem}
+#p3 .r h3{color:#fff}
+#p3 p{font-size:2.4rem;line-height:1.65}
+#p3 b{font-size:1.3em}
+#p3 .r b{color:#ff5a72}
+#p3 .pno{color:#9ba5b5}
+
+/* 產品演進：小標＋大字年代、清單有懸掛縮排 */
+.eras{grid-template-columns:.85fr 2.4rem 1.1fr 2.4rem 1.1fr;align-items:start;column-gap:.8rem}
+.eh{font-family:"Noto Serif TC","Songti TC",serif;font-size:3.4rem;line-height:1.15;margin-bottom:2rem}
+.eh span{display:block;font-family:"Noto Sans TC",sans-serif;font-size:1.6rem;color:var(--mute);letter-spacing:.08em;margin-bottom:.6rem}
+.era p{display:grid;grid-template-columns:4.2rem 1fr;column-gap:.7rem;font-size:1.75rem;line-height:1.4;margin:0 0 1rem}
+.era p em{min-width:0}
+.era:not(.mid):not(.fut) p{color:var(--mute)}
+.era:not(.mid):not(.fut) p em{color:#9a9a9a}
+.ar2{place-items:start center;padding-top:3.6rem;font-size:2.8rem;color:var(--line)}
+
+/* 營收→市值：列距拉開、結論改成圖內註解 */
+#m2 h2{font-size:3.2rem;margin-bottom:0}
+#m2 .vkey{margin:1.4rem 0 .5rem;font-size:1.4rem;padding-left:12rem}
+#m2 .vkey .unit{color:var(--mute);font-weight:700;margin-left:1rem}
+#m2 .vs{gap:0;position:relative;margin-bottom:auto}
+#m2 .vr{height:4.1rem;grid-template-columns:11rem 1fr 7.5rem}
+#m2 .vl{font-size:1.9rem}
+#m2 .rvb{height:1.3rem;margin-bottom:.3rem}
+#m2 .rvb i{height:.9rem}
+#m2 .rvb em{font-size:1.3rem;line-height:1}
+#m2 .mcb{height:2rem}
+#m2 .mcb em{font-size:1.6rem}
+#m2 .vx{font-size:2.1rem;white-space:nowrap}
+#m2 .vs .say{position:absolute;left:calc(12rem + (100% - 20rem) * .38);right:9rem;top:12.8rem;margin:0;font-size:2.1rem;line-height:1.45}
+
 /* 示意圖頁 */
 .diag h2{margin-bottom:.6rem}
 .diag .diagram svg{max-height:32.5rem;width:auto;max-width:100%;margin:0 auto}
@@ -237,6 +320,11 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
   .chain{grid-template-columns:1fr}
   .chain .ar{transform:rotate(90deg)}
   #p1 .meta{position:static;margin-top:3rem;flex-direction:column;gap:.5rem}
+  .pg{padding:5rem 16px 6rem}
+  #p3{padding:0} #p3 .two>div{padding:4rem 16px}
+  .toc{grid-template-columns:1fr}
+  .eras{grid-template-columns:1fr} .ar2{padding-top:0}
+  #m2 .vr{height:auto} #m2 .vs .say{position:static;margin-top:2rem} #m2 .vkey{padding-left:0;flex-wrap:wrap}
 }
 </style>
 </head>
@@ -264,8 +352,8 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 
 <section class="pg" id="p3" data-part="0">
   <div class="two">
-    <div class="rule"><h3 style="font-size:3.2rem">Tesla<br>還是車廠嗎？</h3><p>汽車營收 <b>−3%</b><br>服務營收 <b>+33%</b></p></div>
-    <div class="rule r"><h3 style="font-size:3.2rem">SpaceX<br>還是火箭公司嗎？</h3><p>發射只占營收 <b>12%</b><br>賺錢靠 Starlink</p></div>
+    <div class="rule"><h3>Tesla<br>還是車廠嗎？</h3><p>汽車營收 <b>−3%</b><br>服務營收 <b>+33%</b></p></div>
+    <div class="rule r"><h3>SpaceX<br>還是火箭公司嗎？</h3><p>發射只占營收 <b>12%</b><br>賺錢靠 Starlink</p></div>
   </div>
   <div class="src">2026 年第三季財報。來源：Tesla 8-K（SEC）；CNBC</div>
 </section>
@@ -285,8 +373,8 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg" id="m2" data-part="0" data-steps="2" data-st="0">
-  <h2>賣得多的公司，市值就比較高嗎？<small>單位：美元，2026/11/13；營收為近 12 個月</small></h2>
-  <div class="vkey"><span><i class="k1"></i>營收</span><span class="s1"><i class="k2"></i>市值</span><span class="s2 xh">市值是營收的</span></div>
+  <h2>賣得多的公司，市值就比較高嗎？</h2>
+  <div class="vkey"><span><i class="k1"></i>營收</span><span class="s1"><i class="k2"></i>市值</span><span class="unit">單位：美元，2026/11/13；營收為近 12 個月</span><span class="s2 xh">市值是營收的</span></div>
   <div class="vs"><div class="vr g"><span class="vl">豐田</span><div class="vb">
 <div class="rvb"><i style="width:15.20%"></i><em>營收 3,339 億</em></div>
 <div class="mcb"><i style="--w:11.39%"></i><em>市值 2,502 億</em></div></div><span class="vx">0.75 倍</span></div><div class="vr g"><span class="vl">比亞迪</span><div class="vb">
@@ -301,36 +389,36 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 <div class="rvb"><i style="width:3.60%"></i><em>營收 791 億</em></div>
 <div class="mcb"><i style="--w:6.27%"></i><em>市值 1,377 億</em></div></div><span class="vx">1.7 倍</span></div><div class="vr r"><span class="vl">SpaceX</span><div class="vb">
 <div class="rvb"><i style="width:1.46%"></i><em>營收 320 億</em></div>
-<div class="mcb"><i style="--w:86.00%"></i><em>市值 1.89 兆</em></div></div><span class="vx">59 倍</span></div></div>
-  <p class="say s2">豐田一年營收是 Tesla 的 3 倍，市值卻只有 Tesla 的 1/6。投資人買的是<b>未來</b>。</p>
+<div class="mcb"><i style="--w:86.00%"></i><em>市值 1.89 兆</em></div></div><span class="vx">59 倍</span></div>
+<p class="say s2">豐田一年營收是 Tesla 的 3 倍，市值卻只有 Tesla 的 1/6。投資人買的是<b>未來</b>。</p></div>
   <div class="src">市值與營收：companiesmarketcap.com、MarketBeat（2026/11/13 收盤，約略值）；SpaceX 營收含 xAI；倍數為本組計算。按方向鍵分三步顯示</div>
 </section>
 
 <section class="pg" id="m3" data-part="0">
-  <h2>Tesla：S、X 停產，Cybertruck 也要停</h2>
+  <h2><span class="kk">Tesla<i>：</i></span>S、X 停產，Cybertruck 也要停</h2>
   <div class="eras">
-    <div class="era"><div class="eh">過去：賣車</div>
+    <div class="era"><div class="eh"><span>過去</span><i>：</i>賣車</div>
       <p><em>2008</em>Roadster</p><p><em>2012</em>Model S</p><p><em>2017</em>Model 3</p><p><em>2020</em>Model Y</p><p><em>2023</em>Cybertruck</p></div>
     <div class="ar2">→</div>
-    <div class="era mid"><div class="eh">2026：轉型</div>
+    <div class="era mid"><div class="eh"><span>2026</span><i>：</i>轉型</div>
       <p><em>5 月</em>Model S、X 停產</p><p><em>工廠</em>Fremont 改做機器人</p><p><em>2027</em>Cybertruck 停產</p></div>
     <div class="ar2">→</div>
-    <div class="era fut"><div class="eh">未來：服務</div>
+    <div class="era fut"><div class="eh"><span>未來</span><i>：</i>服務</div>
       <p><em>車</em>Cybercab 無人計程車</p><p><em>人</em>Optimus 人形機器人</p><p><em>軟體</em>FSD 自駕訂閱</p></div>
   </div>
   <div class="src">來源：CNBC（2026/1/28，S/X 停產與 Fremont 改線）；Hagerty；Tesla 2026 Q3 8-K</div>
 </section>
 
 <section class="pg" id="m4" data-part="0">
-  <h2>SpaceX：2 月併入 xAI，6 月股票上市</h2>
+  <h2><span class="kk">SpaceX<i>：</i></span>2 月併入 xAI，6 月股票上市</h2>
   <div class="eras">
-    <div class="era"><div class="eh">過去：賣發射</div>
+    <div class="era"><div class="eh"><span>過去</span><i>：</i>賣發射</div>
       <p><em>2008</em>Falcon 1 入軌</p><p><em>2010</em>Falcon 9 首飛</p><p><em>2015</em>首次回收火箭</p><p><em>2020</em>載人太空船</p></div>
     <div class="ar2">→</div>
-    <div class="era mid"><div class="eh">現在：自己用火箭</div>
+    <div class="era mid"><div class="eh"><span>現在</span><i>：</i>自己用火箭</div>
       <p><em>2019</em>開始發射 Starlink</p><p><em>2 月</em>併入 xAI</p><p><em>6 月</em>上市，史上最大 IPO</p></div>
     <div class="ar2">→</div>
-    <div class="era fut"><div class="eh">未來：Starship</div>
+    <div class="era fut"><div class="eh"><span>未來</span><i>：</i>Starship</div>
       <p><em>試飛</em>已飛 15 次</p><p><em>2028</em>載人登月</p><p><em>更遠</em>火星貨運</p></div>
   </div>
   <div class="src">來源：Wikipedia「SpaceX」「List of Starship launches」；NBC News（2026/11/14）</div>
@@ -350,7 +438,7 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg" id="p16" data-part="0">
-  <h2>兩家財報比較：Tesla 停滯，SpaceX 快速成長<small>2026 年第三季</small></h2>
+  <h2><span class="kk">兩家財報比較<i>：</i></span>Tesla 停滯，SpaceX 快速成長<small>2026 年第三季</small></h2>
   <table>
     <thead><tr><th></th><th>Tesla</th><th>SpaceX</th></tr></thead>
     <tbody>
@@ -366,7 +454,7 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg" id="p15" data-part="0">
-  <h2>共同點：從賣產品，轉向收服務費</h2>
+  <h2><span class="kk">共同點<i>：</i></span>從賣產品，轉向收服務費</h2>
   <div class="chain"><div class="who" style="color:var(--navy)">Tesla</div><div class="s">汽車</div><div class="ar">→</div><div class="s">自動駕駛</div><div class="ar">→</div><div class="s end">每趟收費</div></div>
   <div class="chain"><div class="who" style="color:var(--red)">SpaceX</div><div class="s">火箭</div><div class="ar">→</div><div class="s">回收再飛</div><div class="ar">→</div><div class="s end">每月收費</div></div>
   <p class="say">車和火箭都重複使用；用的人越多，每人分攤的成本越低。</p>
@@ -379,7 +467,7 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg" id="p4" data-part="1">
-  <h2>Tesla 今年的重點：無人計程車（Robotaxi）</h2>
+  <h2><span class="kk">Tesla 今年的重點<i>：</i></span>無人計程車（Robotaxi）</h2>
   <div class="tl">
     <div><div class="d">2 月</div><p>第一台 Cybercab 下線</p></div>
     <div class="hot"><div class="d">9 月</div><p>奧斯汀開始<br>無人載客</p></div>
@@ -390,7 +478,7 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg" id="p5" data-part="1">
-  <h2>Cybercab：專當無人計程車，不賣給一般人</h2>
+  <h2><span class="kk">Cybercab<i>：</i></span>專當無人計程車，不賣給一般人</h2>
   <svg class="fig" viewBox="0 0 1200 330" role="img" aria-label="賣車只收一次錢，車隊每趟都收錢">
     <text x="0" y="40" font-size="32" fill="#6b6b6b">賣給車主</text>
     <rect x="260" y="0" width="230" height="64" fill="#1B3A6B"/>
@@ -408,8 +496,8 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg" id="t1" data-part="1">
-  <h2>技術：Cybercab 怎麼把成本壓低？</h2>
-  <div class="two" style="grid-template-columns:1fr 1fr;gap:2.4rem 4rem">
+  <h2><span class="kk">技術<i>：</i></span>Cybercab 怎麼把成本壓低？</h2>
+  <div class="two" style="grid-template-columns:1fr 1fr;gap:3.6rem 7rem">
     <div class="rule"><h3>只有 2 個座位</h3><p>大部分叫車只載 1–2 人，車可以做小、做輕</p></div>
     <div class="rule"><h3>電池較小</h3><p>報導約 35 kWh，只跑市區，電池最貴的部分省下來</p></div>
     <div class="rule"><h3>無線充電</h3><p>停到充電板上就充，不需要人插充電槍</p></div>
@@ -435,8 +523,8 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg" id="t2" data-part="1">
-  <h2>技術：為什麼說 Cybertruck「太複雜」？</h2>
-  <div class="two" style="grid-template-columns:1fr 1fr 1fr;gap:3rem">
+  <h2><span class="kk">技術<i>：</i></span>為什麼說 Cybertruck「太複雜」？</h2>
+  <div class="two" style="grid-template-columns:1fr 1fr 1fr;gap:3rem 4.5rem">
     <div class="rule"><h3>不鏽鋼車殼</h3><p>鋼板太硬，不能像一般車殼沖壓成曲面，只能折成平面</p></div>
     <div class="rule"><h3>線控轉向</h3><p>方向盤和車輪之間沒有機械連桿，全靠電子訊號</p></div>
     <div class="rule"><h3>48V 電系</h3><p>一般車用 12V；電壓提高，電線可以變細，但零件都要重新設計</p></div>
@@ -446,7 +534,7 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg" id="t3" data-part="1">
-  <h2>工廠也在轉型：車的產線改做機器人</h2>
+  <h2><span class="kk">工廠也在轉型<i>：</i></span>車的產線改做機器人</h2>
   <div class="tl">
     <div><div class="d">2026/1</div><p>宣布 Model S、X 停產</p></div>
     <div><div class="d">5 月</div><p>最後一台 S/X 下線</p></div>
@@ -469,7 +557,7 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg" id="p8" data-part="1">
-  <h2>Tesla 財報：營收沒成長，利潤變薄，投資加倍<small>2026 年第三季，和去年同期比</small></h2>
+  <h2><span class="kk">Tesla 財報<i>：</i></span>營收沒成長，利潤變薄，投資加倍<small>2026 年第三季，和去年同期比</small></h2>
   <div class="nums">
     <div class="num"><div class="v">±0%</div><div class="k">總營收</div></div>
     <div class="num"><div class="v r">2.6%</div><div class="k">利益率，原 5.8%</div></div>
@@ -526,7 +614,7 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg diag" id="s1" data-part="2">
-  <h2>15 次試飛：接住助推器 3 次，接住星艦 1 次</h2>
+  <h2><span class="kk">15 次試飛<i>：</i></span>接住助推器 3 次，接住星艦 1 次</h2>
   <div class="diagram diagram-starship-profile">
 <svg viewBox="0 46 1200 554" width="100%" role="img" aria-labelledby="spx-prof-title" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans TC',sans-serif;font-weight:700;display:block">
 <title id="spx-prof-title">Starship 一次試飛的飛行流程，以及 Flight 1 到 15 助推器與星艦的結果</title>
@@ -636,8 +724,8 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg dark" id="p10" data-part="2">
-  <h2>Starship 試飛：飛船回收成功，助推器失敗</h2>
-  <div class="two" style="grid-template-columns:1fr 1fr 1fr;gap:3rem">
+  <h2><span class="kk">Starship 試飛<i>：</i></span>飛船回收成功，助推器失敗</h2>
+  <div class="two" style="grid-template-columns:1fr 1fr 1fr;gap:3rem 4.5rem">
     <div class="rule"><h3>升空、分離</h3><p>11/13 發射<br>兩節正常分開</p></div>
     <div class="rule r"><h3 style="color:var(--red)">助推器落海</h3><p>引擎太早熄火<br>自動改落海、自毀</p></div>
     <div class="rule" style="border-color:var(--navy)"><h3 style="color:var(--navy)">Starship 被接住</h3><p>入軌、放 26 顆衛星<br>11/14 回到發射塔</p></div>
@@ -646,8 +734,8 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg dark" id="p11" data-part="2">
-  <h2>技術：Starship 怎麼做到重複使用？</h2>
-  <div class="two" style="grid-template-columns:1fr 1fr 1fr;gap:3rem">
+  <h2><span class="kk">技術<i>：</i></span>Starship 怎麼做到重複使用？</h2>
+  <div class="two" style="grid-template-columns:1fr 1fr 1fr;gap:3rem 4.5rem">
     <div class="rule"><h3>用發射塔接住</h3><p>不裝著陸腳，火箭少了重量，就能多載貨</p></div>
     <div class="rule"><h3>不鏽鋼船身</h3><p>耐高溫、便宜、好焊接，比碳纖維更適合大量製造</p></div>
     <div class="rule"><h3>甲烷引擎</h3><p>燃燒後積碳少，引擎清理簡單，比較好重複使用</p></div>
@@ -726,7 +814,7 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg dark" id="p13" data-part="2">
-  <h2>Starlink 衛星網路：1,360 萬人按月付費</h2>
+  <h2><span class="kk">Starlink 衛星網路<i>：</i></span>1,360 萬人按月付費</h2>
   <div class="nums">
     <div class="num"><div class="v r">1,360<small>萬</small></div><div class="k">付費用戶</div></div>
     <div class="num"><div class="v">$69</div><div class="k">每人每月</div></div>
@@ -737,7 +825,7 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg dark" id="p14" data-part="2">
-  <h2>SpaceX 財報：由虧轉盈，但投資也大增<small>2026 年第三季，和去年同期比</small></h2>
+  <h2><span class="kk">SpaceX 財報<i>：</i></span>由虧轉盈，但投資也大增<small>2026 年第三季，和去年同期比</small></h2>
   <div class="nums">
     <div class="num"><div class="v n">+161%</div><div class="k">總營收</div></div>
     <div class="num"><div class="v">44<small>億</small></div><div class="k">淨利（去年虧 10.5 億）</div></div>
@@ -747,7 +835,7 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg" id="q1" data-part="3">
-  <h2>疑問 1：馬斯克的公司互相投資，合理嗎？</h2>
+  <h2><span class="kk">疑問 1<i>：</i></span>馬斯克的公司互相投資，合理嗎？</h2>
   <svg class="fig" viewBox="0 0 1200 300" role="img" aria-label="Tesla 投資 xAI，xAI 再向 Tesla 買電池">
     <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#C8102E"/></marker></defs>
     <rect x="0" y="90" width="300" height="120" fill="#1B3A6B"/>
@@ -765,7 +853,7 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg" id="q2" data-part="3">
-  <h2>疑問 2：火箭不賺錢，因為多在發射自家衛星</h2>
+  <h2><span class="kk">疑問 2<i>：</i></span>火箭不賺錢，因為多在發射自家衛星</h2>
   <div class="nums">
     <div class="num"><div class="v r">79%</div><div class="k">Falcon 9 發射是送自家 Starlink</div></div>
     <div class="num"><div class="v n">2028</div><div class="k">Falcon 9 排滿到 2028–29 年</div></div>
@@ -775,7 +863,7 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg" id="q3" data-part="3">
-  <h2>疑問 3：營收成長 161%，多少靠併購？<small>SpaceX 2026 年第三季營收，和去年同期比</small></h2>
+  <h2><span class="kk">疑問 3<i>：</i></span>營收成長 161%，多少靠併購？<small>SpaceX 2026 年第三季營收，和去年同期比</small></h2>
   <svg class="fig" viewBox="0 0 1200 230" role="img" aria-label="含 AI 部門營收年增 161%，不含 AI 部門年增 47%">
     <g font-size="32" fill="#111"><text x="0" y="62">全部</text><text x="0" y="172">不算 AI</text></g>
     <rect x="200" y="24" width="805" height="56" fill="#C8102E"/><text x="1020" y="64" font-size="40" fill="#C8102E">+161%</text>
@@ -786,7 +874,7 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg" id="q4" data-part="3">
-  <h2>疑問 4：如果兩家合併，哪邊的股東比較吃虧？</h2>
+  <h2><span class="kk">疑問 4<i>：</i></span>如果兩家合併，哪邊的股東比較吃虧？</h2>
   <div class="two">
     <div class="rule"><h3 style="color:var(--navy)">Tesla 股東</h3><p>拿本益比 400 倍的股票，<br>換 Starlink 和 AI</p></div>
     <div class="rule r"><h3 style="color:var(--red)">SpaceX 股東</h3><p>拿賺錢的 Starlink，<br>換 Robotaxi 的期待</p></div>
@@ -809,8 +897,8 @@ h3.n{color:var(--navy)} h3.rd{color:var(--red)}
 </section>
 
 <section class="pg" id="p18" data-part="4">
-  <h2>台灣的角色：不造衛星，但做衛星零件</h2>
-  <div class="two" style="grid-template-columns:1fr 1fr 1fr;gap:3rem">
+  <h2><span class="kk">台灣的角色<i>：</i></span>不造衛星，但做衛星零件</h2>
+  <div class="two" style="grid-template-columns:1fr 1fr 1fr;gap:3rem 4.5rem">
     <div class="rule"><h3>電路板</h3><p>華通 2313</p></div>
     <div class="rule"><h3>天線、網通</h3><p>啟碁 6285</p></div>
     <div class="rule"><h3>微波元件</h3><p>昇達科 3491</p></div>
