@@ -7,7 +7,7 @@
 <meta name="description" content="從賣產品到賣服務：Tesla 轉向 Robotaxi、SpaceX 靠 Starlink 與可回收火箭，含 2026 Q3 財報比較。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
 <style>
 /* 字級規則：以 1366×768 為基準，1rem＝16px；畫面變大，全部等比放大。
    內文 ≥ 1.5rem（24px）、標籤 ≥ 1.25rem（20px）、只有來源列 1rem。
@@ -76,7 +76,7 @@ td.r{color:var(--red)} td.n{color:var(--navy)}
 .two p{font-size:2rem;line-height:1.5}
 .rule{border-top:4px solid var(--ink);padding-top:1.2rem}
 .rule.r{border-color:var(--red)}
-.refs p{font-size:1.5rem;line-height:1.6}
+.refs p{font-size:1.4rem;line-height:1.55}
 
 /* 封面 */
 #p1{background:var(--ink);color:#fff}
@@ -86,7 +86,7 @@ td.r{color:var(--red)} td.n{color:var(--navy)}
 #p1 .meta div{display:flex;gap:2.5rem}
 
 /* 目錄 */
-.toc{display:grid;grid-template-columns:repeat(7,1fr);position:relative;margin-top:1rem}
+.toc{display:grid;grid-template-columns:repeat(6,1fr);position:relative;margin-top:1rem}
 .toc::before{content:"";position:absolute;left:1.5rem;right:8%;top:1.5rem;height:4px;background:var(--ink)}
 .toc a{position:relative;text-decoration:none;color:var(--ink);padding-top:4.4rem}
 .toc a::before{content:attr(data-n);position:absolute;top:0;left:0;width:3.2rem;height:3.2rem;border-radius:50%;background:var(--ink);color:#fff;
@@ -96,7 +96,123 @@ td.r{color:var(--red)} td.n{color:var(--navy)}
 .toc p{font-size:1.75rem;color:var(--mute);margin-top:.4rem;line-height:1.35}
 
 svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
+/* 產品演進三欄 */
+.eras{display:grid;grid-template-columns:1fr 3rem 1fr 3rem 1fr;align-items:stretch}
+.era{border-top:5px solid var(--mute);padding-top:1rem}
+.era.mid{border-color:var(--navy)} .era.fut{border-color:var(--red)}
+.eh{font-size:2.2rem;font-weight:900;color:var(--ink);margin-bottom:.8rem}
+.era.mid .eh{color:var(--navy)} .era.fut .eh{color:var(--red)}
+.era p{font-size:1.75rem;line-height:1.55;color:var(--ink);font-weight:700}
+.era p em{font-style:normal;color:var(--mute);display:inline-block;min-width:4.6rem;font-weight:700}
+.ar2{display:grid;place-items:center;font-size:2.4rem;color:var(--red);font-weight:900}
+/* Starship 三代 */
+.gens{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem}
+.gen{border-top:5px solid var(--mute);padding-top:1rem}
+.gen.now{border-color:var(--red)}
+.gh{font-size:2.4rem;font-weight:900;color:var(--ink);margin-bottom:.8rem;line-height:1.2}
+.gh small{display:block;font-size:1.4rem;color:var(--mute);font-weight:700;margin-top:.3rem}
+.gen p{font-size:1.75rem;line-height:1.45;margin:.5rem 0;color:var(--ink)}
+/* 地圖 */
+.mapwrap{display:grid;grid-template-columns:1fr 14rem;gap:1.5rem;align-items:center;margin-top:-1rem}
+.legend p{font-size:1.6rem;font-weight:700;color:var(--ink);margin:.6rem 0;display:flex;align-items:center;gap:.7rem}
+.legend .ov{font-size:1.4rem;color:var(--mute);margin-top:1.6rem;display:block;line-height:1.5}
+.dot{display:inline-block;width:1.2rem;height:1.2rem;border-radius:50%}
+.dot.t{background:var(--navy)} .dot.s{background:var(--red)} .dot.x{background:var(--ink);border-radius:2px}
+#usmap{max-height:29rem}
+#usmap .st{fill:#efeeea;stroke:#fff;stroke-width:1.2}
+#usmap text{font-size:27px;font-weight:700;fill:#111;paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
+
 .fig{width:100%;height:auto;display:block}
+
+
+/* ── 雜誌版面 ── */
+h1,h2,.dv h2{font-family:"Noto Serif TC","Songti TC",serif}
+h2{font-weight:900;letter-spacing:0}
+#p1{background:#000 url(img/starship-pad.jpg) center 40%/cover no-repeat}
+#p1::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.6) 45%,rgba(0,0,0,.05) 80%)}
+#p1>*:not(.meta):not(.credit):not(.pno){position:relative}
+#p1 .meta{position:absolute}
+.credit{position:absolute;right:1.4rem;bottom:.8rem;font-size:1rem;color:rgba(255,255,255,.75);z-index:2;text-align:right;max-width:40rem}
+.dv{background:#000 center/cover no-repeat;color:#fff;justify-content:flex-end;padding-bottom:6rem}
+.dv::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.9) 0%,rgba(0,0,0,.45) 45%,rgba(0,0,0,0) 75%)}
+.dv>*:not(.credit):not(.pno){position:relative}
+.dv .kick{font-size:1.8rem;font-weight:900;color:#ff5a72;letter-spacing:.1em;margin-bottom:.8rem}
+.dv h2{color:#fff;font-size:4.6rem;line-height:1.2;margin:0}
+.dv p{font-size:2.1rem;color:#e8e8e8;margin-top:1.2rem;max-width:56rem;line-height:1.5}
+.dv .pno{color:rgba(255,255,255,.7)}
+/* SpaceX 段落：深色 */
+.pg.dark{--bg:#0b111c;--ink:#fff;--txt:#e4e7ec;--mute:#9ba5b5;--line:#2f3b52;--soft:#1a2436;--navy:#8fb2ff;background:var(--bg);color:var(--txt)}
+.pg.dark b{color:#ff5a72}
+.pg.dark .track span.now{color:#fff}
+.pg.dark svg text{fill:currentColor}
+/* 圖片＋文字 */
+.ph{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
+.ph img{width:100%;height:30rem;object-fit:cover;display:block}
+.ph figcaption{font-size:1rem;color:var(--mute);margin-top:.4rem}
+
+/* 市值÷營收 */
+.ps{display:flex;flex-direction:column;gap:.55rem}
+.psr{display:grid;grid-template-columns:11rem 1fr;align-items:center;gap:1rem}
+.psr .pl{font-size:1.8rem;font-weight:900;color:var(--ink)}
+.psr .pl.r{color:var(--red)} .psr .pl.n{color:var(--navy)}
+.bw{display:flex;align-items:center;gap:.8rem}
+.bw i{display:block;height:2.1rem;background:#b9b9b9}
+.bw i.r{background:var(--red)} .bw i.n{background:var(--navy)}
+.bw em{font-style:normal;font-size:1.8rem;font-weight:900;color:var(--mute);white-space:nowrap}
+.bw em.r{color:var(--red)} .bw em.n{color:var(--navy)}
+/* 成對長條 */
+.key2{display:flex;gap:2.5rem;font-size:1.6rem;font-weight:900;margin:-1.2rem 0 1rem}
+.key2 i{display:inline-block;width:1.3rem;height:1.3rem;margin-right:.5rem;vertical-align:-.1rem}
+.by{background:#9a9a9a} .ts{background:var(--navy)}
+.prs{display:flex;flex-direction:column;gap:1.1rem}
+.pr{display:grid;grid-template-columns:16rem 1fr;align-items:center;gap:1rem}
+.prl{font-size:1.75rem;font-weight:900;color:var(--ink)}
+.prb>div{display:flex;align-items:center;gap:.8rem;height:2rem;margin:.25rem 0}
+.prb i{display:block;height:100%;min-width:.5rem}
+.prb em{font-style:normal;font-size:1.6rem;font-weight:900;color:#6b6b6b;white-space:nowrap}
+.prb em.n{color:var(--navy)}
+/* 引言 */
+.qs blockquote{font-size:2.05rem;font-weight:700;line-height:1.45;color:var(--ink);margin:1rem 0 1.6rem}
+.qs cite{display:block;font-style:normal;font-size:1.35rem;color:var(--mute);margin-top:.4rem;font-weight:700}
+h3.n{color:var(--navy)} h3.rd{color:var(--red)}
+.rule.g{border-color:#9a9a9a}
+.two p strong{color:var(--ink);font-weight:900}
+
+/* 示意圖頁 */
+.diag h2{margin-bottom:.6rem}
+.diag .diagram svg{max-height:32.5rem;width:auto;max-width:100%;margin:0 auto}
+
+/* 營收→市值 動態圖 */
+#m2 h2{margin-bottom:1rem}
+.vkey{display:grid;grid-template-columns:11rem 1fr 7rem;font-size:1.4rem;font-weight:900;color:var(--mute);margin-bottom:.5rem}
+.vkey span:first-child{grid-column:2;display:inline}
+.vkey span{margin-right:2rem}
+.vkey{display:flex;padding-left:12rem}
+.vkey .xh{margin-left:auto;margin-right:0}
+.vkey i{display:inline-block;width:1.2rem;height:1.2rem;margin-right:.4rem;vertical-align:-.1rem}
+.k1{background:var(--ink)} .k2{background:#bdbdbd}
+.vs{display:flex;flex-direction:column;gap:.55rem}
+.vr{display:grid;grid-template-columns:11rem 1fr 7rem;align-items:center;gap:1rem}
+.vl{font-size:1.7rem;font-weight:900;color:var(--ink)}
+.vr.r .vl{color:var(--red)} .vr.n .vl{color:var(--navy)}
+.vb>div{display:flex;align-items:center;gap:.6rem}
+.rvb{height:1.1rem;margin-bottom:.2rem}
+.rvb i{display:block;height:100%;background:var(--ink);min-width:.3rem}
+.rvb em,.mcb em{font-style:normal;font-weight:900;white-space:nowrap}
+.rvb em{font-size:1.3rem;color:var(--txt)}
+.mcb{height:1.7rem}
+.mcb i{display:block;height:100%;width:0;background:#bdbdbd;transition:width 1.4s cubic-bezier(.2,.7,.2,1)}
+.vr.r .mcb i{background:var(--red)} .vr.n .mcb i{background:var(--navy)}
+.mcb em{font-size:1.5rem;color:var(--mute);opacity:0;transition:opacity .4s 1s}
+.vr.r .mcb em{color:var(--red)} .vr.n .mcb em{color:var(--navy)}
+.vx{font-size:2rem;font-weight:900;color:var(--ink);text-align:right;opacity:0;transition:opacity .5s}
+.vr.r .vx{color:var(--red)} .vr.n .vx{color:var(--navy)}
+#m2 .s1,#m2 .s2{opacity:0;transition:opacity .5s}
+#m2 .say{margin-top:1.2rem}
+#m2[data-st="1"] .mcb i,#m2[data-st="2"] .mcb i{width:var(--w)}
+#m2[data-st="1"] .mcb em,#m2[data-st="2"] .mcb em,#m2[data-st="1"] .s1,#m2[data-st="2"] .s1,#m2[data-st="2"] .s2,#m2[data-st="2"] .vx{opacity:1}
+@media print{#m2 .mcb i{width:var(--w)!important;transition:none} #m2 .mcb em,#m2 .vx,#m2 .s1,#m2 .s2{opacity:1!important;transition:none}}
+@media screen and (max-width:820px){#m2 .mcb i{width:var(--w)} #m2 .mcb em,#m2 .vx,#m2 .s1,#m2 .s2{opacity:1} .vr{grid-template-columns:7rem 1fr 4rem} .vkey{padding-left:0}}
 
 #bar{position:fixed;left:0;top:0;height:5px;background:var(--red);width:0;z-index:9;transition:width .3s}
 
@@ -108,6 +224,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   .pg{height:768px;break-after:page}
 }
 @media screen and (max-width:820px){
+  .eras,.gens,.mapwrap{grid-template-columns:1fr} .ar2{transform:rotate(90deg)}
   html{font-size:9px}
   .pg{height:auto;min-height:100svh;padding:5rem 16px 6rem}
   .two,.toc{grid-template-columns:1fr;gap:2rem}
@@ -126,29 +243,25 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
 <body>
 <div id="bar"></div>
 
-<!-- 1 封面 -->
 <section class="pg" id="p1" data-part="0">
   <h1>Tesla 與 SpaceX<br>最新發展</h1>
   <div class="sub">從賣產品，到賣服務</div>
+  <p class="credit">Starship 在 Starbase 發射台｜圖：Steve Jurvetson，CC BY 2.0</p>
   <div class="meta"><div><span>第三組</span><span>授課教授　龐大成</span><span>2026 年 11 月</span></div><div><span>楊政穎 c113183206</span><span>張天翰 c112142235</span><span>張翊詮 c113142234</span><span>蔡博彥 c113142225</span></div></div>
 </section>
 
-<!-- 2 目錄 -->
 <section class="pg" id="p2" data-part="0">
   <h2>報告架構</h2>
   <nav class="toc">
-    <a href="#p3" data-n="0"><h3>開場</h3><p>提出<br>問題</p></a>
-    <a href="#p4" data-n="1" class="key"><h3>Tesla</h3><p>從賣車<br>到收車資</p></a>
-    <a href="#p9" data-n="2" class="key"><h3>SpaceX</h3><p>從賣發射<br>到收網路費</p></a>
-    <a href="#p15" data-n="3"><h3>比較</h3><p>兩家的<br>共同點</p></a>
+    <a href="#p3" data-n="1" class="key"><h3>全景</h3><p>規模、據點<br>產品、比較</p></a>
+    <a href="#dT" data-n="2"><h3>Tesla</h3><p>從賣車<br>到收車資</p></a>
+    <a href="#dS" data-n="3"><h3>SpaceX</h3><p>從賣發射<br>到收網路費</p></a>
     <a href="#q1" data-n="4" class="key"><h3>疑問</h3><p>這個說法<br>的漏洞</p></a>
     <a href="#p17" data-n="5"><h3>未來</h3><p>和台灣<br>的關係</p></a>
     <a href="#p19" data-n="6"><h3>結論</h3><p>回答問題</p></a>
   </nav>
-  <p class="say" style="margin-top:3rem">主線：Tesla 和 SpaceX 都在從「賣產品」轉向「收服務費」。<br>先看事實，再看這個說法有哪些疑問。</p>
 </section>
 
-<!-- 3 問題 -->
 <section class="pg" id="p3" data-part="0">
   <div class="two">
     <div class="rule"><h3 style="font-size:3.2rem">Tesla<br>還是車廠嗎？</h3><p>汽車營收 <b>−3%</b><br>服務營收 <b>+33%</b></p></div>
@@ -157,7 +270,114 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <div class="src">2026 年第三季財報。來源：Tesla 8-K（SEC）；CNBC</div>
 </section>
 
-<!-- 4 Tesla 時間線 -->
+<section class="pg" id="m1" data-part="0">
+  <h2>據點大多在德州：Tesla 總部、星艦基地都在這</h2>
+  <div class="mapwrap">
+    <svg id="usmap" class="fig" viewBox="0 0 1000 560" role="img" aria-label="Tesla、SpaceX、xAI 在美國的主要據點地圖"></svg>
+    <div class="legend">
+      <p><i class="dot t"></i>Tesla</p>
+      <p><i class="dot s"></i>SpaceX</p>
+      <p><i class="dot x"></i>xAI</p>
+      <p class="ov">xAI 已併入 SpaceX<br><br>海外：Tesla<br>上海、柏林工廠</p>
+    </div>
+  </div>
+  <div class="src">據點：Tesla、SpaceX 官網與 Wikipedia「SpaceX facilities」；xAI Colossus 超級電腦位於田納西州孟菲斯</div>
+</section>
+
+<section class="pg" id="m2" data-part="0" data-steps="2" data-st="0">
+  <h2>賣得多的公司，市值就比較高嗎？<small>單位：美元，2026/11/13；營收為近 12 個月</small></h2>
+  <div class="vkey"><span><i class="k1"></i>營收</span><span class="s1"><i class="k2"></i>市值</span><span class="s2 xh">市值是營收的</span></div>
+  <div class="vs"><div class="vr g"><span class="vl">豐田</span><div class="vb">
+<div class="rvb"><i style="width:15.20%"></i><em>營收 3,339 億</em></div>
+<div class="mcb"><i style="--w:11.39%"></i><em>市值 2,502 億</em></div></div><span class="vx">0.75 倍</span></div><div class="vr g"><span class="vl">比亞迪</span><div class="vb">
+<div class="rvb"><i style="width:5.34%"></i><em>營收 1,174 億</em></div>
+<div class="mcb"><i style="--w:4.98%"></i><em>市值 1,093 億</em></div></div><span class="vx">0.93 倍</span></div><div class="vr n"><span class="vl">Tesla</span><div class="vb">
+<div class="rvb"><i style="width:4.72%"></i><em>營收 1,036 億</em></div>
+<div class="mcb"><i style="--w:70.20%"></i><em>市值 1.54 兆</em></div></div><span class="vx">15 倍</span></div><div class="vr g"><span class="vl">RTX 雷神</span><div class="vb">
+<div class="rvb"><i style="width:4.37%"></i><em>營收 960 億</em></div>
+<div class="mcb"><i style="--w:12.20%"></i><em>市值 2,680 億</em></div></div><span class="vx">2.8 倍</span></div><div class="vr g"><span class="vl">波音</span><div class="vb">
+<div class="rvb"><i style="width:4.26%"></i><em>營收 936 億</em></div>
+<div class="mcb"><i style="--w:6.19%"></i><em>市值 1,359 億</em></div></div><span class="vx">1.5 倍</span></div><div class="vr g"><span class="vl">洛克希德</span><div class="vb">
+<div class="rvb"><i style="width:3.60%"></i><em>營收 791 億</em></div>
+<div class="mcb"><i style="--w:6.27%"></i><em>市值 1,377 億</em></div></div><span class="vx">1.7 倍</span></div><div class="vr r"><span class="vl">SpaceX</span><div class="vb">
+<div class="rvb"><i style="width:1.46%"></i><em>營收 320 億</em></div>
+<div class="mcb"><i style="--w:86.00%"></i><em>市值 1.89 兆</em></div></div><span class="vx">59 倍</span></div></div>
+  <p class="say s2">豐田一年營收是 Tesla 的 3 倍，市值卻只有 Tesla 的 1/6。投資人買的是<b>未來</b>。</p>
+  <div class="src">市值與營收：companiesmarketcap.com、MarketBeat（2026/11/13 收盤，約略值）；SpaceX 營收含 xAI；倍數為本組計算。按方向鍵分三步顯示</div>
+</section>
+
+<section class="pg" id="m3" data-part="0">
+  <h2>Tesla：S、X 停產，Cybertruck 也要停</h2>
+  <div class="eras">
+    <div class="era"><div class="eh">過去：賣車</div>
+      <p><em>2008</em>Roadster</p><p><em>2012</em>Model S</p><p><em>2017</em>Model 3</p><p><em>2020</em>Model Y</p><p><em>2023</em>Cybertruck</p></div>
+    <div class="ar2">→</div>
+    <div class="era mid"><div class="eh">2026：轉型</div>
+      <p><em>5 月</em>Model S、X 停產</p><p><em>工廠</em>Fremont 改做機器人</p><p><em>2027</em>Cybertruck 停產</p></div>
+    <div class="ar2">→</div>
+    <div class="era fut"><div class="eh">未來：服務</div>
+      <p><em>車</em>Cybercab 無人計程車</p><p><em>人</em>Optimus 人形機器人</p><p><em>軟體</em>FSD 自駕訂閱</p></div>
+  </div>
+  <div class="src">來源：CNBC（2026/1/28，S/X 停產與 Fremont 改線）；Hagerty；Tesla 2026 Q3 8-K</div>
+</section>
+
+<section class="pg" id="m4" data-part="0">
+  <h2>SpaceX：2 月併入 xAI，6 月股票上市</h2>
+  <div class="eras">
+    <div class="era"><div class="eh">過去：賣發射</div>
+      <p><em>2008</em>Falcon 1 入軌</p><p><em>2010</em>Falcon 9 首飛</p><p><em>2015</em>首次回收火箭</p><p><em>2020</em>載人太空船</p></div>
+    <div class="ar2">→</div>
+    <div class="era mid"><div class="eh">現在：自己用火箭</div>
+      <p><em>2019</em>開始發射 Starlink</p><p><em>2 月</em>併入 xAI</p><p><em>6 月</em>上市，史上最大 IPO</p></div>
+    <div class="ar2">→</div>
+    <div class="era fut"><div class="eh">未來：Starship</div>
+      <p><em>試飛</em>已飛 15 次</p><p><em>2028</em>載人登月</p><p><em>更遠</em>火星貨運</p></div>
+  </div>
+  <div class="src">來源：Wikipedia「SpaceX」「List of Starship launches」；NBC News（2026/11/14）</div>
+</section>
+
+<section class="pg" id="mq" data-part="0">
+  <h2>Tesla 值在機器人，SpaceX 值在 AI</h2>
+  <div class="two qs">
+    <div class="rule"><h3 class="n">Tesla</h3>
+      <blockquote>「Tesla 大約 80% 的價值，會來自 Optimus 機器人。」<cite>馬斯克，X 貼文（2025/9）</cite></blockquote>
+      <blockquote>目標價 415 美元裡，賣車業務只值 <b>45 美元</b>。<cite>Morgan Stanley 報告（2026/4）</cite></blockquote></div>
+    <div class="rule r"><h3 class="rd">SpaceX</h3>
+      <blockquote>「Starlink 已經變成 SpaceX 下一個大計畫的提款機。」<cite>Quilty Space 研究總監 Caleb Henry（2026/6）</cite></blockquote>
+      <blockquote>「這是穿著火箭裝的 <b>AI 估值</b>。」<cite>Frost &amp; Sullivan 分析師（2026/6）</cite></blockquote></div>
+  </div>
+  <div class="src">來源：Axios（2025/9/2）；TheStreet／Yahoo Finance（2026/4/25）；Via Satellite「Assessing SpaceX Finances」（2026/6/3）。引言為本組翻譯</div>
+</section>
+
+<section class="pg" id="p16" data-part="0">
+  <h2>兩家財報比較：Tesla 停滯，SpaceX 快速成長<small>2026 年第三季</small></h2>
+  <table>
+    <thead><tr><th></th><th>Tesla</th><th>SpaceX</th></tr></thead>
+    <tbody>
+      <tr><td>營收</td><td>280 億</td><td>146 億</td></tr>
+      <tr><td>營收年增</td><td class="r">0%</td><td class="n">+161%</td></tr>
+      <tr><td>淨利</td><td>8 億</td><td class="n">44 億</td></tr>
+      <tr><td>訂閱用戶</td><td>FSD 174 萬</td><td>Starlink 1,360 萬</td></tr>
+      <tr><td>市值</td><td>1.54 兆</td><td>1.89 兆</td></tr>
+    </tbody>
+  </table>
+  <p class="say">兩家正在談合併，價格和控制權<b>還沒談定</b>（Bloomberg，11/12）。</p>
+  <div class="src">單位：美元。市值：2026/11/13 收盤。來源：Tesla 8-K、SpaceX 10-Q（SEC）、MarketBeat、Electrek（2026/11/12）</div>
+</section>
+
+<section class="pg" id="p15" data-part="0">
+  <h2>共同點：從賣產品，轉向收服務費</h2>
+  <div class="chain"><div class="who" style="color:var(--navy)">Tesla</div><div class="s">汽車</div><div class="ar">→</div><div class="s">自動駕駛</div><div class="ar">→</div><div class="s end">每趟收費</div></div>
+  <div class="chain"><div class="who" style="color:var(--red)">SpaceX</div><div class="s">火箭</div><div class="ar">→</div><div class="s">回收再飛</div><div class="ar">→</div><div class="s end">每月收費</div></div>
+  <p class="say">車和火箭都重複使用；用的人越多，每人分攤的成本越低。</p>
+</section>
+
+<section class="pg dv" id="dT" data-part="1" style="background-image:url(img/cybercab.jpg)">
+  <div class="kick">第二部分　TESLA</div>
+  <h2>賣了 20 年的車，<br>現在想收車資</h2>
+  <p class="credit">Tesla Cybercab｜圖：Dllu，CC BY-SA 4.0</p>
+</section>
+
 <section class="pg" id="p4" data-part="1">
   <h2>Tesla 今年的重點：無人計程車（Robotaxi）</h2>
   <div class="tl">
@@ -169,7 +389,6 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <div class="src">來源：Tesla 2026 Q3 8-K；Teslarati、Not a Tesla App（2026/11/11）</div>
 </section>
 
-<!-- 5 Cybercab -->
 <section class="pg" id="p5" data-part="1">
   <h2>Cybercab：專當無人計程車，不賣給一般人</h2>
   <svg class="fig" viewBox="0 0 1200 330" role="img" aria-label="賣車只收一次錢，車隊每趟都收錢">
@@ -188,7 +407,17 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <div class="src">示意圖，非實際數據。來源：Wikipedia「Tesla Cybercab」</div>
 </section>
 
-<!-- 6 Cybertruck -->
+<section class="pg" id="t1" data-part="1">
+  <h2>技術：Cybercab 怎麼把成本壓低？</h2>
+  <div class="two" style="grid-template-columns:1fr 1fr;gap:2.4rem 4rem">
+    <div class="rule"><h3>只有 2 個座位</h3><p>大部分叫車只載 1–2 人，車可以做小、做輕</p></div>
+    <div class="rule"><h3>電池較小</h3><p>報導約 35 kWh，只跑市區，電池最貴的部分省下來</p></div>
+    <div class="rule"><h3>無線充電</h3><p>停到充電板上就充，不需要人插充電槍</p></div>
+    <div class="rule r"><h3>「拆箱式」組裝</h3><p>前段、後段、底盤、內裝分開同時組裝，最後再合體</p></div>
+  </div>
+  <div class="src">來源：Tesla 2024 發表會；Cybercab 規格整理（Tesorb）。電池容量為媒體報導，Tesla 未正式公布</div>
+</section>
+
 <section class="pg" id="p6" data-part="1">
   <h2>Cybertruck 會停產，但從 2027 年中延到夏末<small>停產是為了把產線改做 Cybercab</small></h2>
   <svg class="fig" viewBox="0 0 1200 250" role="img" aria-label="Cybertruck 停產時間由 2027 年 6–7 月延到夏末">
@@ -205,7 +434,29 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <div class="src">示意時間軸。來源：Teslarati、EVXL（2026/11/11–12）</div>
 </section>
 
-<!-- 7 FSD -->
+<section class="pg" id="t2" data-part="1">
+  <h2>技術：為什麼說 Cybertruck「太複雜」？</h2>
+  <div class="two" style="grid-template-columns:1fr 1fr 1fr;gap:3rem">
+    <div class="rule"><h3>不鏽鋼車殼</h3><p>鋼板太硬，不能像一般車殼沖壓成曲面，只能折成平面</p></div>
+    <div class="rule"><h3>線控轉向</h3><p>方向盤和車輪之間沒有機械連桿，全靠電子訊號</p></div>
+    <div class="rule"><h3>48V 電系</h3><p>一般車用 12V；電壓提高，電線可以變細，但零件都要重新設計</p></div>
+  </div>
+  <p class="say">新技術越多，產線越慢。同一塊廠房拿去做 Cybercab，<b>更划算</b>。</p>
+  <div class="src">來源：Tesla Cybertruck 官方規格；Wikipedia「Tesla Cybertruck」</div>
+</section>
+
+<section class="pg" id="t3" data-part="1">
+  <h2>工廠也在轉型：車的產線改做機器人</h2>
+  <div class="tl">
+    <div><div class="d">2026/1</div><p>宣布 Model S、X 停產</p></div>
+    <div><div class="d">5 月</div><p>最後一台 S/X 下線</p></div>
+    <div class="hot"><div class="d">之後</div><p>Fremont 產線改做<br>Optimus 機器人</p></div>
+    <div class="hot"><div class="d">10 月</div><p>Optimus<br>開始試產</p></div>
+  </div>
+  <p class="say" style="margin-top:3rem">馬斯克的目標：這條線每年做 <b>100 萬台</b>機器人。</p>
+  <div class="src">來源：CNBC（2026/1/28）；Hagerty；Fortune（2026/11/14）。100 萬台是目標，目前仍在試產</div>
+</section>
+
 <section class="pg" id="p7" data-part="1">
   <h2>Tesla 自動駕駛（FSD）獲芬蘭核准</h2>
   <div class="nums">
@@ -217,7 +468,6 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <div class="src">來源：Drive Tesla Canada、Tesla Oracle（2026/11/11）</div>
 </section>
 
-<!-- 8 Tesla 帳本 -->
 <section class="pg" id="p8" data-part="1">
   <h2>Tesla 財報：營收沒成長，利潤變薄，投資加倍<small>2026 年第三季，和去年同期比</small></h2>
   <div class="nums">
@@ -229,8 +479,36 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <div class="src">來源：Tesla 2026 Q3 8-K（SEC）。營收 280.5 億美元；FSD 訂閱 174 萬；資本支出 47.3 億美元</div>
 </section>
 
-<!-- 9 SpaceX 部門 -->
-<section class="pg" id="p9" data-part="2">
+<section class="pg" id="b1" data-part="1">
+  <h2>比亞迪賣得多、賺得多，市值只有 Tesla 的 1/14</h2>
+  <div class="key2"><span><i class="by"></i>比亞迪</span><span><i class="ts"></i>Tesla</span></div>
+  <div class="prs"><div class="pr"><div class="prl">2025 全年純電車</div><div class="prb"><div><i class="by" style="width:78.0%"></i><em>225.5 萬輛</em></div><div><i class="ts" style="width:56.6%"></i><em class="n">163.6 萬輛</em></div></div></div><div class="pr"><div class="prl">2026 第 3 季純電車</div><div class="prb"><div><i class="by" style="width:78.0%"></i><em>76.2 萬輛</em></div><div><i class="ts" style="width:49.9%"></i><em class="n">48.7 萬輛</em></div></div></div><div class="pr"><div class="prl">2026 第 3 季淨利</div><div class="prb"><div><i class="by" style="width:78.0%"></i><em>14.1 億美元</em></div><div><i class="ts" style="width:43.7%"></i><em class="n">7.9 億美元</em></div></div></div><div class="pr"><div class="prl">市值</div><div class="prb"><div><i class="by" style="width:5.5%"></i><em>1,090 億美元</em></div><div><i class="ts" style="width:78.0%"></i><em class="n">15,420 億美元</em></div></div></div></div>
+  <div class="src">來源：Electrek（2026/1/2、10/29）；CnEVPost（2026/10/2）；Tesla 8-K；companiesmarketcap（2026/11/13）。比亞迪只算純電，不含插電混合；淨利以 1 美元＝7.1 人民幣換算</div>
+</section>
+
+<section class="pg" id="b2" data-part="1">
+  <h2>比亞迪拚充電，Tesla 拚自駕和 AI</h2>
+  <div class="two">
+    <div class="rule g"><h3>比亞迪</h3>
+      <p><strong>充電 5 分鐘</strong>：電量 10% → 70%（1,500 kW 閃充，中國已有 1 萬座）</p>
+      <p><strong>自己做</strong>：電池、晶片、馬達全包</p>
+      <p><strong>研發費</strong>：今年前 9 月 <b>−17%</b></p></div>
+    <div class="rule"><h3 class="n">Tesla</h3>
+      <p><strong>自動駕駛</strong>：FSD 訂閱 174 萬人</p>
+      <p><strong>自己做</strong>：AI 晶片、訓練用的超級電腦</p>
+      <p><strong>研發費</strong>：第 3 季 <b>+69%</b></p></div>
+  </div>
+  <p class="say">比亞迪的成長靠出口：第 3 季出口 +137%，國內銷量今年 −28%。</p>
+  <div class="src">來源：CarNewsChina（2026/3/5，刀片電池 2.0）；EV Infrastructure News（2026/8）；Electrek（2026/10/29）；Tesla Q3 財報（2026/10/21）；CnEVPost（2026/11/1）</div>
+</section>
+
+<section class="pg dv" id="dS" data-part="2" style="background-image:url(img/booster-catch.jpg)">
+  <div class="kick">第三部分　SPACEX</div>
+  <h2>火箭飛回來，<br>被發射塔接住</h2>
+  <p class="credit">Super Heavy 助推器返回並被發射塔夾住（Flight 5）｜圖：Steve Jurvetson，CC BY 2.0</p>
+</section>
+
+<section class="pg dark" id="p9" data-part="2">
   <h2>SpaceX 三個部門裡，最賺錢的是 Starlink<small>2026 年第三季，單位：億美元</small></h2>
   <svg class="fig" viewBox="0 0 1200 330" role="img" aria-label="SpaceX 各部門營收與營業利益">
     <g font-size="34" fill="#111">
@@ -247,8 +525,117 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <div class="src">灰色＝營收，紅色＝營業利益。AI 部門來自 2026 年 2 月併入的 xAI。來源：CNBC（2026/10/20）</div>
 </section>
 
-<!-- 10 Flight 15 -->
-<section class="pg" id="p10" data-part="2">
+<section class="pg diag" id="s1" data-part="2">
+  <h2>15 次試飛：接住助推器 3 次，接住星艦 1 次</h2>
+  <div class="diagram diagram-starship-profile">
+<svg viewBox="0 46 1200 554" width="100%" role="img" aria-labelledby="spx-prof-title" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans TC',sans-serif;font-weight:700;display:block">
+<title id="spx-prof-title">Starship 一次試飛的飛行流程，以及 Flight 1 到 15 助推器與星艦的結果</title>
+<!-- ground: Earth curve, Starbase land at left, sea elsewhere -->
+<path d="M0,345 Q600,295 1200,345 L1200,352 L0,352 Z" fill="#1B3A6B" fill-opacity="0.12"/>
+<path d="M0,345 Q600,295 1200,345" fill="none" stroke="#1B3A6B" stroke-width="3"/>
+<path d="M0,345 Q60,339 160,331 L160,352 L0,352 Z" fill="#ddd"/>
+<!-- tower -->
+<rect x="92" y="222" width="12" height="112" fill="#111"/>
+<path d="M104,250 h26 M104,262 h26" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+<g transform="translate(140,286) rotate(0) scale(0.9)"><rect x="-8" y="-32" width="16" height="64" rx="2" fill="#1B3A6B"/><path d="M-8,-28 h-5 v6 h5 M8,-28 h5 v6 h-5" fill="#1B3A6B" stroke="#1B3A6B" stroke-width="2"/></g>
+<!-- ascent (full stack) -->
+<path d="M150,250 C155,200 210,160 300,140" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+<!-- ship trajectory -->
+<path d="M300,140 C450,60 600,55 700,70 C850,92 900,120 960,165 C1020,212 1060,270 1080,326" fill="none" stroke="#C8102E" stroke-width="5" stroke-dasharray="14 9" stroke-linecap="round"/>
+<!-- booster trajectory: coast, flip, boostback, return -->
+<path d="M300,140 C340,128 365,148 352,178 C335,222 230,250 150,262" fill="none" stroke="#1B3A6B" stroke-width="5" stroke-dasharray="10 8" stroke-linecap="round"/>
+<path d="M222,248 Q242,288 250,318" fill="none" stroke="#1B3A6B" stroke-width="3.5" stroke-dasharray="4 7" stroke-linecap="round"/>
+<path d="M232,322 q9,-10 18,0 t18,0" fill="none" stroke="#1B3A6B" stroke-width="4" stroke-linecap="round"/>
+<path d="M1062,331 q9,-10 18,0 t18,0" fill="none" stroke="#C8102E" stroke-width="4" stroke-linecap="round"/>
+<!-- vehicles -->
+<g transform="translate(645,62) rotate(92) scale(0.9)"><path d="M0,-30 C6,-25 7,-17 7,-11 L7,22 L12,30 L-12,30 L-7,22 L-7,-11 C-7,-17 -6,-25 0,-30 Z" fill="#C8102E"/><path d="M-7,-14 L-11,-6 L-7,-6 M7,-14 L11,-6 L7,-6" fill="#C8102E" stroke="#C8102E" stroke-width="2"/></g>
+<g transform="translate(965,170) rotate(140) scale(0.9)"><path d="M0,-30 C6,-25 7,-17 7,-11 L7,22 L12,30 L-12,30 L-7,22 L-7,-11 C-7,-17 -6,-25 0,-30 Z" fill="#C8102E"/><path d="M-7,-14 L-11,-6 L-7,-6 M7,-14 L11,-6 L7,-6" fill="#C8102E" stroke="#C8102E" stroke-width="2"/></g>
+<path d="M985,186 q8,16 -6,30 M997,176 q12,18 2,36" fill="none" stroke="#C8102E" stroke-opacity="0.45" stroke-width="5" stroke-linecap="round"/>
+<circle cx="300" cy="140" r="9" fill="#fff" stroke="#111" stroke-width="4"/>
+<circle cx="352" cy="178" r="7" fill="#fff" stroke="#1B3A6B" stroke-width="4"/>
+
+<g font-size="24" fill="#111" paint-order="stroke" stroke="#fff" stroke-width="7" stroke-linejoin="round">
+
+
+<text x="20" y="208">Starbase</text>
+<text x="330" y="112" text-anchor="end">① 熱分離 T+2:39</text>
+<text x="375" y="190" fill="#1B3A6B">② 助推器掉頭返航</text>
+<text x="375" y="218" fill="#1B3A6B">T+2:49</text>
+<text x="280" y="268" fill="#1B3A6B">③ 塔架夾住 或 墨西哥灣落海</text>
+<text x="280" y="296" fill="#1B3A6B">T+約6.5分</text>
+<text x="640" y="110" text-anchor="middle" fill="#C8102E">④ 星艦進入太空 T+9分</text>
+<text x="935" y="208" text-anchor="end" fill="#C8102E">⑤ 再入大氣：隔熱瓦擋高溫</text>
+<text x="935" y="236" text-anchor="end" fill="#C8102E">T+48分</text>
+<text x="1045" y="280" text-anchor="end" fill="#C8102E">⑥ 印度洋濺落 T+1:06</text>
+<text x="1045" y="308" text-anchor="end" fill="#C8102E">或 飛回塔架夾住（F15）</text>
+</g>
+
+<line x1="20" y1="362" x2="1180" y2="362" stroke="#ddd" stroke-width="2"/>
+<rect x="1068" y="414" width="60" height="150" rx="10" fill="#C8102E" fill-opacity="0.1"/>
+<rect x="201" y="374" width="368" height="32" rx="6" fill="#888"/><text x="385.0" y="398" text-anchor="middle" font-size="22" fill="#fff">V1</text>
+<rect x="573" y="374" width="306" height="32" rx="6" fill="#1B3A6B"/><text x="726.0" y="398" text-anchor="middle" font-size="22" fill="#fff">V2</text>
+<rect x="883" y="374" width="244" height="32" rx="6" fill="#C8102E"/><text x="1005.0" y="398" text-anchor="middle" font-size="22" fill="#fff">V3</text>
+<g font-size="24" fill="#111"><text x="20" y="398" font-size="22" fill="#888">版本</text><text x="20" y="448">飛行</text><text x="20" y="490" fill="#1B3A6B">助推器</text><text x="20" y="544" fill="#C8102E">星艦</text></g>
+<text x="230" y="448" text-anchor="middle" font-size="24" fill="#111">1</text>
+<circle cx="230" cy="482" r="19" fill="#888"/><path d="M223.0,475.0 l14.0,14.0 m0,-14.0 l-14.0,14.0" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<circle cx="230" cy="536" r="19" fill="#888"/><path d="M223.0,529.0 l14.0,14.0 m0,-14.0 l-14.0,14.0" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<text x="292" y="448" text-anchor="middle" font-size="24" fill="#111">2</text>
+<circle cx="292" cy="482" r="19" fill="#888"/><path d="M285.0,475.0 l14.0,14.0 m0,-14.0 l-14.0,14.0" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<circle cx="292" cy="536" r="19" fill="#888"/><path d="M285.0,529.0 l14.0,14.0 m0,-14.0 l-14.0,14.0" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<text x="354" y="448" text-anchor="middle" font-size="24" fill="#111">3</text>
+<circle cx="354" cy="482" r="19" fill="#888"/><path d="M347.0,475.0 l14.0,14.0 m0,-14.0 l-14.0,14.0" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<circle cx="354" cy="536" r="19" fill="#888"/><path d="M347.0,529.0 l14.0,14.0 m0,-14.0 l-14.0,14.0" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<text x="416" y="448" text-anchor="middle" font-size="24" fill="#111">4</text>
+<circle cx="416" cy="482" r="19" fill="#1B3A6B"/><path d="M406.0,484 q5.0,-7 10.0,0 t10.0,0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<circle cx="416" cy="536" r="19" fill="#1B3A6B"/><path d="M406.0,538 q5.0,-7 10.0,0 t10.0,0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<text x="478" y="448" text-anchor="middle" font-size="24" fill="#111">5</text>
+<circle cx="478" cy="482" r="19" fill="#C8102E"/><path d="M470.0,482 l6.0,7.0 l11.0,-14.0" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="478" cy="536" r="19" fill="#1B3A6B"/><path d="M468.0,538 q5.0,-7 10.0,0 t10.0,0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<text x="540" y="448" text-anchor="middle" font-size="24" fill="#111">6</text>
+<circle cx="540" cy="482" r="17.5" fill="#fff" stroke="#1B3A6B" stroke-width="3"/><path d="M530.0,484 q5.0,-7 10.0,0 t10.0,0" fill="none" stroke="#1B3A6B" stroke-width="3.5" stroke-linecap="round"/>
+<circle cx="540" cy="536" r="19" fill="#1B3A6B"/><path d="M530.0,538 q5.0,-7 10.0,0 t10.0,0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<text x="602" y="448" text-anchor="middle" font-size="24" fill="#111">7</text>
+<circle cx="602" cy="482" r="19" fill="#C8102E"/><path d="M594.0,482 l6.0,7.0 l11.0,-14.0" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="602" cy="536" r="19" fill="#888"/><path d="M595.0,529.0 l14.0,14.0 m0,-14.0 l-14.0,14.0" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<text x="664" y="448" text-anchor="middle" font-size="24" fill="#111">8</text>
+<circle cx="664" cy="482" r="19" fill="#C8102E"/><path d="M656.0,482 l6.0,7.0 l11.0,-14.0" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="664" cy="536" r="19" fill="#888"/><path d="M657.0,529.0 l14.0,14.0 m0,-14.0 l-14.0,14.0" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<text x="726" y="448" text-anchor="middle" font-size="24" fill="#111">9</text>
+<circle cx="726" cy="482" r="19" fill="#888"/><path d="M719.0,475.0 l14.0,14.0 m0,-14.0 l-14.0,14.0" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<circle cx="726" cy="536" r="19" fill="#888"/><path d="M719.0,529.0 l14.0,14.0 m0,-14.0 l-14.0,14.0" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<text x="788" y="448" text-anchor="middle" font-size="24" fill="#111">10</text>
+<circle cx="788" cy="482" r="19" fill="#1B3A6B"/><path d="M778.0,484 q5.0,-7 10.0,0 t10.0,0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<circle cx="788" cy="536" r="19" fill="#1B3A6B"/><path d="M778.0,538 q5.0,-7 10.0,0 t10.0,0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<text x="850" y="448" text-anchor="middle" font-size="24" fill="#111">11</text>
+<circle cx="850" cy="482" r="19" fill="#1B3A6B"/><path d="M840.0,484 q5.0,-7 10.0,0 t10.0,0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<circle cx="850" cy="536" r="19" fill="#1B3A6B"/><path d="M840.0,538 q5.0,-7 10.0,0 t10.0,0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<text x="912" y="448" text-anchor="middle" font-size="24" fill="#111">12</text>
+<circle cx="912" cy="482" r="19" fill="#888"/><path d="M905.0,475.0 l14.0,14.0 m0,-14.0 l-14.0,14.0" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<circle cx="912" cy="536" r="19" fill="#1B3A6B"/><path d="M902.0,538 q5.0,-7 10.0,0 t10.0,0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<text x="974" y="448" text-anchor="middle" font-size="24" fill="#111">13</text>
+<circle cx="974" cy="482" r="19" fill="#888"/><path d="M967.0,475.0 l14.0,14.0 m0,-14.0 l-14.0,14.0" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<circle cx="974" cy="536" r="19" fill="#1B3A6B"/><path d="M964.0,538 q5.0,-7 10.0,0 t10.0,0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<text x="1036" y="448" text-anchor="middle" font-size="24" fill="#111">14</text>
+<circle cx="1036" cy="482" r="19" fill="#1B3A6B"/><path d="M1026.0,484 q5.0,-7 10.0,0 t10.0,0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<circle cx="1036" cy="536" r="19" fill="#1B3A6B"/><path d="M1026.0,538 q5.0,-7 10.0,0 t10.0,0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<text x="1098" y="448" text-anchor="middle" font-size="24" fill="#111">15</text>
+<circle cx="1098" cy="482" r="17.5" fill="#fff" stroke="#1B3A6B" stroke-width="3"/><path d="M1088.0,484 q5.0,-7 10.0,0 t10.0,0" fill="none" stroke="#1B3A6B" stroke-width="3.5" stroke-linecap="round"/>
+<circle cx="1098" cy="536" r="19" fill="#C8102E"/><path d="M1090.0,536 l6.0,7.0 l11.0,-14.0" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="200" cy="580" r="12" fill="#C8102E"/><path d="M194.94736842105263,580 l3.789473684210526,4.421052631578948 l6.947368421052632,-8.842105263157896" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="220" y="588" font-size="22" fill="#111">塔架夾住</text>
+<circle cx="380" cy="580" r="12" fill="#1B3A6B"/><path d="M373.6842105263158,582 q3.1578947368421053,-7 6.315789473684211,0 t6.315789473684211,0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<text x="400" y="588" font-size="22" fill="#111">按計畫落海</text>
+<circle cx="590" cy="580" r="10.5" fill="#fff" stroke="#1B3A6B" stroke-width="3"/><path d="M583.6842105263158,582 q3.1578947368421053,-7 6.315789473684211,0 t6.315789473684211,0" fill="none" stroke="#1B3A6B" stroke-width="3.5" stroke-linecap="round"/>
+<text x="610" y="588" font-size="22" fill="#111">夾取中止→改落海</text>
+<circle cx="850" cy="580" r="12" fill="#888"/><path d="M845.578947368421,575.578947368421 l8.842105263157896,8.842105263157896 m0,-8.842105263157896 l-8.842105263157896,8.842105263157896" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+<text x="870" y="588" font-size="22" fill="#111">失敗/損毀</text>
+</svg>
+</div>
+
+  <div class="src">飛行時間以 Flight 11（2025/10/13）為例。Flight 15 助推器：自行中止夾取、改飛離岸，落海或空中爆炸說法不一。來源：Wikipedia「List of Starship launches」；Spaceflight Now；NASASpaceflight（2026/11/14）</div>
+</section>
+
+<section class="pg dark" id="p10" data-part="2">
   <h2>Starship 試飛：飛船回收成功，助推器失敗</h2>
   <div class="two" style="grid-template-columns:1fr 1fr 1fr;gap:3rem">
     <div class="rule"><h3>升空、分離</h3><p>11/13 發射<br>兩節正常分開</p></div>
@@ -258,34 +645,87 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <div class="src">來源：NBC News、Space.com（2026/11/13–14）</div>
 </section>
 
-<!-- 11 重複使用 -->
-<section class="pg" id="p11" data-part="2">
-  <h2>為什麼要回收火箭？重複使用，發射才便宜<small>每次發射要付的錢（示意）</small></h2>
-  <svg class="fig" viewBox="0 0 1200 300" role="img" aria-label="越多部分能回收，每次發射成本越低">
-    <g font-size="32" fill="#111">
-      <text x="0" y="58">全部丟掉</text><text x="0" y="158">回收一節</text><text x="0" y="258">兩節都回收</text></g>
-    <rect x="240" y="22" width="900" height="54" fill="#C8102E"/>
-    <rect x="240" y="122" width="420" height="54" fill="#C8102E"/><rect x="660" y="122" width="90" height="54" fill="#1B3A6B"/>
-    <rect x="240" y="222" width="120" height="54" fill="#1B3A6B"/>
-    <text x="380" y="260" font-size="30" fill="#1B3A6B">只剩燃料、檢修</text>
-  </svg>
-  <div class="src">紅色＝造新火箭，藍色＝燃料與檢修。長度只表示概念，不是實際金額</div>
-</section>
-
-<!-- 12 Artemis -->
-<section class="pg" id="p12" data-part="2">
-  <h2>Starship 也是 NASA 的登月艙<small>預計 2028 年載人登月</small></h2>
-  <div class="tl">
-    <div><div class="d">登月前</div><p>軌道加油<br>無人登月</p></div>
-    <div><div class="d">2027</div><p>Artemis III<br>地球軌道對接演練</p></div>
-    <div class="hot"><div class="d">2028</div><p>Artemis IV<br>載人登月</p></div>
+<section class="pg dark" id="p11" data-part="2">
+  <h2>技術：Starship 怎麼做到重複使用？</h2>
+  <div class="two" style="grid-template-columns:1fr 1fr 1fr;gap:3rem">
+    <div class="rule"><h3>用發射塔接住</h3><p>不裝著陸腳，火箭少了重量，就能多載貨</p></div>
+    <div class="rule"><h3>不鏽鋼船身</h3><p>耐高溫、便宜、好焊接，比碳纖維更適合大量製造</p></div>
+    <div class="rule"><h3>甲烷引擎</h3><p>燃燒後積碳少，引擎清理簡單，比較好重複使用</p></div>
   </div>
-  <p class="say" style="margin-top:3rem">對手也在場：Blue Origin 的登月艙一起演練。</p>
-  <div class="src">來源：NBC News（2026/11/14）；Universe Today；Wikipedia「Artemis III」</div>
+  <p class="say">火箭能像飛機一樣加油再飛，每次發射只剩燃料和檢修的錢。</p>
+  <div class="src">來源：SpaceX 官網 Starship 介紹；Wikipedia「SpaceX Starship」「SpaceX Raptor」</div>
 </section>
 
-<!-- 13 Starlink -->
-<section class="pg" id="p13" data-part="2">
+<section class="pg diag" id="p12" data-part="2">
+  <h2>登月前，要先在太空加油 6～22 趟</h2>
+  <div class="diagram diagram-artemis">
+<svg viewBox="0 60 1200 550" width="100%" role="img" aria-labelledby="art-arch-title" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans TC',sans-serif;font-weight:700;display:block">
+<title id="art-arch-title">Artemis 用 Starship 登月的流程，與 Artemis II 到 V 的時程</title>
+<!-- Earth + low Earth orbit -->
+<circle cx="120" cy="320" r="135" fill="none" stroke="#888" stroke-width="3" stroke-dasharray="8 8"/>
+<circle cx="120" cy="320" r="90" fill="#1B3A6B"/>
+<!-- Moon + lunar orbit -->
+<ellipse cx="1070" cy="230" rx="108" ry="96" fill="none" stroke="#888" stroke-width="3" stroke-dasharray="8 8"/>
+<circle cx="1070" cy="230" r="66" fill="#ddd" stroke="#888" stroke-width="3"/>
+<circle cx="1048" cy="250" r="10" fill="#888" fill-opacity="0.35"/><circle cx="1092" cy="262" r="7" fill="#888" fill-opacity="0.35"/>
+<!-- outbound and return trajectories -->
+<path d="M282,305 Q640,30 965,212" fill="none" stroke="#C8102E" stroke-width="5" stroke-dasharray="14 9" stroke-linecap="round"/>
+<path d="M992,300 Q620,470 212,432" fill="none" stroke="#111" stroke-width="4" stroke-dasharray="10 8" stroke-linecap="round"/>
+<path d="M206,431 l18,-8 l-3,16 z" fill="#111"/>
+<!-- tanker flights converging on depot along LEO -->
+<path d="M27,187 A162,162 0 0 1 228,200" fill="none" stroke="#C8102E" stroke-width="4" stroke-dasharray="6 7" stroke-linecap="round"/>
+
+<g transform="translate(59,170) rotate(68) scale(0.85)"><path d="M0,-30 C6,-25 7,-17 7,-11 L7,22 L12,30 L-12,30 L-7,22 L-7,-11 C-7,-17 -6,-25 0,-30 Z" fill="#C8102E" stroke="none" stroke-width="3" stroke-linejoin="round"/></g>
+<g transform="translate(131,158) rotate(94) scale(0.85)"><path d="M0,-30 C6,-25 7,-17 7,-11 L7,22 L12,30 L-12,30 L-7,22 L-7,-11 C-7,-17 -6,-25 0,-30 Z" fill="#C8102E" stroke="none" stroke-width="3" stroke-linejoin="round"/></g>
+<g transform="translate(201,180) rotate(120) scale(0.85)"><path d="M0,-30 C6,-25 7,-17 7,-11 L7,22 L12,30 L-12,30 L-7,22 L-7,-11 C-7,-17 -6,-25 0,-30 Z" fill="#C8102E" stroke="none" stroke-width="3" stroke-linejoin="round"/></g>
+<g transform="translate(231,243) rotate(55)"><rect x="-12" y="-40" width="24" height="80" rx="10" fill="#fff" stroke="#C8102E" stroke-width="4"/><path d="M-12,-13 h24 M-12,13 h24" stroke="#C8102E" stroke-width="3"/></g>
+<g transform="translate(255,325) rotate(58) scale(1.05)"><path d="M0,-30 C6,-25 7,-17 7,-11 L7,22 L12,30 L-12,30 L-7,22 L-7,-11 C-7,-17 -6,-25 0,-30 Z" fill="#fff" stroke="#111" stroke-width="3" stroke-linejoin="round"/></g>
+<g transform="translate(290,303) rotate(58) scale(1.0)"><path d="M-5,-14 L5,-14 L11,0 L-11,0 Z" fill="#111"/><rect x="-9" y="1" width="18" height="12" fill="#888"/><path d="M9,5 h12 M-9,5 h-12" stroke="#888" stroke-width="4"/></g>
+<g transform="translate(630,163) rotate(82) scale(0.9)"><path d="M0,-30 C6,-25 7,-17 7,-11 L7,22 L12,30 L-12,30 L-7,22 L-7,-11 C-7,-17 -6,-25 0,-30 Z" fill="#fff" stroke="#111" stroke-width="3" stroke-linejoin="round"/></g>
+<g transform="translate(662,159) rotate(82) scale(0.85)"><path d="M-5,-14 L5,-14 L11,0 L-11,0 Z" fill="#111"/><rect x="-9" y="1" width="18" height="12" fill="#888"/><path d="M9,5 h12 M-9,5 h-12" stroke="#888" stroke-width="4"/></g>
+<g transform="translate(1070,138) rotate(0) scale(0.9)"><path d="M0,-30 C6,-25 7,-17 7,-11 L7,22 L12,30 L-12,30 L-7,22 L-7,-11 C-7,-17 -6,-25 0,-30 Z" fill="#fff" stroke="#111" stroke-width="3" stroke-linejoin="round"/></g>
+<g transform="translate(962,230) rotate(-90) scale(0.9)"><path d="M-5,-14 L5,-14 L11,0 L-11,0 Z" fill="#111"/><rect x="-9" y="1" width="18" height="12" fill="#888"/><path d="M9,5 h12 M-9,5 h-12" stroke="#888" stroke-width="4"/></g>
+<g font-size="24" fill="#111" paint-order="stroke" stroke="#fff" stroke-width="7" stroke-linejoin="round">
+
+<text x="20" y="80" fill="#C8102E">① 加油船一趟趟發射，</text>
+<text x="20" y="108" fill="#C8102E">灌滿軌道上的「燃料庫」</text>
+<text x="20" y="136" fill="#C8102E">估計要 6～22 趟</text>
+<text x="292" y="336">② 登月船 HLS 加滿燃料</text>
+<text x="292" y="370">③ SLS 送 Orion（4 人）上來，</text>
+<text x="292" y="398">在地球軌道對接</text>
+<text x="640" y="104" text-anchor="middle" fill="#C8102E">④ HLS 推著 Orion 飛向月球</text>
+<text x="1070" y="360" text-anchor="middle">⑤ 2 人搭 HLS 登陸月面</text>
+<text x="1070" y="388" text-anchor="middle">Orion 留在月球軌道</text>
+<text x="640" y="470" text-anchor="middle">⑥ 回到 Orion → 返回地球</text>
+<text x="1180" y="430" text-anchor="end" font-size="22" fill="#888">原計畫：在月球 NRHO 軌道會合</text>
+<text x="120" y="328" text-anchor="middle" fill="#fff" stroke="none">地球</text>
+<text x="1070" y="246" text-anchor="middle" stroke="none">月球</text>
+</g>
+
+<line x1="40" y1="525" x2="1160" y2="525" stroke="#ddd" stroke-width="5" stroke-linecap="round"/>
+<circle cx="170" cy="525" r="11" fill="#1B3A6B" stroke="#1B3A6B" stroke-width="4"/>
+<text x="170" y="509" text-anchor="middle" font-size="26" fill="#1B3A6B">Artemis II</text>
+<text x="170" y="566" text-anchor="middle" font-size="24" fill="#111">2026 年 4 月</text>
+<text x="170" y="598" text-anchor="middle" font-size="22" fill="#111">4 人繞月 ✓ 成功</text>
+<circle cx="450" cy="525" r="11" fill="#fff" stroke="#1B3A6B" stroke-width="4"/>
+<text x="450" y="509" text-anchor="middle" font-size="26" fill="#1B3A6B">Artemis III</text>
+<text x="450" y="566" text-anchor="middle" font-size="24" fill="#C8102E">2027 年（目標年中）</text>
+<text x="450" y="598" text-anchor="middle" font-size="22" fill="#111">地球軌道對接測試</text>
+<circle cx="730" cy="525" r="11" fill="#fff" stroke="#1B3A6B" stroke-width="4"/>
+<text x="730" y="509" text-anchor="middle" font-size="26" fill="#1B3A6B">Artemis IV</text>
+<text x="730" y="566" text-anchor="middle" font-size="24" fill="#C8102E">2028 年初・首次登月</text>
+<text x="730" y="598" text-anchor="middle" font-size="22" fill="#111">Starship 或 Blue Moon</text>
+<circle cx="1010" cy="525" r="11" fill="#fff" stroke="#1B3A6B" stroke-width="4"/>
+<text x="1010" y="509" text-anchor="middle" font-size="26" fill="#1B3A6B">Artemis V</text>
+<text x="1010" y="566" text-anchor="middle" font-size="24" fill="#C8102E">2028 年底</text>
+<text x="1010" y="598" text-anchor="middle" font-size="22" fill="#111">第二次登月</text>
+</svg>
+</div>
+
+  <div class="src">2026 年 5 月 NASA 改計畫：HLS 和 Orion 改在地球軌道會合。加油趟數：馬斯克估 6～8 趟、GAO 估最多 16 趟、NASA 安全小組估最多 22 趟。來源：SpacePolicyOnline（2026/10/23）；SatNews（2026/11/3）；NASA</div>
+</section>
+
+<section class="pg dark" id="p13" data-part="2">
   <h2>Starlink 衛星網路：1,360 萬人按月付費</h2>
   <div class="nums">
     <div class="num"><div class="v r">1,360<small>萬</small></div><div class="k">付費用戶</div></div>
@@ -296,8 +736,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <div class="src">2026 Q3。來源：CNBC（2026/10/20）；TeslaNorth（2026/3/3）</div>
 </section>
 
-<!-- 14 SpaceX 帳本 -->
-<section class="pg" id="p14" data-part="2">
+<section class="pg dark" id="p14" data-part="2">
   <h2>SpaceX 財報：由虧轉盈，但投資也大增<small>2026 年第三季，和去年同期比</small></h2>
   <div class="nums">
     <div class="num"><div class="v n">+161%</div><div class="k">總營收</div></div>
@@ -307,33 +746,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <div class="src">單位：美元。來源：CNBC（2026/10/20）；SpaceX 10-Q（SEC）</div>
 </section>
 
-<!-- 15 同一條路 -->
-<section class="pg" id="p15" data-part="3">
-  <h2>共同點：從賣產品，轉向收服務費</h2>
-  <div class="chain"><div class="who" style="color:var(--navy)">Tesla</div><div class="s">汽車</div><div class="ar">→</div><div class="s">自動駕駛</div><div class="ar">→</div><div class="s end">每趟收費</div></div>
-  <div class="chain"><div class="who" style="color:var(--red)">SpaceX</div><div class="s">火箭</div><div class="ar">→</div><div class="s">回收再飛</div><div class="ar">→</div><div class="s end">每月收費</div></div>
-  <p class="say">車和火箭都重複使用；用的人越多，每人分攤的成本越低。</p>
-</section>
-
-<!-- 16 比較 -->
-<section class="pg" id="p16" data-part="3">
-  <h2>兩家財報比較：Tesla 停滯，SpaceX 快速成長<small>2026 年第三季</small></h2>
-  <table>
-    <thead><tr><th></th><th>Tesla</th><th>SpaceX</th></tr></thead>
-    <tbody>
-      <tr><td>營收</td><td>280 億</td><td>146 億</td></tr>
-      <tr><td>營收年增</td><td class="r">0%</td><td class="n">+161%</td></tr>
-      <tr><td>淨利</td><td>8 億</td><td class="n">44 億</td></tr>
-      <tr><td>訂閱用戶</td><td>FSD 174 萬</td><td>Starlink 1,360 萬</td></tr>
-      <tr><td>市值</td><td>1.5 兆</td><td>2 兆</td></tr>
-    </tbody>
-  </table>
-  <p class="say">兩家董事會正在評估合併，<b>還沒有定案</b>。</p>
-  <div class="src">單位：美元。市值：Tesla 11/11、SpaceX 10/20。來源：Tesla 8-K、CNBC、TechCrunch</div>
-</section>
-
-<!-- Q1 左腳踩右腳 -->
-<section class="pg" id="q1" data-part="4">
+<section class="pg" id="q1" data-part="3">
   <h2>疑問 1：馬斯克的公司互相投資，合理嗎？</h2>
   <svg class="fig" viewBox="0 0 1200 300" role="img" aria-label="Tesla 投資 xAI，xAI 再向 Tesla 買電池">
     <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#C8102E"/></marker></defs>
@@ -351,8 +764,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <div class="src">2026 年前 9 個月。來源：Tesla 10-Q（2026/9/30）；Electrek（2026/1/28）。股東會投票未通過，但投票不具約束力</div>
 </section>
 
-<!-- Q2 火箭自用 -->
-<section class="pg" id="q2" data-part="4">
+<section class="pg" id="q2" data-part="3">
   <h2>疑問 2：火箭不賺錢，因為多在發射自家衛星</h2>
   <div class="nums">
     <div class="num"><div class="v r">79%</div><div class="k">Falcon 9 發射是送自家 Starlink</div></div>
@@ -362,8 +774,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <div class="src">2026 年統計。來源：Reuters 分析（2026/8/4）；SpaceX 上市說明書：「可能優先發射自己的酬載」</div>
 </section>
 
-<!-- Q3 買來的成長 -->
-<section class="pg" id="q3" data-part="4">
+<section class="pg" id="q3" data-part="3">
   <h2>疑問 3：營收成長 161%，多少靠併購？<small>SpaceX 2026 年第三季營收，和去年同期比</small></h2>
   <svg class="fig" viewBox="0 0 1200 230" role="img" aria-label="含 AI 部門營收年增 161%，不含 AI 部門年增 47%">
     <g font-size="32" fill="#111"><text x="0" y="62">全部</text><text x="0" y="172">不算 AI</text></g>
@@ -374,8 +785,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <div class="src">不算 AI＝Starlink＋火箭：47.7 億 → 70.2 億美元，報告人計算。來源：CNBC（2026/10/20）；TechSpot（2026/6）</div>
 </section>
 
-<!-- Q4 合併 -->
-<section class="pg" id="q4" data-part="4">
+<section class="pg" id="q4" data-part="3">
   <h2>疑問 4：如果兩家合併，哪邊的股東比較吃虧？</h2>
   <div class="two">
     <div class="rule"><h3 style="color:var(--navy)">Tesla 股東</h3><p>拿本益比 400 倍的股票，<br>換 Starlink 和 AI</p></div>
@@ -385,8 +795,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <div class="src">來源：TechCrunch（2026/10/20）；NBC News。兩家尚未達成任何協議</div>
 </section>
 
-<!-- 17 未來 -->
-<section class="pg" id="p17" data-part="5">
+<section class="pg" id="p17" data-part="4">
   <h2>接下來值得注意的時間點</h2>
   <div class="tl">
     <div class="hot"><div class="d">12 月?</div><p>合併消息</p></div>
@@ -399,8 +808,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <div class="src">合併時間為媒體報導（24/7 Wall St.，2026/11/13），公司未證實</div>
 </section>
 
-<!-- 18 台灣 -->
-<section class="pg" id="p18" data-part="5">
+<section class="pg" id="p18" data-part="4">
   <h2>台灣的角色：不造衛星，但做衛星零件</h2>
   <div class="two" style="grid-template-columns:1fr 1fr 1fr;gap:3rem">
     <div class="rule"><h3>電路板</h3><p>華通 2313</p></div>
@@ -411,8 +819,7 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <div class="src">來源：工商時報（2026/1/24）、TVBS、數位時代等財經報導</div>
 </section>
 
-<!-- 19 結論 -->
-<section class="pg" id="p19" data-part="6">
+<section class="pg" id="p19" data-part="5">
   <h2 style="font-size:4rem">結論：兩家都從「賣東西」<br>轉向<span style="color:var(--red)">「收服務費」</span></h2>
   <div class="two">
     <div class="rule"><h3>Tesla</h3><p>想變成收車資的交通公司</p></div>
@@ -421,35 +828,67 @@ svg text{font-family:"Noto Sans TC",sans-serif;font-weight:700}
   <p class="say" style="color:var(--mute)">但還沒成功：Tesla 利潤變薄、助推器沒回收，<br>四個疑問也還沒有答案。</p>
 </section>
 
-<!-- 20 來源 -->
-<section class="pg" id="p20" data-part="6">
+<section class="pg" id="p20" data-part="5">
   <h2>參考資料</h2>
   <div class="two refs" style="gap:3rem">
     <div>
       <p>Tesla 8-K、10-Q（2026 Q3），SEC</p>
       <p>SpaceX 10-Q（2026 Q3），SEC</p>
-      <p>CNBC：SpaceX Q3 財報（2026/10/20）</p>
-      <p>Electrek：Tesla Q3 財報（2026/10/21）</p>
+      <p>CNBC：SpaceX Q3 財報（10/20）</p>
+      <p>CNBC：Model S、X 停產（1/28）</p>
+      <p>Electrek：Tesla Q3 財報、投資 xAI</p>
       <p>Teslarati、EVXL：Cybertruck（11/11）</p>
       <p>Drive Tesla Canada：芬蘭 FSD（11/11）</p>
+      <p>Motley Fool、Barchart：SpaceX 股權</p>
     </div>
     <div>
       <p>NBC News、Space.com：Flight 15（11/14）</p>
+      <p>Wikipedia：Starship 試飛紀錄</p>
       <p>Universe Today：Artemis 計畫調整</p>
+      <p>Reuters：Starlink 占 Falcon 9 發射比例</p>
       <p>TechCrunch：合併特別委員會（10/20）</p>
-      <p>TeslaNorth：Starlink Mobile（3/3）</p>
+      <p>TechSpot：SpaceX 收購 Cursor</p>
       <p>工商時報、TVBS：台灣衛星供應鏈</p>
-      <p>Wikipedia：Tesla Cybercab、Starlink</p>
+      <p>Wikipedia：Cybercab、Cybertruck、Starlink</p>
     </div>
   </div>
 </section>
 
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script>
+(async()=>{
+  const svg=d3.select('#usmap'); if(svg.empty()||typeof topojson==='undefined')return;
+  try{
+    const us=await d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-10m.json');
+    const states=topojson.feature(us,us.objects.states);
+    const proj=d3.geoAlbersUsa().fitExtent([[150,10],[990,550]],states);
+    svg.append('g').selectAll('path').data(states.features).join('path').attr('class','st').attr('d',d3.geoPath(proj));
+    const C={t:'#1B3A6B',s:'#C8102E',x:'#111'};
+    const P=[
+      ['t',-121.94,37.49,'Fremont 工廠','end',-18,8],
+      ['t',-119.44,39.54,'內華達電池廠','start',16,-6],
+      ['t',-97.62,30.22,'德州總部','end',-18,8],
+      ['s',-97.16,25.99,'Starbase 星艦基地','start',16,22],
+      ['s',-97.43,31.40,'引擎測試場','start',16,-4],
+      ['s',-118.33,33.92,'Hawthorne 工廠','start',16,26],
+      ['s',-80.60,28.57,'佛州發射場','end',-16,30],
+      ['x',-90.05,35.06,'Colossus 超級電腦','start',16,-10]];
+    const g=svg.append('g');
+    P.forEach(([k,lon,lat,name,anc,dx,dy])=>{const xy=proj([lon,lat]);if(!xy)return;
+      if(k==='x')g.append('rect').attr('x',xy[0]-9).attr('y',xy[1]-9).attr('width',18).attr('height',18).attr('fill',C.x);
+      else g.append('circle').attr('cx',xy[0]).attr('cy',xy[1]).attr('r',10).attr('fill',C[k]).attr('stroke','#fff').attr('stroke-width',3);
+      g.append('text').attr('x',xy[0]+dx).attr('y',xy[1]+dy).attr('text-anchor',anc).text(name);});
+  }catch(e){svg.append('text').attr('x',500).attr('y',280).attr('text-anchor','middle').text('地圖需要網路才能顯示');}
+})();
+</script>
 <script>
 const pages=[...document.querySelectorAll('section.pg')];
-const parts=['開場','Tesla','SpaceX','比較','四個疑問','未來','結論'];
+const parts=['全景','Tesla','SpaceX','疑問','未來','結論'];
 pages.forEach((p,i)=>{
   if(i){const no=document.createElement('div');no.className='pno';no.textContent=(i+1)+' / '+pages.length;p.appendChild(no)}
-  if(i<2)return;
+  if(i<2||p.classList.contains('dv'))return;
   const cur=+p.dataset.part,t=document.createElement('div');t.className='track';
   t.innerHTML=parts.map((n,k)=>`<span class="${k<cur?'done':k===cur?'now':''}">${n}</span>`).join('<i></i>');
   t.querySelectorAll('i').forEach((el,k)=>{if(k<cur)el.classList.add('done')});
@@ -460,9 +899,11 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){idx=pa
   document.getElementById('bar').style.width=((idx+1)/pages.length*100)+'%';history.replaceState(null,'','#'+e.target.id)}}),{threshold:.55});
 pages.forEach(p=>io.observe(p));
 const go=i=>{i=Math.max(0,Math.min(pages.length-1,i));pages[i].scrollIntoView({behavior:'smooth'})};
+const step=d=>{const p=pages[idx],n=+p.dataset.steps||0;if(!n)return false;const c=+p.dataset.st,t=c+d;if(t<0||t>n)return false;p.dataset.st=t;return true};
+document.querySelectorAll('[data-steps]').forEach(p=>p.addEventListener('click',()=>{if(!step(1))p.dataset.st=0}));
 addEventListener('keydown',e=>{
-  if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();go(idx+1)}
-  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(idx-1)}
+  if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();if(!step(1))go(idx+1)}
+  else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();if(!step(-1))go(idx-1)}
   else if(e.key==='Home'){e.preventDefault();go(0)}else if(e.key==='End'){e.preventDefault();go(pages.length-1)}
 });
 </script>
