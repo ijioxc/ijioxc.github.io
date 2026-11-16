@@ -99,6 +99,7 @@
   },
   {
     "id": "ev-motor-drive",
+    "order": 2,
     "title": "第五章 電動車馬達驅動控制與電能轉換",
     "desc": "重點報告（網頁版，可用方向鍵換頁）：轉換器、功率半導體、變頻器、預充電路，含 800V、SiC 等新技術",
     "url": "/reports/ev-motor-drive/",
@@ -107,6 +108,7 @@
   },
   {
     "id": "ev-charging-hybrid",
+    "order": 3,
     "title": "第七章 混合動力車",
     "desc": "重點報告（網頁版，可用方向鍵換頁）：從結構、電池、用途三件事看懂混動車，含豐田 THS、本田 e:HEV 與 2026 新車",
     "url": "/reports/ev-charging-hybrid/",
