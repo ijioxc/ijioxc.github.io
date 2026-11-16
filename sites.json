@@ -106,6 +106,14 @@
     "group": "課程報告"
   },
   {
+    "id": "ev-charging-hybrid",
+    "title": "第七章 混合動力車",
+    "desc": "重點報告（網頁版，可用方向鍵換頁）：從結構、電池、用途三件事看懂混動車，含豐田 THS、本田 e:HEV 與 2026 新車",
+    "url": "/reports/ev-charging-hybrid/",
+    "shot": "ev-charging-hybrid.jpg",
+    "group": "課程報告"
+  },
+  {
     "id": "hs-project",
     "title": "高中專題：車輛非廢氣排放回收",
     "desc": "高中專題簡報（網頁版，含 3D 模型與轉場動畫）",
