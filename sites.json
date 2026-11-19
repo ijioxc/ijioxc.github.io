@@ -1,5 +1,13 @@
 [
   {
+    "id": "sailboat",
+    "title": "無人帆船專題・工作站",
+    "desc": "自動控制無人帆船：航線進度、甘特圖、零件預算、實驗成果",
+    "url": "web/sailboat/",
+    "shot": "sailboat.jpg",
+    "group": "專題"
+  },
+  {
     "id": "nkust-racing-dashboard",
     "title": "NKUST Racing・工作台",
     "desc": "賽車團隊工作台",
@@ -121,7 +129,7 @@
     "desc": "高中專題簡報（網頁版，含 3D 模型與轉場動畫）",
     "url": "/reports/hs-project/",
     "shot": "hs-project.jpg",
-    "group": "高中專題"
+    "group": "專題"
   },
   {
     "id": "event-kit",
