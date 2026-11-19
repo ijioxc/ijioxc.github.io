@@ -7,7 +7,7 @@
 <meta name="description" content="高科大機械系自控組畢業專題：自動控制無人帆船工作站">
 <meta name="theme-color" content="#ececec" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0d0d0f" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3v20H6z' fill='%23111'/%3E%3Cpath d='M18 8l7 15h-7z' fill='%23111' opacity='.55'/%3E%3Cpath d='M4 25h24l-3 4H7z' fill='%23111'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M18.2 11.8L18.9 12.3L19.5 12.8L20.1 13.3L20.5 13.9L20.9 14.5L21.3 15.1L21.5 15.7L21.6 16.3L21.7 16.9L21.7 17.5L21.6 18.1L21.4 18.6L21.2 19.1L20.8 19.6L20.4 19.9L19.9 20.3L19.4 20.6L18.8 20.8L18.2 20.9L17.5 21.0L16.8 21.0L16.1 20.9L15.4 20.7L14.6 20.5L13.9 20.1L13.1 19.8L12.4 19.3L11.7 18.8L11.0 18.2L10.4 17.5L9.8 16.8L9.3 16.0L8.8 15.2L8.4 14.4L8.0 13.6L7.9 13.1M7.3 9.2L7.4 8.4L7.5 7.6L7.7 6.9L7.9 6.2L8.3 5.5L8.6 4.9L9.0 4.4L9.5 4.0L10.0 3.6L10.5 3.3L11.0 3.1L11.6 3.0L12.1 3.0L12.7 3.1L13.2 3.2L13.8 3.5L14.3 3.8L14.7 4.2L15.2 4.7L15.6 5.2L15.9 5.8L16.2 6.5L16.4 7.2L16.6 8.0L16.7 8.8L16.7 9.6L16.7 10.5L16.6 11.4L16.4 12.2L16.1 13.1L15.8 14.0L15.4 14.8L15.0 15.6L14.4 16.4L13.9 17.1L13.6 17.5M10.5 20.0L9.8 20.3L9.0 20.6L8.3 20.8L7.5 20.9L6.8 21.0L6.1 21.0L5.5 20.9L4.9 20.7L4.3 20.4L3.8 20.1L3.4 19.8L3.0 19.3L2.7 18.9L2.5 18.3L2.3 17.8L2.3 17.2L2.3 16.6L2.4 16.0L2.6 15.4L2.9 14.8L3.3 14.2L3.7 13.6L4.2 13.0L4.8 12.5L5.4 12.0L6.2 11.6L6.9 11.2L7.7 10.9L8.6 10.6L9.5 10.4L10.4 10.2L11.3 10.1L12.2 10.1L13.2 10.2L14.1 10.3L14.5 10.4'/%3E%3C/svg%3E">
 <style>
 /* ── 色彩：沿用資料庫 Data Tank（淺灰底、黑字、細線），另加深色 ── */
 :root{
@@ -43,7 +43,7 @@ a{color:inherit}
 header{position:sticky;top:0;z-index:20;background:var(--bar);backdrop-filter:saturate(1.6) blur(18px);-webkit-backdrop-filter:saturate(1.6) blur(18px);border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;gap:16px;height:60px}
 .brand{display:flex;align-items:center;gap:11px;margin-right:auto;text-decoration:none;min-width:0}
-.brand svg{width:26px;height:26px;flex:none}
+.brand svg{width:28px;height:28px;flex:none}   /* 三葉結：拓撲學最基本的紐結 */
 .brand b{font-size:15px;font-weight:650;white-space:nowrap}
 .brand .mono{overflow:hidden;text-overflow:ellipsis}
 .tabs{display:flex;padding:3px;background:var(--panel);border-radius:999px}
@@ -58,7 +58,7 @@ main{position:relative;z-index:1;animation:fade .45s both}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}}
 
 /* ── 共用 ── */
-.tile{background:var(--tile);border-radius:18px;box-shadow:inset 0 0 0 1px var(--ring);padding:20px 22px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);min-width:0}
+.tile{background:var(--tile);border-radius:18px;box-shadow:inset 0 0 0 1px var(--ring);padding:16px 20px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);min-width:0}
 .tile>h3,.sec h3{margin:0 0 14px;display:flex;align-items:center;gap:10px}
 .sec{display:flex;align-items:center;gap:14px;margin:0 0 20px}
 .sec::after{content:"";flex:1;height:1px;background:var(--line)}
@@ -80,17 +80,17 @@ main{position:relative;z-index:1;animation:fade .45s both}
 .seg button.on .o{box-shadow:0 0 0 1.5px var(--on-btn)}
 
 /* ── HOME：左欄 色體圖＋優先順序，右欄 本週＋本週重點 ── */
-.home{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(320px,1fr);gap:16px;padding-top:28px;padding-bottom:16px;align-items:start}
-.col{display:flex;flex-direction:column;gap:16px;min-width:0}
+.home{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(320px,1fr);gap:14px;padding-top:16px;padding-bottom:16px;align-items:start}
+.col{display:flex;flex-direction:column;gap:14px;min-width:0}
 .col>*{animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
 .col>*+*{animation-delay:80ms}
 .hd{display:flex;align-items:center;gap:10px;margin:0 0 14px}
-.big{font-size:56px;font-weight:650;letter-spacing:-.03em;line-height:1;margin:10px 0 6px;font-variant-numeric:tabular-nums}
+.big{font-size:46px;font-weight:650;letter-spacing:-.03em;line-height:1;margin:8px 0 4px;font-variant-numeric:tabular-nums}
 .big small{font-size:20px;color:var(--faint);font-weight:500;letter-spacing:0;margin-left:4px}
-.wk .meter{margin:18px 0 6px}
+.wk .meter{margin:12px 0 6px}
 .wk .pct{display:flex;justify-content:space-between;font-size:13px;color:var(--mute)}
 .wk .pct b{color:var(--fg);font-variant-numeric:tabular-nums}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px;margin:18px 0 0;padding-top:16px;border-top:1px solid var(--line)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px;margin:12px 0 0;padding-top:12px;border-top:1px solid var(--line)}
 .stats div{display:flex;flex-direction:column;gap:2px;min-width:0}
 .stats b{font-size:22px;font-weight:650;font-variant-numeric:tabular-nums;line-height:1.2}
 .stats .wide{grid-column:1/-1}
@@ -104,7 +104,7 @@ main{position:relative;z-index:1;animation:fade .45s both}
 .tg+.fl{margin-top:6px}
 /* 本週重點清單 */
 .fl{display:flex;flex-direction:column}
-.fr{display:grid;grid-template-columns:20px 1fr auto;gap:10px;align-items:center;padding:9px 4px;border-bottom:1px solid var(--line);text-align:left;background:none;border-left:0;border-right:0;border-top:0;cursor:pointer;border-radius:0;transition:background .15s}
+.fr{display:grid;grid-template-columns:20px 1fr auto;gap:10px;align-items:center;padding:6px 4px;border-bottom:1px solid var(--line);text-align:left;background:none;border-left:0;border-right:0;border-top:0;cursor:pointer;border-radius:0;transition:background .15s}
 .fr:last-child{border-bottom:0}
 .fr:hover{background:var(--panel)}
 .ck{width:18px;height:18px;border-radius:6px;box-shadow:inset 0 0 0 1.5px var(--faint);display:grid;place-items:center}
@@ -147,53 +147,61 @@ main{position:relative;z-index:1;animation:fade .45s both}
 .cx-foot .sp{flex:1}
 .ttl-h{margin:0 0 2px;font-size:22px;font-weight:650;letter-spacing:-.01em}
 
-/* 3D 色立體：直軸＝整體完成度；每個階段一個方向（像色相），由下往上；方塊一顆 10%，往外越鮮豔，越上越亮 */
-.sc{position:relative;height:calc(var(--lv) * 5 + 190px);perspective:1500px;perspective-origin:50% 40%;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;--lv:34px;--u:22px;--h:15px;--d:18px;overflow:hidden;margin:0 -22px}
+/* 3D 色立體：照資料庫 Data Tank 首頁的「軸＋立著的卡片環」。
+   一根直軸穿過每一層的圓心。最底層＝8 個階段總覽：每個階段一個方向（像色相環），往外 10 格，一格 10%，填到第幾格＝完成到哪（往外越鮮豔，像孟塞爾的彩度）。
+   往上第 k 層＝每個階段的第 k 件工作，同一個方向，往外伸＝那件工作的完成度。卡片面朝外立著，像 Data Tank 的玻璃卡 */
+.sc{position:relative;height:calc((var(--n) - 1) * var(--lv) + var(--u) * 8.4 + 22px);perspective:1400px;perspective-origin:50% 40%;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;--u:20px;--lv:24px;overflow:hidden;margin:0 -20px}
 .sc.drag{cursor:grabbing}
-.so{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;transform:translateY(10px) rotateX(var(--rx)) rotateY(var(--ry))}
+.so{position:absolute;left:50%;top:calc(100% - var(--u) * 5.1 - 26px);width:0;height:0;transform-style:preserve-3d;transform:rotateX(var(--rx)) rotateY(var(--ry))}   /* 原點＝底層圓心，往上疊 */
 .so *{transform-style:preserve-3d}
+/* 軸：兩片交叉的細線，從哪個角度看都看得到；下段實線＝整體完成度 */
 .ax3{position:absolute;left:0;top:0}
-.ax3 i{position:absolute;left:-7px;top:calc(var(--lv) * -4 - 20px);width:14px;height:calc(var(--lv) * 8 + 40px);background:linear-gradient(to top,var(--fg) var(--v),var(--panel) var(--v));box-shadow:inset 0 0 0 1px var(--ring)}
+.ax3 i{position:absolute;left:-.5px;top:calc(var(--top) - 14px);width:1px;height:calc(var(--bot) - var(--top) + 28px);background:linear-gradient(to top,var(--fg) var(--v),var(--faint) var(--v))}
 .ax3 i:nth-child(2){transform:rotateY(90deg)}
-.bx{position:absolute;left:0;top:0;transform:translateY(var(--y)) rotateY(var(--a))}
-.cb{position:absolute;left:0;top:0;transform:translateX(var(--x))}
-.cb i{position:absolute;left:0;top:0;background:var(--c);backface-visibility:visible}
-.cb .f,.cb .k{width:var(--l);height:var(--h)}
-.cb .f{transform:translate3d(0,calc(var(--h) / -2),calc(var(--d) / 2))}
-.cb .k{transform:translate3d(0,calc(var(--h) / -2),calc(var(--d) / -2))}
-.cb .t,.cb .m{width:var(--l);height:var(--d)}
-.cb .t{transform:translate3d(0,calc(var(--h) / -2 - var(--d) / 2),0) rotateX(90deg);filter:brightness(1.18)}
-.cb .m{transform:translate3d(0,calc(var(--h) / 2 - var(--d) / 2),0) rotateX(90deg);filter:brightness(.7)}
-.cb .s,.cb .e{width:var(--d);height:var(--h);filter:brightness(.86)}
-.cb .s{transform:translate3d(calc(var(--d) / -2),calc(var(--h) / -2),0) rotateY(90deg)}
-.cb .e{transform:translate3d(calc(var(--l) - var(--d) / 2),calc(var(--h) / -2),0) rotateY(90deg)}
-.cb.ghost i{background:none;box-shadow:inset 0 0 0 1px var(--ring);filter:none}
-.cb.ghost{opacity:.5}
-.cb.ghost .k,.cb.ghost .m,.cb.ghost .s,.cb.ghost .e{display:none}
-.bx.here .cb:not(.ghost) .f{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55)}
-.l3{position:absolute;left:0;top:0;transform:translateX(var(--x)) rotateY(calc(-1 * (var(--a) + var(--ry)))) rotateX(calc(-1 * var(--rx)))}
-.l3 button{position:absolute;left:0;top:0;transform:translate(6px,-50%);display:flex;align-items:center;gap:6px;border:0;background:var(--bar);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:var(--fg);border-radius:999px;padding:3px 10px 3px 6px;font-size:12px;font-weight:600;white-space:nowrap;cursor:pointer;box-shadow:0 0 0 1px var(--ring)}
-.l3 button i{width:10px;height:10px;border-radius:3px;background:var(--c);flex:none}
+.ax3 b{position:absolute;left:-3.5px;top:calc(var(--bot) + 11px);width:7px;height:7px;border-radius:50%;background:var(--fg)}
+/* 底層的刻度圈：50%、100% */
+.fl3{position:absolute;left:0;top:0;width:0;height:0;transform:translateY(calc(var(--bot) + var(--hh))) rotateX(90deg)}
+.fl3 i{position:absolute;left:calc(var(--d) / -2);top:calc(var(--d) / -2);width:var(--d);height:var(--d);border-radius:50%;box-shadow:inset 0 0 0 1px var(--ring)}
+.fl3 i.half{box-shadow:none;border:1px dashed var(--ring)}
+/* 卡片：沿半徑方向一格一張，面朝外立著 */
+.c3{position:absolute;left:calc(var(--w) / -2);top:calc(var(--hh) * -1);width:var(--w);height:calc(var(--hh) * 2);border-radius:calc(var(--w) * .07);transform:translateY(var(--y)) rotateY(var(--a)) translateZ(var(--r));backface-visibility:visible;
+  background:linear-gradient(to top,var(--c) var(--f),transparent var(--f)),var(--glass);box-shadow:0 0 0 1px var(--glass-edge),inset 0 0 0 1px rgba(0,0,0,.05);transition:opacity .25s}
+.c3::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.45),rgba(255,255,255,.08) 30%,transparent 48%,transparent 72%,rgba(255,255,255,.22))}
+.c3.e{--f:0%;opacity:.42}
+.c3.t{--w:calc(var(--u) * 1.05);--hh:calc(var(--u) * .3);cursor:pointer}
+.c3.t.e{opacity:.3}
+.c3.t:hover{box-shadow:0 0 0 1.5px var(--fg)}
+.bx.ahead .c3:not(.e){opacity:.7}
+.bx.here .c3.top{box-shadow:0 0 0 1.5px var(--hot)}
+/* 階段名稱：放在底層最外圈外面，永遠面向鏡頭 */
+.l3{position:absolute;left:0;top:0;transform:translateY(var(--y)) rotateY(var(--a)) translateZ(var(--r)) rotateY(calc(-1 * (var(--a) + var(--ry)))) rotateX(calc(-1 * var(--rx)))}
+.l3 button{position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:flex;align-items:center;gap:5px;border:0;background:var(--bar);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:var(--fg);border-radius:999px;padding:3px 9px 3px 6px;font-size:12px;font-weight:600;white-space:nowrap;cursor:pointer;box-shadow:0 0 0 1px var(--ring)}
+.l3 button i{width:9px;height:9px;border-radius:3px;background:var(--c);flex:none}
 .l3 button em{font-style:normal;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:10px;color:var(--mute);font-weight:500}
 .l3 button:hover{box-shadow:0 0 0 1.5px var(--fg)}
 .bx.here .l3 button{background:var(--hot);color:#fff;box-shadow:none}
 .bx.here .l3 button em{color:#fff;opacity:.85}
 .bx.ahead .l3 button{color:var(--mute);font-weight:500}
+.bx.fold .l3 button{background:var(--fg);color:var(--on-btn);box-shadow:none}
+.bx.fold .l3 button em{color:var(--on-btn);opacity:.7}
 .e3{position:absolute;left:0;top:0;transform:translateY(var(--y)) rotateY(calc(-1 * var(--ry))) rotateX(calc(-1 * var(--rx)))}
-.e3 span{position:absolute;left:0;top:0;transform:translate(-50%,-50%);font-size:10px;white-space:nowrap}
+.e3 span{position:absolute;left:0;top:0;transform:translate(10px,-50%);font-size:10px;white-space:nowrap}
+.e3.mid span{transform:translate(-50%,-50%)}
+.cx-foot>.mono{white-space:normal}
+@media (max-width:440px){.l3 button{font-size:11px;padding:2px 7px 2px 5px}.l3 button em{display:none}}
 .cvs{display:flex;gap:2px;padding:2px;background:var(--panel);border-radius:999px}
 .cvs button{border:0;background:none;color:var(--mute);font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:10px;letter-spacing:.08em;padding:4px 10px;border-radius:999px;cursor:pointer}
 .cvs button.on{background:var(--btn);color:var(--on-btn)}
 
 /* 優先順序：十字軸，無底色。上＝重要、右＝緊急 */
-.qx{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;margin:20px 26px 6px 0}
+.qx{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;margin:16px 26px 2px 0}
 .qx::before{content:"";position:absolute;left:50%;top:-14px;bottom:0;width:1.5px;margin-left:-.75px;background:var(--fg)}
 .qx::after{content:"";position:absolute;top:50%;left:0;right:-16px;height:1.5px;margin-top:-.75px;background:var(--fg)}
 .qx .ay,.qx .axr{position:absolute;font-size:10px;color:var(--fg)}
 .qx .ay{left:50%;top:-22px;transform:translate(-50%,-50%);background:var(--tile-s);padding:0 6px}
 .qx .axr{right:-26px;top:50%;transform:translate(0,-130%)}
 .qx .ay::after{content:"";position:absolute;left:50%;top:100%;margin-left:-4px;border:4px solid transparent;border-bottom:6px solid var(--fg);border-top:0;transform:translateY(2px)}
-.qc{padding:8px 12px 12px;display:flex;flex-direction:column;gap:2px;min-width:0;min-height:112px}
+.qc{padding:6px 12px 8px;display:flex;flex-direction:column;gap:1px;min-width:0;min-height:0}
 .qc>.mono{font-size:10px;margin-bottom:4px}
 .qc.hot>.mono{color:var(--hot)}
 .qi{display:flex;align-items:center;gap:7px;border:0;background:none;padding:3px 4px;border-radius:6px;cursor:pointer;font-size:12.5px;text-align:left;min-width:0;transition:background .15s}
@@ -366,7 +374,7 @@ main{position:relative;z-index:1;animation:fade .45s both}
 <body>
 <header><div class="wrap">
   <a class="brand" href="../../" title="回資料庫 Data Tank">
-    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3v20H6z" fill="currentColor"/><path d="M18 8l7 15h-7z" fill="currentColor" opacity=".5"/><path d="M4 25h24l-3 4H7z" fill="currentColor"/></svg>
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18.2 11.8L18.9 12.3L19.5 12.8L20.1 13.3L20.5 13.9L20.9 14.5L21.3 15.1L21.5 15.7L21.6 16.3L21.7 16.9L21.7 17.5L21.6 18.1L21.4 18.6L21.2 19.1L20.8 19.6L20.4 19.9L19.9 20.3L19.4 20.6L18.8 20.8L18.2 20.9L17.5 21.0L16.8 21.0L16.1 20.9L15.4 20.7L14.6 20.5L13.9 20.1L13.1 19.8L12.4 19.3L11.7 18.8L11.0 18.2L10.4 17.5L9.8 16.8L9.3 16.0L8.8 15.2L8.4 14.4L8.0 13.6L7.9 13.1M7.3 9.2L7.4 8.4L7.5 7.6L7.7 6.9L7.9 6.2L8.3 5.5L8.6 4.9L9.0 4.4L9.5 4.0L10.0 3.6L10.5 3.3L11.0 3.1L11.6 3.0L12.1 3.0L12.7 3.1L13.2 3.2L13.8 3.5L14.3 3.8L14.7 4.2L15.2 4.7L15.6 5.2L15.9 5.8L16.2 6.5L16.4 7.2L16.6 8.0L16.7 8.8L16.7 9.6L16.7 10.5L16.6 11.4L16.4 12.2L16.1 13.1L15.8 14.0L15.4 14.8L15.0 15.6L14.4 16.4L13.9 17.1L13.6 17.5M10.5 20.0L9.8 20.3L9.0 20.6L8.3 20.8L7.5 20.9L6.8 21.0L6.1 21.0L5.5 20.9L4.9 20.7L4.3 20.4L3.8 20.1L3.4 19.8L3.0 19.3L2.7 18.9L2.5 18.3L2.3 17.8L2.3 17.2L2.3 16.6L2.4 16.0L2.6 15.4L2.9 14.8L3.3 14.2L3.7 13.6L4.2 13.0L4.8 12.5L5.4 12.0L6.2 11.6L6.9 11.2L7.7 10.9L8.6 10.6L9.5 10.4L10.4 10.2L11.3 10.1L12.2 10.1L13.2 10.2L14.1 10.3L14.5 10.4"/></svg>
     <b>無人帆船</b><span class="mono" id="hw"></span>
   </a>
   <nav class="tabs" id="tabs">
@@ -470,49 +478,51 @@ function phaseStat(p){
   const sum=Object.values(by).reduce((a,b)=>a+b,0);
   return {ts,by,sum,dn:ts.filter(isDone).length};
 }
-// 3D 色立體
+// 3D 色立體（照 Data Tank 首頁的軸＋卡片環）：底層 8 個階段，往上每層是各階段的第 k 件工作
 const HUE=i=>(8+i*45)%360;
+let openDone=new Set();   // 已完成、但被點開來看的階段
+const folded=p=>phaseState(p)==='done'&&fold.phase&&!openDone.has(p.n);
 function solid3d(){
-  const all=avg(T);
-  const cube=(k,f,c,ghost)=>`<span class="cb ${ghost?'ghost':''}" style="--x:calc(10px + ${k} * var(--u));--l:calc((var(--u) - 3px) * ${f});--c:${c}"><i class="f"></i><i class="k"></i><i class="t"></i><i class="m"></i><i class="s"></i><i class="e"></i></span>`;
-  // 一週一圈：W01 在最底層，往上疊。過去週的完成度存在 data.json 的 weekly，這一週用目前資料即時算
-  const layers=[];
-  for(let w=1;w<=W;w++){
-    const snap=w===W?Object.fromEntries(P.map(p=>[p.n,phaseStat(p).sum])):(D.weekly||{})[w];
-    if(snap)layers.push({w,snap});
-  }
-  const rows=Math.max(layers.length,4),half=(rows-1)/2;
-  const brs=layers.map(({w,snap},li)=>{
-    const live=w===W,y=`calc(var(--lv) * ${(half-li).toFixed(1)})`;
-    return P.map((p,i)=>{
-      const h=HUE(i),a=`${i*45}deg`,v=(snap[p.n]||0)/10,L=live?46:58;
-      let cubes='';
-      for(let k=0;k<10;k++){const f=Math.max(0,Math.min(1,v-k));
-        cubes+=f>0?cube(k,f.toFixed(3),`hsl(${h} ${live?22+k*7:16+k*4}% ${L}%)`,false):(live?cube(k,1,'',true):'')}
-      const lab=live?`<div class="l3" style="--x:calc(16px + 10 * var(--u));--a:${a}"><button data-p="${p.n}" style="--c:hsl(${h} 80% 46%)"><i></i>${esc(p.name)}<em>${Math.round(snap[p.n]||0)}%</em></button></div>`:'';
-      return `<div class="bx ${live?phaseState(p):''}" style="--y:${y};--a:${a}">${cubes}${lab}</div>`;
-    }).join('');
+  const all=avg(T),R0=1.7,S=1;   // 第 1 格離軸 R0 格寬，之後每格往外 S
+  const rad=k=>`calc(var(--u) * ${(R0+k*S).toFixed(2)})`;
+  const card=(cls,y,a,k,f,c,extra='')=>`<span class="c3 ${cls}" style="--y:${y};--a:${a};--r:${rad(k)};--f:${(f*100).toFixed(1)}%;--c:${c}"${extra}></span>`;
+  // 往外越鮮豔（彩度）；往上越晚開始的工作越淺、越透明，像樹：先長的粗、顏色深，後長的淡
+  const col=(h,k,j=0)=>`hsl(${h} ${Math.max(10,30+k*6-j*3)}% ${Math.min(80,50-k*1.2+j*4.5)}% / ${Math.max(.32,.95-j*.11).toFixed(2)})`;
+  const byStart=p=>ofPhase(p).map((t,i)=>[t,i]).sort((a,b)=>a[0].start-b[0].start||a[1]-b[1]).map(x=>x[0]);   // 一件工作一層，開始週早的在下面
+  const layers=1+Math.max(1,...P.filter(p=>!folded(p)).map(p=>ofPhase(p).length));
+  const yOf=L=>`calc(var(--lv) * ${-L})`;
+  const brs=P.map((p,i)=>{
+    const h=HUE(i),a=`${i*45}deg`,st=phaseState(p),s=phaseStat(p),fd=folded(p);
+    let cs='';
+    // 底層：階段完成度，10 格都畫出來（空的淡）
+    const v=s.sum/10;
+    for(let k=0;k<(fd?1:10);k++){const f=fd?1:Math.max(0,Math.min(1,v-k));cs+=card(`${f>0?'':'e'}${k===Math.ceil(v)-1?' top':''}`,yOf(0),a,k,f,col(h,k))}
+    // 往上：這個階段的每一件工作一層，只畫到它的完成度；還沒開始的留一張淡卡當位置
+    if(!fd)byStart(p).forEach((t,j)=>{
+      const tv=(isDone(t)?100:+t.progress||0)/10,n=Math.max(1,Math.ceil(tv)),tip=` data-t="${t.id}" title="${esc(t.title)} · ${Math.round(tv*10)}%"`;
+      for(let k=0;k<n;k++){const f=Math.max(0,Math.min(1,tv-k));cs+=card(`t ${f>0?'':'e'}`,yOf(j+1),a,k,f,col(h,k,j+1),tip)}
+    });
+    const lab=`<div class="l3" style="--y:${yOf(0)};--a:${a};--r:${rad(fd?2.4:10.6)}"><button data-p="${p.n}"${fd?' data-open="1" title="點一下展開"':''} style="--c:hsl(${h} 70% 50%)"><i></i>${st==='done'?'✓ ':''}${esc(p.name)}<em>${Math.round(s.sum)}%</em></button></div>`;
+    return `<div class="bx ${st}${fd?' fold':''}">${cs}${lab}</div>`;
   }).join('');
-  const top=`calc(var(--lv) * ${-half-1})`,bot=`calc(var(--lv) * ${half+1})`;
-  return `<div class="sc" id="sc"><div class="so" id="so" style="--rx:${RX}deg;--ry:${RY}deg">
-    <div class="ax3" style="--v:${all}%"><i></i><i></i></div>
-    <div class="e3" style="--y:${top}"><span class="mono">W${pad(N)} · 口試完成</span></div>
-    <div class="e3" style="--y:${bot}"><span class="mono">W01 · ${md(START)} 開始</span></div>
+  return `<div class="sc" id="sc" style="--n:${layers}"><div class="so" id="so" style="--rx:${RX}deg;--ry:${RY}deg;--top:${yOf(layers-1)};--bot:${yOf(0)};--hh:calc(var(--u) * .42);--w:calc(var(--u) * 1.3)">
+    <div class="ax3" style="--v:${all}%"><i></i><i></i><b></b></div>
+    <div class="fl3"><i class="half" style="--d:calc(var(--u) * ${2*(R0+4.5*S)})"></i><i style="--d:calc(var(--u) * ${2*(R0+9.5*S)})"></i></div>
+    <div class="e3" style="--y:calc(${yOf(layers-1)} - var(--u) * .9)"><span class="mono">↑ 每層一件工作</span></div>
     ${brs}</div></div>`;
 }
-let RX=-16,RY=-28,spinId=0,drag=null,dragged=0,hoverSc=false,lastT=0;
+let RX=-20,RY=-28,spinId=0,drag=null,dragged=0,hoverSc=false,lastT=0;
 const still=matchMedia('(prefers-reduced-motion: reduce)');
 function spin(t){
   const so=$('#so');if(!so){spinId=0;return}
-  if(!drag&&!hoverSc&&!still.matches&&lastT)RY+=(t-lastT)*.006;
+  if(!drag&&!hoverSc&&!still.matches&&lastT)RY+=(t-lastT)*.006;   // 跟 Data Tank 一樣 60 秒轉一圈
   lastT=t;so.style.setProperty('--ry',RY.toFixed(2)+'deg');so.style.setProperty('--rx',RX.toFixed(2)+'deg');
   spinId=requestAnimationFrame(spin);
 }
 function setupSolid(){
   const sc=$('#sc');if(!sc)return;
-  const u=Math.max(8,Math.min(22,(sc.clientWidth/2-96)/10));
-  sc.style.setProperty('--u',u+'px');sc.style.setProperty('--lv',(u<14?28:34)+'px');
-  sc.style.setProperty('--h',(u<14?11:15)+'px');sc.style.setProperty('--d',(u<14?12:18)+'px');
+  const u=Math.max(9,Math.min(18,(sc.clientWidth/2-44)/12.4));
+  sc.style.setProperty('--u',u+'px');sc.style.setProperty('--lv',Math.round(u*1.1+5)+'px');
   sc.onpointerenter=e=>{if(e.pointerType==='mouse')hoverSc=true};
   sc.onpointerleave=()=>{hoverSc=false};
   sc.onpointerdown=e=>{drag={x:e.clientX,y:e.clientY,ry:RY,rx:RX,moved:false,id:e.pointerId}};
@@ -527,7 +537,7 @@ function chart3d(){
   const done=P.filter(p=>phaseState(p)==='done');
   return `<h3 class="hd"><span class="mono">色立體 · 階段完成度</span><span class="mono" style="margin-left:auto">整體 <b style="color:var(--fg)">${avg(T)}%</b></span>${cvSwitch()}</h3>
   ${solid3d()}
-  <div class="cx-foot"><span class="mono">8 個階段繞軸一圈 · 一顆方塊 10%，伸到第 10 顆＝完成 · 一週疊一層 · 拖曳旋轉，點階段看工作</span><span class="sp"></span>
+  <div class="cx-foot"><span class="mono">底層＝8 個階段 · 往外一格 10% · 往上一層一件工作（先開始的在下、顏色深）· 拖曳旋轉</span><span class="sp"></span>
     ${done.length?`<button class="tg ${fold.phase?'':'on'}" data-fold="phase"><i>▸</i>已完成 ${done.length} 階段</button>`:''}</div>`;
 }
 const cvSwitch=()=>`<span class="cvs" id="cv"><button data-cv="3d" class="${ui.cv!=='flat'?'on':''}">3D</button><button data-cv="flat" class="${ui.cv==='flat'?'on':''}">平面</button></span>`;
@@ -558,7 +568,7 @@ function quad(){
   const items=T.filter(t=>!isDone(t)&&t.start<=W+3);
   const imp=t=>t.imp>=3,urg=t=>t.urg>=3||t.end<=W+1||isLate(t);
   const cells=[['重要・不急',t=>imp(t)&&!urg(t)],['重要・緊急',t=>imp(t)&&urg(t),'hot'],['一般・不急',t=>!imp(t)&&!urg(t)],['一般・緊急',t=>!imp(t)&&urg(t)]];
-  const CAP=5;
+  const CAP=3;
   return `<div class="qx"><span class="mono ay">重要</span><span class="mono axr">緊急 →</span>${cells.map(([l,f,c])=>{const ts=items.filter(f).sort((a,b)=>isLate(b)-isLate(a)||(b.imp+b.urg)-(a.imp+a.urg)||a.end-b.end);
     return `<div class="qc ${c||''}"><span class="mono">${l} · ${ts.length}</span>${ts.slice(0,CAP).map(t=>`<button class="qi ${t.imp+t.urg>=5?'top':''}" data-t="${t.id}" title="${esc(t.title)}">${dots(t)}<span class="${isLate(t)?'late':''}">${esc(t.title)}</span></button>`).join('')}${ts.length>CAP?`<a class="mono qm" href="#tasks">還有 ${ts.length-CAP} 件 →</a>`:''}</div>`}).join('')}</div>`;
 }
@@ -702,9 +712,10 @@ function render(keep){
   else scrollTo(0,0);
 }
 $('#app').addEventListener('click',e=>{
-  const f=e.target.closest('[data-fold]');if(f){fold[f.dataset.fold]=!fold[f.dataset.fold];return render(true)}
+  const f=e.target.closest('[data-fold]');if(f){fold[f.dataset.fold]=!fold[f.dataset.fold];openDone.clear();return render(true)}
   const cv=e.target.closest('[data-cv]');if(cv){ui.cv=cv.dataset.cv;store.set('cv',ui.cv);return render(true)}
-  const ph=e.target.closest('[data-p]');if(ph){if(Date.now()-dragged<300)return;return openPhase(+ph.dataset.p)}
+  if(Date.now()-dragged<300&&e.target.closest('#sc'))return;   // 剛拖曳轉完，不算點擊
+  const ph=e.target.closest('[data-p]');if(ph){if(ph.dataset.open){openDone.add(+ph.dataset.p);return render(true)}return openPhase(+ph.dataset.p)}
   const t=e.target.closest('[data-t]');if(t)return openTask(t.dataset.t);
   const o=e.target.closest('#fo button');if(o){ui.own=o.dataset.o;store.set('own',ui.own);return render()}
   const v=e.target.closest('#fv button');if(v){ui.view=v.dataset.v;store.set('view',ui.view);return render()}
