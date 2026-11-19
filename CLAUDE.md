@@ -28,3 +28,9 @@
 - 做法都在 `web/event-kit/README.md`，只讀這份就夠。
 - 更新名單只改 `names/*.txt`；放圖只把 PNG 存成 `art/<id>.png`；調位置只改 `project.json`。
 - 不要改 `index.html`，除非要加新功能。
+
+## 無人帆船專題工作站（`web/sailboat/`）
+
+網址：https://ijioxc.github.io/web/sailboat/
+
+畢業專題的進度頁，公開唯讀。內容只改 `web/sailboat/data.json`，欄位與更新步驟看 `web/sailboat/README.md`，只讀這份就夠。不要改 `index.html`，除非要加新功能。

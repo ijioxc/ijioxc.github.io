@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>無人帆船專題</title>
+<meta name="description" content="高科大機械系自控組畢業專題：自動控制無人帆船工作站">
+<meta name="theme-color" content="#ececec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d0d0f" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 3v20H6z' fill='%23111'/%3E%3Cpath d='M18 8l7 15h-7z' fill='%23111' opacity='.55'/%3E%3Cpath d='M4 25h24l-3 4H7z' fill='%23111'/%3E%3C/svg%3E">
+<style>
+/* ── 色彩：沿用資料庫 Data Tank（淺灰底、黑字、細線），另加深色 ── */
+:root{
+  --bg:#ececec;--fg:#111113;--mute:#6c6c73;--faint:#a5a5ab;--line:rgba(0,0,0,.09);--panel:rgba(0,0,0,.05);--ring:rgba(0,0,0,.1);
+  --bar:rgba(246,246,246,.78);--glow:rgba(255,255,255,.6);--btn:#111113;--on-btn:#fff;--tile:rgba(255,255,255,.5);--tile-s:#f5f5f5;
+  --shadow:0 24px 50px -24px rgba(0,0,0,.35);--glass:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.42));--glass-edge:rgba(255,255,255,.8);
+  --hot:#ff5a1f;--late:#e5484d;--ok:#1f9d6b;
+  --me:#2f6cf6;--mate:#13a37b;--claude:#8b5cf6;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0d0d0f;--fg:#ededef;--mute:#8d8d95;--faint:#55555c;--line:rgba(255,255,255,.08);--panel:rgba(255,255,255,.06);--ring:rgba(255,255,255,.12);
+  --bar:rgba(18,18,20,.78);--glow:rgba(255,255,255,.05);--btn:#ededef;--on-btn:#111113;--tile:rgba(255,255,255,.035);--tile-s:#151517;
+  --shadow:0 24px 50px -24px rgba(0,0,0,.8);--glass:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.04));--glass-edge:rgba(255,255,255,.14);
+  --hot:#ff7340;--late:#ff6b6b;--ok:#3ccf91;--me:#6b95ff;--mate:#35c99a;--claude:#a98bff;color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d0d0f;--fg:#ededef;--mute:#8d8d95;--faint:#55555c;--line:rgba(255,255,255,.08);--panel:rgba(255,255,255,.06);--ring:rgba(255,255,255,.12);
+  --bar:rgba(18,18,20,.78);--glow:rgba(255,255,255,.05);--btn:#ededef;--on-btn:#111113;--tile:rgba(255,255,255,.035);--tile-s:#151517;
+  --shadow:0 24px 50px -24px rgba(0,0,0,.8);--glass:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.04));--glass-edge:rgba(255,255,255,.14);
+  --hot:#ff7340;--late:#ff6b6b;--ok:#3ccf91;--me:#6b95ff;--mate:#35c99a;--claude:#a98bff;color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-tap-highlight-color:transparent;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,"SF Pro Text","PingFang TC","Noto Sans TC",sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:520px;background:radial-gradient(60% 100% at 50% 0,var(--glow),transparent 70%);pointer-events:none;z-index:0}
+.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+.wrap{max-width:1320px;margin:0 auto;padding:0 28px}
+button{font:inherit;color:inherit}
+a{color:inherit}
+
+/* ── 頂列 ── */
+header{position:sticky;top:0;z-index:20;background:var(--bar);backdrop-filter:saturate(1.6) blur(18px);-webkit-backdrop-filter:saturate(1.6) blur(18px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:16px;height:60px}
+.brand{display:flex;align-items:center;gap:11px;margin-right:auto;text-decoration:none;min-width:0}
+.brand svg{width:26px;height:26px;flex:none}
+.brand b{font-size:15px;font-weight:650;white-space:nowrap}
+.brand .mono{overflow:hidden;text-overflow:ellipsis}
+.tabs{display:flex;padding:3px;background:var(--panel);border-radius:999px}
+.tabs a{display:block;color:var(--mute);text-decoration:none;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11px;letter-spacing:.14em;padding:7px 14px;border-radius:999px;transition:color .2s,background .2s}
+.tabs a:hover{color:var(--fg)}
+.tabs a.on{background:var(--btn);color:var(--on-btn)}
+.ib{display:grid;place-items:center;flex:none;width:36px;height:36px;border:0;border-radius:999px;background:var(--panel);color:var(--mute);cursor:pointer;transition:color .2s}
+.ib:hover{color:var(--fg)}
+.ib svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+main{position:relative;z-index:1;animation:fade .45s both}
+@keyframes fade{from{opacity:0}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+
+/* ── 共用 ── */
+.tile{background:var(--tile);border-radius:18px;box-shadow:inset 0 0 0 1px var(--ring);padding:20px 22px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);min-width:0}
+.tile>h3,.sec h3{margin:0 0 14px;display:flex;align-items:center;gap:10px}
+.sec{display:flex;align-items:center;gap:14px;margin:0 0 20px}
+.sec::after{content:"";flex:1;height:1px;background:var(--line)}
+.meter{height:4px;border-radius:4px;background:var(--panel);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--fg);border-radius:4px}
+.o{display:inline-block;width:8px;height:8px;border-radius:50%;flex:none;background:var(--c)}
+.o-me{--c:var(--me)}.o-mate{--c:var(--mate)}.o-claude{--c:var(--claude)}
+.who{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--mute);white-space:nowrap}
+.whos{display:inline-flex;gap:10px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--ring);font-size:12px;color:var(--mute);white-space:nowrap}
+.chip.here{background:var(--hot);color:#fff;box-shadow:none}
+.chip.done{background:var(--btn);color:var(--on-btn);box-shadow:none}
+.late{color:var(--late)!important}
+.empty{color:var(--mute);font-size:13px;padding:14px 0}
+.seg{display:flex;padding:3px;background:var(--panel);border-radius:999px;width:fit-content;max-width:100%;overflow-x:auto;scrollbar-width:none}
+.seg button{display:flex;align-items:center;gap:6px;border:0;background:none;color:var(--mute);font-size:13px;padding:6px 13px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:color .2s,background .2s}
+.seg button:hover{color:var(--fg)}
+.seg button.on{background:var(--btn);color:var(--on-btn)}
+.seg button.on .o{box-shadow:0 0 0 1.5px var(--on-btn)}
+
+/* ── HOME：左欄 色體圖＋優先順序，右欄 本週＋本週重點 ── */
+.home{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(320px,1fr);gap:16px;padding-top:28px;padding-bottom:16px;align-items:start}
+.col{display:flex;flex-direction:column;gap:16px;min-width:0}
+.col>*{animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+.col>*+*{animation-delay:80ms}
+.hd{display:flex;align-items:center;gap:10px;margin:0 0 14px}
+.big{font-size:56px;font-weight:650;letter-spacing:-.03em;line-height:1;margin:10px 0 6px;font-variant-numeric:tabular-nums}
+.big small{font-size:20px;color:var(--faint);font-weight:500;letter-spacing:0;margin-left:4px}
+.wk .meter{margin:18px 0 6px}
+.wk .pct{display:flex;justify-content:space-between;font-size:13px;color:var(--mute)}
+.wk .pct b{color:var(--fg);font-variant-numeric:tabular-nums}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px;margin:18px 0 0;padding-top:16px;border-top:1px solid var(--line)}
+.stats div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.stats b{font-size:22px;font-weight:650;font-variant-numeric:tabular-nums;line-height:1.2}
+.stats .wide{grid-column:1/-1}
+.stats .wide b{font-size:15px}
+/* 收納按鈕 */
+.tg{display:inline-flex;align-items:center;gap:7px;border:0;background:var(--panel);color:var(--mute);border-radius:999px;padding:6px 12px;cursor:pointer;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:10.5px;letter-spacing:.08em;white-space:nowrap;transition:color .2s}
+.tg:hover{color:var(--fg)}
+.tg i{font-style:normal;display:inline-block;transition:transform .2s}
+.tg.on i{transform:rotate(90deg)}
+.fl+.tg{margin-top:10px}
+.tg+.fl{margin-top:6px}
+/* 本週重點清單 */
+.fl{display:flex;flex-direction:column}
+.fr{display:grid;grid-template-columns:20px 1fr auto;gap:10px;align-items:center;padding:9px 4px;border-bottom:1px solid var(--line);text-align:left;background:none;border-left:0;border-right:0;border-top:0;cursor:pointer;border-radius:0;transition:background .15s}
+.fr:last-child{border-bottom:0}
+.fr:hover{background:var(--panel)}
+.ck{width:18px;height:18px;border-radius:6px;box-shadow:inset 0 0 0 1.5px var(--faint);display:grid;place-items:center}
+.ck svg{width:11px;height:11px;stroke:var(--on-btn);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.fr.done .ck{background:var(--fg);box-shadow:none}
+.fr.done .ft{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--faint)}
+.fr .fm{display:flex;flex-direction:column;gap:3px;min-width:0}
+.fr .ft{font-size:14px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* 色體圖：中間直軸＝整體完成度（由下往上填）；每個階段一條分支，伸出去的長度＝該階段完成度，一格 10%，伸到底＝完成 */
+.chromo{position:relative}
+.cx-end{display:block;text-align:center;font-size:10px;padding:4px 0}
+.cx-rows{position:relative;display:flex;flex-direction:column-reverse;padding:6px 0}
+.cx-ax{position:absolute;left:50%;top:0;bottom:0;width:6px;margin-left:-3px;border-radius:6px;background:var(--panel);box-shadow:inset 0 0 0 1px var(--ring)}
+.cx-ax i{position:absolute;left:0;right:0;bottom:0;height:var(--v);border-radius:6px;background:var(--fg)}
+.br{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 30px minmax(0,1fr);align-items:center;min-height:62px;cursor:pointer;border-radius:12px;transition:background .15s}
+.br:hover{background:var(--panel)}
+.nd{grid-column:2;justify-self:center;width:12px;height:12px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 0 2px var(--faint);z-index:1}
+.br.open .nd{box-shadow:inset 0 0 0 2px var(--fg)}
+.br.done .nd{background:var(--fg);box-shadow:none}
+.br.here .nd{background:var(--hot);box-shadow:0 0 0 5px color-mix(in srgb,var(--hot) 22%,transparent)}
+.arm{display:flex;flex-direction:column;gap:5px;min-width:0;padding:6px 0}
+.arm.L{grid-column:1;align-items:flex-end;text-align:right}
+.arm.R{grid-column:3;align-items:flex-start}
+.arm .lb{display:flex;align-items:baseline;gap:8px;font-size:14px;white-space:nowrap;max-width:100%}
+.arm.L .lb{flex-direction:row-reverse}
+.arm .lb b{font-weight:650;overflow:hidden;text-overflow:ellipsis}
+.br.ahead .arm .lb b{color:var(--mute);font-weight:500}
+.arm .sub{font-size:10px}
+.trk{position:relative;width:100%;height:12px;border-radius:3px;background-image:linear-gradient(90deg,var(--ring) 1px,transparent 1px);background-size:10% 100%;box-shadow:inset 0 0 0 1px var(--line)}
+.arm.L .trk{transform:scaleX(-1)}
+.fill{position:absolute;left:0;top:0;bottom:0;width:var(--v);display:flex;border-radius:3px;overflow:hidden}
+.fill span{height:100%;flex:none;width:var(--w);background:var(--c)}
+.knob{position:absolute;top:50%;left:var(--v);width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--bg);box-shadow:0 0 0 2px var(--fg)}
+.br.here .knob{background:var(--hot);box-shadow:0 0 0 2px var(--hot)}
+.br.ahead .knob{box-shadow:0 0 0 1.5px var(--faint)}
+.br.fold{min-height:34px}
+.fchip{grid-column:1/-1;justify-self:center;z-index:1;background:var(--fg);color:var(--on-btn);border-radius:999px;padding:3px 12px;font-size:12px;font-weight:600;white-space:nowrap}
+.cx-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.cx-foot .sp{flex:1}
+.ttl-h{margin:0 0 2px;font-size:22px;font-weight:650;letter-spacing:-.01em}
+
+/* 3D 色立體：直軸＝整體完成度；每個階段一個方向（像色相），由下往上；方塊一顆 10%，往外越鮮豔，越上越亮 */
+.sc{position:relative;height:calc(var(--lv) * 5 + 190px);perspective:1500px;perspective-origin:50% 40%;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;--lv:34px;--u:22px;--h:15px;--d:18px;overflow:hidden;margin:0 -22px}
+.sc.drag{cursor:grabbing}
+.so{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;transform:translateY(10px) rotateX(var(--rx)) rotateY(var(--ry))}
+.so *{transform-style:preserve-3d}
+.ax3{position:absolute;left:0;top:0}
+.ax3 i{position:absolute;left:-7px;top:calc(var(--lv) * -4 - 20px);width:14px;height:calc(var(--lv) * 8 + 40px);background:linear-gradient(to top,var(--fg) var(--v),var(--panel) var(--v));box-shadow:inset 0 0 0 1px var(--ring)}
+.ax3 i:nth-child(2){transform:rotateY(90deg)}
+.bx{position:absolute;left:0;top:0;transform:translateY(var(--y)) rotateY(var(--a))}
+.cb{position:absolute;left:0;top:0;transform:translateX(var(--x))}
+.cb i{position:absolute;left:0;top:0;background:var(--c);backface-visibility:visible}
+.cb .f,.cb .k{width:var(--l);height:var(--h)}
+.cb .f{transform:translate3d(0,calc(var(--h) / -2),calc(var(--d) / 2))}
+.cb .k{transform:translate3d(0,calc(var(--h) / -2),calc(var(--d) / -2))}
+.cb .t,.cb .m{width:var(--l);height:var(--d)}
+.cb .t{transform:translate3d(0,calc(var(--h) / -2 - var(--d) / 2),0) rotateX(90deg);filter:brightness(1.18)}
+.cb .m{transform:translate3d(0,calc(var(--h) / 2 - var(--d) / 2),0) rotateX(90deg);filter:brightness(.7)}
+.cb .s,.cb .e{width:var(--d);height:var(--h);filter:brightness(.86)}
+.cb .s{transform:translate3d(calc(var(--d) / -2),calc(var(--h) / -2),0) rotateY(90deg)}
+.cb .e{transform:translate3d(calc(var(--l) - var(--d) / 2),calc(var(--h) / -2),0) rotateY(90deg)}
+.cb.ghost i{background:none;box-shadow:inset 0 0 0 1px var(--ring);filter:none}
+.cb.ghost{opacity:.5}
+.cb.ghost .k,.cb.ghost .m,.cb.ghost .s,.cb.ghost .e{display:none}
+.bx.here .cb:not(.ghost) .f{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55)}
+.l3{position:absolute;left:0;top:0;transform:translateX(var(--x)) rotateY(calc(-1 * (var(--a) + var(--ry)))) rotateX(calc(-1 * var(--rx)))}
+.l3 button{position:absolute;left:0;top:0;transform:translate(6px,-50%);display:flex;align-items:center;gap:6px;border:0;background:var(--bar);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:var(--fg);border-radius:999px;padding:3px 10px 3px 6px;font-size:12px;font-weight:600;white-space:nowrap;cursor:pointer;box-shadow:0 0 0 1px var(--ring)}
+.l3 button i{width:10px;height:10px;border-radius:3px;background:var(--c);flex:none}
+.l3 button em{font-style:normal;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:10px;color:var(--mute);font-weight:500}
+.l3 button:hover{box-shadow:0 0 0 1.5px var(--fg)}
+.bx.here .l3 button{background:var(--hot);color:#fff;box-shadow:none}
+.bx.here .l3 button em{color:#fff;opacity:.85}
+.bx.ahead .l3 button{color:var(--mute);font-weight:500}
+.e3{position:absolute;left:0;top:0;transform:translateY(var(--y)) rotateY(calc(-1 * var(--ry))) rotateX(calc(-1 * var(--rx)))}
+.e3 span{position:absolute;left:0;top:0;transform:translate(-50%,-50%);font-size:10px;white-space:nowrap}
+.cvs{display:flex;gap:2px;padding:2px;background:var(--panel);border-radius:999px}
+.cvs button{border:0;background:none;color:var(--mute);font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:10px;letter-spacing:.08em;padding:4px 10px;border-radius:999px;cursor:pointer}
+.cvs button.on{background:var(--btn);color:var(--on-btn)}
+
+/* 優先順序：十字軸，無底色。上＝重要、右＝緊急 */
+.qx{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;margin:20px 26px 6px 0}
+.qx::before{content:"";position:absolute;left:50%;top:-14px;bottom:0;width:1.5px;margin-left:-.75px;background:var(--fg)}
+.qx::after{content:"";position:absolute;top:50%;left:0;right:-16px;height:1.5px;margin-top:-.75px;background:var(--fg)}
+.qx .ay,.qx .axr{position:absolute;font-size:10px;color:var(--fg)}
+.qx .ay{left:50%;top:-22px;transform:translate(-50%,-50%);background:var(--tile-s);padding:0 6px}
+.qx .axr{right:-26px;top:50%;transform:translate(0,-130%)}
+.qx .ay::after{content:"";position:absolute;left:50%;top:100%;margin-left:-4px;border:4px solid transparent;border-bottom:6px solid var(--fg);border-top:0;transform:translateY(2px)}
+.qc{padding:8px 12px 12px;display:flex;flex-direction:column;gap:2px;min-width:0;min-height:112px}
+.qc>.mono{font-size:10px;margin-bottom:4px}
+.qc.hot>.mono{color:var(--hot)}
+.qi{display:flex;align-items:center;gap:7px;border:0;background:none;padding:3px 4px;border-radius:6px;cursor:pointer;font-size:12.5px;text-align:left;min-width:0;transition:background .15s}
+.qi:hover{background:var(--panel)}
+.qi span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qi.top span{font-weight:650}
+.qi .os{display:flex;gap:2px;flex:none}
+.qm{padding:4px;text-decoration:none}
+
+/* 階段詳情裡的工作清單 */
+.tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.tl li{display:grid;grid-template-columns:16px 1fr auto;gap:10px;align-items:baseline;padding:7px 6px;border-radius:8px;cursor:pointer;transition:background .15s}
+.tl li:hover{background:var(--panel)}
+.tl .st{font-size:12px;color:var(--faint);text-align:center}
+.tl li.done .st{color:var(--ok)}
+.tl li.done .tt{color:var(--mute)}
+.tl .tt{font-size:14px;min-width:0}
+.tl .tt .os{display:inline-flex;gap:3px;margin-left:8px;vertical-align:1px}
+.res{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.res a{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;background:var(--tile);box-shadow:inset 0 0 0 1px var(--ring);text-decoration:none;transition:box-shadow .2s}
+.res a:hover{box-shadow:inset 0 0 0 1px var(--mute)}
+.res a b{font-size:13px;font-weight:600;flex:1;min-width:0}
+.res a svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.6;flex:none;color:var(--mute)}
+/* 進度紀錄 */
+.lg{list-style:none;margin:0;padding:0}
+.lg li{display:grid;grid-template-columns:72px 92px 1fr;gap:14px;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
+.lg li:last-child{border-bottom:0}
+.home-log{padding-top:12px;padding-bottom:80px}
+
+/* ── TASKS ── */
+.bar2{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:32px 0 20px}
+.bar2 .sp{flex:1}
+.ttl{margin:0;font-size:28px;font-weight:650;letter-spacing:-.01em}
+.load{margin-bottom:16px;padding:18px 0 16px}
+.gs{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.gin{min-width:820px;padding:0 18px}
+.g{display:grid;grid-template-columns:230px 1fr;align-items:center}
+.g .gl{padding-right:12px;min-width:0;position:sticky;left:0;z-index:2;background:var(--tile-s)}
+.g .gw{position:relative;height:100%;min-height:30px}
+.grid-bg{background-image:linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:calc(100% / var(--n)) 100%}
+.ruler .gw{display:grid;grid-template-columns:repeat(var(--n),1fr);min-height:0}
+.ruler .gw span{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:9px;letter-spacing:.04em;color:var(--mute);padding:0 0 6px 3px;border-left:1px solid var(--line)}
+.ruler .gw span.cur{color:var(--hot);font-weight:700;border-left-color:var(--hot)}
+.nowl{position:absolute;top:0;bottom:0;width:1px;background:var(--hot);opacity:.55;pointer-events:none;z-index:1}
+.gph{margin-top:14px}
+.gph .gl b{font-size:13px;font-weight:650}
+.gph .gl{display:flex;align-items:baseline;gap:8px}
+.gph .pb{position:absolute;top:50%;height:4px;margin-top:-2px;border-radius:4px;background:var(--faint);opacity:.45}
+.grow{width:100%;border:0;background:none;padding:3px 0;cursor:pointer;text-align:left;border-radius:8px;transition:background .15s}
+.grow:hover{background:var(--panel)}
+.grow .gl{display:flex;flex-direction:column;gap:1px;padding-left:12px}
+.grow .tt{font-size:12.5px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.grow.done .tt{color:var(--mute)}
+.gb{position:absolute;top:5px;bottom:5px;border-radius:6px;overflow:hidden;display:flex;align-items:center;padding:0 7px;
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--oc1) 45%,transparent)}
+.gb::before{content:"";position:absolute;inset:0;background:var(--ocg);opacity:.2}
+.gb i{position:absolute;left:0;top:0;bottom:0;width:var(--p);background:var(--ocg);opacity:.55}
+.gb em{position:relative;font-style:normal;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:9px;font-weight:700;color:var(--oc1)}
+.grow.done .gb i{opacity:.8}
+.grow.done .gb em{color:#fff}
+.grow.late .gb{box-shadow:inset 0 0 0 1.5px var(--late)}
+/* 人力色塊圖：每人每週同時在做幾件 */
+.lr .gw{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:2px;height:30px}
+.lr .gw span{border-radius:4px;background:color-mix(in srgb,var(--c) var(--k),var(--panel));display:grid;place-items:center;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:9px;color:#fff;font-weight:700}
+.lr .gw span.z{background:var(--panel)}
+.lr .gl{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500}
+.lr+.lr{margin-top:4px}
+/* 清單檢視 */
+.lst .ph{display:flex;align-items:baseline;gap:10px;margin:22px 0 6px}
+.lst .ph b{font-size:15px}
+.lrow{display:grid;grid-template-columns:20px 1fr 150px 86px 110px;gap:12px;align-items:center;width:100%;padding:10px 6px;border:0;border-bottom:1px solid var(--line);background:none;text-align:left;cursor:pointer;transition:background .15s}
+.lrow:hover{background:var(--panel)}
+.lrow .tt{font-size:14px;min-width:0}
+.lrow .meter{width:100%}
+.lrow.done .tt{color:var(--mute)}
+
+/* ── PARTS ── */
+.sum{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.sum .tile b{display:block;font-size:24px;font-weight:650;font-variant-numeric:tabular-nums;margin-top:6px;letter-spacing:-.01em}
+.sum .tile small{color:var(--mute);font-size:12px}
+.bud{position:relative;height:12px;border-radius:6px;background:var(--panel);margin:8px 0 6px;overflow:hidden}
+.bud span{position:absolute;top:0;bottom:0;left:0}
+.bud .hi{background:repeating-linear-gradient(135deg,var(--faint) 0 3px,transparent 3px 7px);opacity:.7}
+.bud .lo{background:var(--faint)}
+.bud .od{background:var(--fg)}
+.bkey{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;color:var(--mute);margin-bottom:28px}
+.bkey i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.pt-row{display:grid;grid-template-columns:28px 1fr 90px 150px 44px 220px;gap:14px;align-items:center;padding:14px 4px;border-bottom:1px solid var(--line)}
+.pt-row .nm b{font-size:14.5px;font-weight:600;display:block}
+.pt-row .nm small{color:var(--mute);font-size:12.5px}
+.pt-row .pr{font-variant-numeric:tabular-nums;font-size:14px}
+.steps{display:flex;align-items:center;gap:0}
+.steps span{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--faint);white-space:nowrap}
+.steps span::before{content:"";width:9px;height:9px;border-radius:50%;box-shadow:inset 0 0 0 1.5px currentColor}
+.steps span+span::after{content:none}
+.steps em{flex:1;min-width:10px;height:1px;background:var(--line);margin:0 6px}
+.steps span.on{color:var(--fg)}
+.steps span.on::before{background:currentColor}
+.steps span.cur{font-weight:600}
+.phd{display:grid;grid-template-columns:28px 1fr 90px 150px 44px 220px;gap:14px;padding:0 4px 8px;border-bottom:1px solid var(--line)}
+
+/* ── DATA ── */
+.rs{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:16px;margin-bottom:48px}
+.rc{padding:22px 24px;animation:rise .6s cubic-bezier(.2,.7,.2,1) both;scroll-margin-top:90px}
+.rc.hl{box-shadow:inset 0 0 0 1.5px var(--hot)}
+.rc h3{margin:8px 0 8px;font-size:19px;font-weight:650;line-height:1.35}
+.rc p{margin:0 0 14px;color:var(--mute);font-size:14px}
+.rc table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+.rc th{font-weight:500;color:var(--mute);font-size:12px;text-align:left;padding:7px 8px;border-bottom:1px solid var(--ring)}
+.rc td{padding:7px 8px;border-bottom:1px solid var(--line)}
+.rc td b{color:var(--hot);font-weight:700}
+.rc .fp{display:block;margin-top:14px;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11.5px;color:var(--mute);word-break:break-all}
+
+/* ── 任務詳情 ── */
+.dlg{width:min(460px,calc(100vw - 32px));padding:26px;border:0;border-radius:18px;background:var(--bg);color:var(--fg);box-shadow:0 0 0 1px var(--ring),var(--shadow)}
+.dlg::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(4px)}
+.dlg h2{margin:8px 0 16px;font-size:20px;line-height:1.35;font-weight:650}
+.dlg dl{display:grid;grid-template-columns:72px 1fr;gap:10px 14px;margin:0;font-size:14px}
+.dlg dt{color:var(--mute);font-size:12px;padding-top:2px}
+.dlg dd{margin:0}
+.dlg .x{position:absolute;right:14px;top:14px}
+.lv{display:inline-flex;gap:3px;vertical-align:middle}
+.lv i{width:16px;height:5px;border-radius:3px;background:var(--panel)}
+.lv i.on{background:var(--fg)}
+.foot{padding:28px 0 60px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+
+/* ── 窄螢幕 ── */
+@media (max-width:1060px){
+  .home{grid-template-columns:minmax(0,1.2fr) minmax(300px,1fr)}
+  .sum{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  .wrap{padding:0 16px}
+  header .wrap{gap:8px;height:56px}
+  .brand .mono{display:none}
+  .brand b{font-size:14px}
+  .tabs a{padding:7px 9px;letter-spacing:.06em;font-size:10.5px}
+  .home{grid-template-columns:1fr;padding-top:18px}
+  .col{display:contents}
+  .o1{order:1}.o2{order:2}.o3{order:3}.o4{order:4}
+  .big{font-size:46px}
+  .br{grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr);min-height:58px}
+  .arm .lb{font-size:13px;gap:5px}
+  .arm .lb .mono{display:none}
+  .qx{margin-right:18px}
+  .qc{padding:6px 8px 10px}
+  .lg li{grid-template-columns:52px 1fr;gap:4px 12px}
+  .lg li .tx{grid-column:1/-1}
+  .gin{min-width:720px}
+  .g{grid-template-columns:140px 1fr}
+  .lrow{grid-template-columns:20px 1fr 76px;row-gap:6px}
+  .lrow .whos,.lrow .meter{display:none}
+  .pt-row{grid-template-columns:22px 1fr auto;gap:8px 10px}
+  .pt-row .who,.pt-row .qt{display:none}
+  .pt-row .steps{grid-column:2/-1}
+  .phd{display:none}
+  .rs{grid-template-columns:1fr}
+  .rc{padding:18px}
+  .sum .tile b{font-size:20px}
+}
+@media (max-width:440px){
+  .brand b{display:none}
+  .sum{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  main,.col>*,.rc{animation:none}
+}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="../../" title="回資料庫 Data Tank">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3v20H6z" fill="currentColor"/><path d="M18 8l7 15h-7z" fill="currentColor" opacity=".5"/><path d="M4 25h24l-3 4H7z" fill="currentColor"/></svg>
+    <b>無人帆船</b><span class="mono" id="hw"></span>
+  </a>
+  <nav class="tabs" id="tabs">
+    <a href="#home" data-v="home">HOME</a><a href="#tasks" data-v="tasks">TASKS</a><a href="#parts" data-v="parts">PARTS</a><a href="#data" data-v="data">DATA</a>
+  </nav>
+  <button class="ib" id="theme" title="切換淺色／深色" aria-label="切換淺色／深色"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg></button>
+</div></header>
+<main id="app"></main>
+<dialog class="dlg" id="dlg"></dialog>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const DAY=864e5;
+const store={get(k){try{return localStorage.getItem('sail:'+k)}catch(e){return null}},set(k,v){try{localStorage.setItem('sail:'+k,v)}catch(e){}}};
+const ARROW='<svg viewBox="0 0 16 16"><path d="M4 8h8M8.5 4.5 12 8l-3.5 3.5"/></svg>';
+const CHECK='<svg viewBox="0 0 12 12"><path d="M2.5 6.2 5 8.6l4.6-5"/></svg>';
+
+let D,P,T,W,N,START,M;
+let ui={own:store.get('own')||'all',view:store.get('view')||'gantt',cv:store.get('cv')||'3d'};
+
+/* ── 週次與日期 ── */
+const wkDate=n=>new Date(START.getTime()+(n-1)*7*DAY);
+const md=d=>`${d.getMonth()+1}/${d.getDate()}`;
+const wkRange=(a,b=a)=>`${md(wkDate(a))} – ${md(new Date(wkDate(b).getTime()+6*DAY))}`;
+const wr=(a,b)=>a===b?`W${pad(a)}`:`W${pad(a)}–${pad(b)}`;
+const fmtDay=s=>{const [y,m,d]=s.split('-');return `${+m}/${+d}`};
+const money=n=>'NT$ '+Math.round(n).toLocaleString('en-US');
+
+/* ── 任務狀態 ── */
+const isDone=t=>t.status==='done';
+const isLate=t=>!isDone(t)&&t.end<W;
+const inWeek=t=>t.start<=W&&W<=t.end;
+const ofPhase=p=>T.filter(t=>t.phase===p.n);
+const phaseState=p=>{const ts=ofPhase(p);if(ts.length&&ts.every(isDone))return 'done';if(p===HERE)return 'here';return p.start<=W?'open':'ahead'};
+let HERE;
+const own=o=>`<span class="who"><i class="o o-${o}"></i>${esc(M[o]||o)}</span>`;
+const dots=t=>`<span class="os">${t.owners.map(o=>`<i class="o o-${o}" title="${esc(M[o])}"></i>`).join('')}</span>`;
+const ocol=t=>t.owners.map(o=>`var(--${o})`);
+const grad=t=>{const c=ocol(t);return c.length<2?c[0]:`linear-gradient(90deg,${c.map((x,i)=>`${x} ${i*100/c.length}% ${(i+1)*100/c.length}%`).join(',')})`};
+const stLabel=t=>isDone(t)?'完成':t.status==='doing'?'進行中':isLate(t)?'延遲':'未開始';
+const stGlyph=t=>isDone(t)?'✓':t.status==='doing'?'◐':'○';
+const avg=ts=>ts.length?Math.round(ts.reduce((s,t)=>s+(isDone(t)?100:+t.progress||0),0)/ts.length):0;
+
+/* ── HOME ── */
+let fold={phase:true,focus:true};   // 已完成的階段、本週已完成的工作預設收起來
+function viewHome(){
+  const week=T.filter(t=>(inWeek(t)||isLate(t))&&!isDone(t)).sort((a,b)=>isLate(b)-isLate(a)||b.imp-a.imp||a.end-b.end);
+  const weekDone=T.filter(t=>inWeek(t)&&isDone(t));
+  const late=T.filter(isLate);
+  const next=P.find(p=>p.start>W);
+  return `
+<section class="wrap home">
+  <div class="col">
+    <div class="tile o2">${ui.cv==='flat'?chromo():chart3d()}</div>
+    <div class="tile o4">
+      <h3 class="hd"><span class="mono">優先順序</span><span class="mono" style="margin-left:auto">四週內未完成</span></h3>
+      ${quad()}
+    </div>
+  </div>
+  <div class="col">
+    <div class="tile wk o1">
+      <span class="mono">THIS WEEK · 第 ${W} 週</span>
+      <div class="big">W${pad(W)}<small>/ ${N}</small></div>
+      <span class="mono">${wkRange(W)}</span>
+      <div class="meter"><i style="width:${avg(T)}%"></i></div>
+      <div class="pct"><span>整體完成度</span><b>${avg(T)}%</b></div>
+      <div class="stats">
+        <div><span class="mono">本週要做</span><b>${week.length}<small class="mono"> 件</small></b></div>
+        <div><span class="mono">延遲</span><b class="${late.length?'late':''}">${late.length}<small class="mono"> 件</small></b></div>
+        <div class="wide"><span class="mono">目前階段</span><b>${pad(HERE.n)} ${esc(HERE.name)} <span class="mono">${wr(HERE.start,HERE.end)}</span></b></div>
+        <div class="wide"><span class="mono">接下來</span><b>${next?`${pad(next.n)} ${esc(next.name)} <span class="mono">W${pad(next.start)} 起 · ${md(wkDate(next.start))}</span>`:'—'}</b></div>
+      </div>
+    </div>
+    <div class="tile o3">
+      <h3 class="hd"><span class="mono">本週重點</span><span class="mono" style="margin-left:auto">${weekDone.length} / ${week.length+weekDone.length} 完成</span></h3>
+      <div class="fl">${week.map(focusRow).join('')}${week.length?'':'<div class="empty">本週的工作都做完了</div>'}</div>
+      ${weekDone.length?`<button class="tg ${fold.focus?'':'on'}" data-fold="focus"><i>▸</i>已完成 ${weekDone.length} 件</button>${fold.focus?'':`<div class="fl">${weekDone.map(focusRow).join('')}</div>`}`:''}
+    </div>
+  </div>
+</section>
+<section class="wrap home-log">
+  <div class="sec"><span class="mono">進度紀錄 · LOG</span></div>
+  ${logList(D.log.slice(0,5))}
+  ${D.log.length>5?`<p><a class="mono" href="#data">全部 ${D.log.length} 筆 →</a></p>`:''}
+</section>
+${foot()}`;
+}
+function focusRow(t){
+  return `<button class="fr ${isDone(t)?'done':''}" data-t="${t.id}">
+    <span class="ck">${isDone(t)?CHECK:''}</span>
+    <span class="fm"><span class="ft">${esc(t.title)}</span><span class="whos">${t.owners.map(own).join('')}</span></span>
+    <span class="mono ${isLate(t)?'late':''}">${isDone(t)?'完成':isLate(t)?`延遲 · W${pad(t.end)}`:`到期 W${pad(t.end)}`}</span>
+  </button>`;
+}
+// 一個階段的完成度，並拆成每個負責人做了多少：每件工作佔 1/n，完成的進度平分給它的負責人
+function phaseStat(p){
+  const ts=ofPhase(p),by={};
+  for(const t of ts){const v=(isDone(t)?100:+t.progress||0)/ts.length;for(const o of t.owners)by[o]=(by[o]||0)+v/t.owners.length}
+  const sum=Object.values(by).reduce((a,b)=>a+b,0);
+  return {ts,by,sum,dn:ts.filter(isDone).length};
+}
+// 3D 色立體
+const HUE=i=>(8+i*45)%360;
+function solid3d(){
+  const all=avg(T);
+  const cube=(k,f,c,ghost)=>`<span class="cb ${ghost?'ghost':''}" style="--x:calc(10px + ${k} * var(--u));--l:calc((var(--u) - 3px) * ${f});--c:${c}"><i class="f"></i><i class="k"></i><i class="t"></i><i class="m"></i><i class="s"></i><i class="e"></i></span>`;
+  // 一週一圈：W01 在最底層，往上疊。過去週的完成度存在 data.json 的 weekly，這一週用目前資料即時算
+  const layers=[];
+  for(let w=1;w<=W;w++){
+    const snap=w===W?Object.fromEntries(P.map(p=>[p.n,phaseStat(p).sum])):(D.weekly||{})[w];
+    if(snap)layers.push({w,snap});
+  }
+  const rows=Math.max(layers.length,4),half=(rows-1)/2;
+  const brs=layers.map(({w,snap},li)=>{
+    const live=w===W,y=`calc(var(--lv) * ${(half-li).toFixed(1)})`;
+    return P.map((p,i)=>{
+      const h=HUE(i),a=`${i*45}deg`,v=(snap[p.n]||0)/10,L=live?46:58;
+      let cubes='';
+      for(let k=0;k<10;k++){const f=Math.max(0,Math.min(1,v-k));
+        cubes+=f>0?cube(k,f.toFixed(3),`hsl(${h} ${live?22+k*7:16+k*4}% ${L}%)`,false):(live?cube(k,1,'',true):'')}
+      const lab=live?`<div class="l3" style="--x:calc(16px + 10 * var(--u));--a:${a}"><button data-p="${p.n}" style="--c:hsl(${h} 80% 46%)"><i></i>${esc(p.name)}<em>${Math.round(snap[p.n]||0)}%</em></button></div>`:'';
+      return `<div class="bx ${live?phaseState(p):''}" style="--y:${y};--a:${a}">${cubes}${lab}</div>`;
+    }).join('');
+  }).join('');
+  const top=`calc(var(--lv) * ${-half-1})`,bot=`calc(var(--lv) * ${half+1})`;
+  return `<div class="sc" id="sc"><div class="so" id="so" style="--rx:${RX}deg;--ry:${RY}deg">
+    <div class="ax3" style="--v:${all}%"><i></i><i></i></div>
+    <div class="e3" style="--y:${top}"><span class="mono">W${pad(N)} · 口試完成</span></div>
+    <div class="e3" style="--y:${bot}"><span class="mono">W01 · ${md(START)} 開始</span></div>
+    ${brs}</div></div>`;
+}
+let RX=-16,RY=-28,spinId=0,drag=null,dragged=0,hoverSc=false,lastT=0;
+const still=matchMedia('(prefers-reduced-motion: reduce)');
+function spin(t){
+  const so=$('#so');if(!so){spinId=0;return}
+  if(!drag&&!hoverSc&&!still.matches&&lastT)RY+=(t-lastT)*.006;
+  lastT=t;so.style.setProperty('--ry',RY.toFixed(2)+'deg');so.style.setProperty('--rx',RX.toFixed(2)+'deg');
+  spinId=requestAnimationFrame(spin);
+}
+function setupSolid(){
+  const sc=$('#sc');if(!sc)return;
+  const u=Math.max(8,Math.min(22,(sc.clientWidth/2-96)/10));
+  sc.style.setProperty('--u',u+'px');sc.style.setProperty('--lv',(u<14?28:34)+'px');
+  sc.style.setProperty('--h',(u<14?11:15)+'px');sc.style.setProperty('--d',(u<14?12:18)+'px');
+  sc.onpointerenter=e=>{if(e.pointerType==='mouse')hoverSc=true};
+  sc.onpointerleave=()=>{hoverSc=false};
+  sc.onpointerdown=e=>{drag={x:e.clientX,y:e.clientY,ry:RY,rx:RX,moved:false,id:e.pointerId}};
+  sc.onpointermove=e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+    if(!drag.moved&&Math.hypot(dx,dy)>5){drag.moved=true;sc.classList.add('drag');try{sc.setPointerCapture(drag.id)}catch(_){}}
+    if(drag.moved){RY=drag.ry+dx*.4;RX=Math.max(-40,Math.min(-4,drag.rx-dy*.25))}};
+  sc.onpointerup=sc.onpointercancel=()=>{if(drag&&drag.moved)dragged=Date.now();drag=null;sc.classList.remove('drag')};
+  if(!spinId){lastT=0;spinId=requestAnimationFrame(spin)}
+}
+addEventListener('resize',()=>{if($('#sc'))setupSolid()});
+function chart3d(){
+  const done=P.filter(p=>phaseState(p)==='done');
+  return `<h3 class="hd"><span class="mono">色立體 · 階段完成度</span><span class="mono" style="margin-left:auto">整體 <b style="color:var(--fg)">${avg(T)}%</b></span>${cvSwitch()}</h3>
+  ${solid3d()}
+  <div class="cx-foot"><span class="mono">8 個階段繞軸一圈 · 一顆方塊 10%，伸到第 10 顆＝完成 · 一週疊一層 · 拖曳旋轉，點階段看工作</span><span class="sp"></span>
+    ${done.length?`<button class="tg ${fold.phase?'':'on'}" data-fold="phase"><i>▸</i>已完成 ${done.length} 階段</button>`:''}</div>`;
+}
+const cvSwitch=()=>`<span class="cvs" id="cv"><button data-cv="3d" class="${ui.cv!=='flat'?'on':''}">3D</button><button data-cv="flat" class="${ui.cv==='flat'?'on':''}">平面</button></span>`;
+function chromo(){
+  const all=avg(T),done=P.filter(p=>phaseState(p)==='done');
+  const rows=P.map((p,i)=>{
+    const st=phaseState(p),s=phaseStat(p),side=i%2?'L':'R';
+    if(st==='done'&&fold.phase)return `<div class="br fold done" data-p="${p.n}" title="點開看這個階段"><span class="fchip">✓ ${pad(p.n)} ${esc(p.name)} · 100%</span></div>`;
+    const segs=Object.keys(M).filter(o=>s.by[o]>0).map(o=>`<span style="--c:var(--${o});--w:${s.by[o]/s.sum*100}%" title="${esc(M[o])} ${Math.round(s.by[o])}%"></span>`).join('');
+    const arm=`<div class="arm ${side}">
+      <div class="lb"><span class="mono">${pad(p.n)}</span><b>${esc(p.name)}</b>${st==='here'?'<span class="chip here">現在</span>':''}</div>
+      <div class="trk"><div class="fill" style="--v:${s.sum}%">${segs}</div><i class="knob" style="--v:${s.sum}%"></i></div>
+      <span class="mono sub">${wr(p.start,p.end)} · ${s.dn}/${s.ts.length} 件 · ${Math.round(s.sum)}%</span>
+    </div>`;
+    return `<div class="br ${st}" data-p="${p.n}" title="點開看這個階段">${side==='L'?arm:''}<span class="nd"></span>${side==='R'?arm:''}</div>`;
+  }).join('');
+  return `<h3 class="hd"><span class="mono">色體圖 · 階段完成度</span><span class="mono" style="margin-left:auto">整體 <b style="color:var(--fg)">${all}%</b></span>${cvSwitch()}</h3>
+  <div class="chromo">
+    <span class="mono cx-end">100% · 口試完成</span>
+    <div class="cx-rows"><div class="cx-ax" style="--v:${all}%"><i></i></div>${rows}</div>
+    <span class="mono cx-end">0% · ${md(START)} 開始</span>
+  </div>
+  <div class="cx-foot"><span class="whos">${Object.keys(M).map(own).join('')}</span><span class="mono">一格 10%，伸到最外＝完成</span><span class="sp"></span>
+    ${done.length?`<button class="tg ${fold.phase?'':'on'}" data-fold="phase"><i>▸</i>已完成 ${done.length} 階段</button>`:''}</div>`;
+}
+function quad(){
+  // 重要＝重要度 3；緊急＝緊急度 3，或這週／下週到期，或已延遲。同一格內分數高的排前面、加粗
+  const items=T.filter(t=>!isDone(t)&&t.start<=W+3);
+  const imp=t=>t.imp>=3,urg=t=>t.urg>=3||t.end<=W+1||isLate(t);
+  const cells=[['重要・不急',t=>imp(t)&&!urg(t)],['重要・緊急',t=>imp(t)&&urg(t),'hot'],['一般・不急',t=>!imp(t)&&!urg(t)],['一般・緊急',t=>!imp(t)&&urg(t)]];
+  const CAP=5;
+  return `<div class="qx"><span class="mono ay">重要</span><span class="mono axr">緊急 →</span>${cells.map(([l,f,c])=>{const ts=items.filter(f).sort((a,b)=>isLate(b)-isLate(a)||(b.imp+b.urg)-(a.imp+a.urg)||a.end-b.end);
+    return `<div class="qc ${c||''}"><span class="mono">${l} · ${ts.length}</span>${ts.slice(0,CAP).map(t=>`<button class="qi ${t.imp+t.urg>=5?'top':''}" data-t="${t.id}" title="${esc(t.title)}">${dots(t)}<span class="${isLate(t)?'late':''}">${esc(t.title)}</span></button>`).join('')}${ts.length>CAP?`<a class="mono qm" href="#tasks">還有 ${ts.length-CAP} 件 →</a>`:''}</div>`}).join('')}</div>`;
+}
+function logList(ls){
+  if(!ls.length)return '<div class="empty">還沒有紀錄</div>';
+  return `<ul class="lg">${ls.map(l=>`<li><span class="mono">${fmtDay(l.date)}</span>${own(l.who)}<span class="tx">${esc(l.text)}</span></li>`).join('')}</ul>`;
+}
+
+/* ── TASKS ── */
+function viewTasks(){
+  const ts=ui.own==='all'?T:T.filter(t=>t.owners.includes(ui.own));
+  const owners=Object.keys(M);
+  return `<section class="wrap">
+  <div class="bar2">
+    <h2 class="ttl">工作進度</h2><span class="mono">${ts.length} 件 · ${ts.filter(isDone).length} 完成</span><span class="sp"></span>
+    <div class="seg" id="fo">${[['all','全部'],...owners.map(o=>[o,M[o]])].map(([k,l])=>`<button data-o="${k}" class="${ui.own===k?'on':''}">${k==='all'?'':`<i class="o o-${k}"></i>`}${esc(l)}</button>`).join('')}</div>
+    <div class="seg" id="fv"><button data-v="gantt" class="${ui.view==='gantt'?'on':''}">甘特圖</button><button data-v="list" class="${ui.view==='list'?'on':''}">清單</button></div>
+  </div>
+  ${ui.view==='gantt'?gantt(ts):list(ts)}
+</section>${foot()}`;
+}
+function nowLine(){return `<span class="nowl" style="left:calc(${(W-.5)/N*100}% )"></span>`}
+function gantt(ts){
+  const owners=Object.keys(M);
+  const load=`<div class="tile load"><div class="gs"><div class="gin">
+    <div class="g ruler"><div class="gl"><span class="mono">人力 · 每週同時進行件數</span></div><div class="gw" style="--n:${N}">${weekLabels()}</div></div>
+    ${owners.map(o=>{const mine=T.filter(t=>t.owners.includes(o));
+      return `<div class="g lr" style="--c:var(--${o})"><div class="gl"><i class="o o-${o}"></i>${esc(M[o])}<span class="mono">${mine.filter(isDone).length}/${mine.length}</span></div><div class="gw" style="--n:${N}">${Array.from({length:N},(_,i)=>{const w=i+1,k=mine.filter(t=>t.start<=w&&w<=t.end).length;return `<span class="${k?'':'z'}" style="--k:${Math.min(100,22+k*20)}%" title="${esc(M[o])} W${pad(w)}：${k} 件">${k||''}</span>`}).join('')}</div></div>`}).join('')}
+  </div></div></div>`;
+  const body=P.map(p=>{const rows=ts.filter(t=>t.phase===p.n);if(!rows.length)return '';
+    return `<div class="g gph"><div class="gl"><span class="mono">${pad(p.n)}</span><b>${esc(p.name)}</b><span class="mono">${wr(p.start,p.end)}</span></div><div class="gw grid-bg" style="--n:${N}"><span class="pb" style="left:${(p.start-1)/N*100}%;width:${(p.end-p.start+1)/N*100}%"></span>${nowLine()}</div></div>
+    ${rows.map(t=>`<button class="g grow ${isDone(t)?'done':''} ${isLate(t)?'late':''}" data-t="${t.id}"><div class="gl"><span class="tt">${esc(t.title)}</span><span class="whos">${t.owners.map(o=>`<span class="mono">${esc(M[o])}</span>`).join('')}</span></div>
+      <div class="gw grid-bg" style="--n:${N}">${nowLine()}<span class="gb" style="left:${(t.start-1)/N*100}%;width:${(t.end-t.start+1)/N*100}%;--oc1:var(--${t.owners[0]});--ocg:${grad(t)};--p:${isDone(t)?100:+t.progress||0}%"><i></i><em>${isDone(t)?100:+t.progress||0}%</em></span></div></button>`).join('')}`}).join('');
+  return `${load}<div class="tile" style="padding:16px 0 18px"><div class="gs"><div class="gin">
+    <div class="g ruler"><div class="gl"><span class="mono">工作 · 負責人</span></div><div class="gw" style="--n:${N}">${weekLabels()}</div></div>
+    ${body||'<div class="empty">沒有符合的工作</div>'}
+  </div></div></div>`;
+}
+function weekLabels(){return Array.from({length:N},(_,i)=>`<span class="${i+1===W?'cur':''}" title="${wkRange(i+1)}">W${pad(i+1)}</span>`).join('')}
+function list(ts){
+  return `<div class="lst">${P.map(p=>{const rows=ts.filter(t=>t.phase===p.n);if(!rows.length)return '';
+    return `<div class="ph"><span class="mono">${pad(p.n)}</span><b>${esc(p.name)}</b><span class="mono">${wr(p.start,p.end)} · ${wkRange(p.start,p.end)}</span></div>
+    ${rows.map(t=>`<button class="lrow ${isDone(t)?'done':''}" data-t="${t.id}"><span class="ck" style="${isDone(t)?'background:var(--fg);box-shadow:none':''}">${isDone(t)?CHECK:''}</span><span class="tt">${esc(t.title)}</span><span class="whos">${t.owners.map(own).join('')}</span><span class="mono ${isLate(t)?'late':''}">${wr(t.start,t.end)}</span><span class="meter"><i style="width:${isDone(t)?100:+t.progress||0}%"></i></span></button>`).join('')}`}).join('')}</div>`;
+}
+
+/* ── PARTS ── */
+function viewParts(){
+  const ps=D.parts,B=D.project.budget;
+  const lo=ps.reduce((s,p)=>s+p.priceLo*p.qty,0),hi=ps.reduce((s,p)=>s+p.priceHi*p.qty,0);
+  const od=ps.filter(p=>p.status!=='plan').reduce((s,p)=>s+(p.paid||p.priceHi*p.qty),0);
+  const steps=[['plan','未下單'],['ordered','已下單'],['arrived','已到貨']];
+  const idx=s=>steps.findIndex(x=>x[0]===s);
+  const pc=v=>Math.min(100,v/B*100);
+  return `<section class="wrap">
+  <div class="bar2"><h2 class="ttl">零件與預算</h2><span class="mono">${ps.length} 項 · ${ps.filter(p=>p.status==='arrived').length} 已到貨</span></div>
+  <div class="sum">
+    <div class="tile"><span class="mono">預估總價</span><b>${money(lo)}</b><small>最高 ${money(hi)} · ${ps.length} 項</small></div>
+    <div class="tile"><span class="mono">已下單</span><b>${money(od)}</b><small>${ps.filter(p=>p.status!=='plan').length} 項</small></div>
+    <div class="tile"><span class="mono">預算上限</span><b>${money(B)}</b><small>整個專題</small></div>
+    <div class="tile"><span class="mono">最壞情況剩餘</span><b class="${B-hi<0?'late':''}">${money(B-hi)}</b><small>上限 − 預估最高價</small></div>
+  </div>
+  <div class="bud"><span class="hi" style="width:${pc(hi)}%"></span><span class="lo" style="width:${pc(lo)}%"></span><span class="od" style="width:${pc(od)}%"></span></div>
+  <div class="bkey"><span><i style="background:var(--fg)"></i>已下單</span><span><i style="background:var(--faint)"></i>預估最低</span><span><i style="background:repeating-linear-gradient(135deg,var(--faint) 0 2px,transparent 2px 4px)"></i>預估最高</span><span>整條 = 預算上限 ${money(B)}</span></div>
+  <div class="phd mono"><span>#</span><span>品項</span><span>負責</span><span>單價</span><span>數量</span><span>狀態</span></div>
+  ${ps.map((p,i)=>`<div class="pt-row">
+    <span class="mono">${pad(i+1)}</span>
+    <span class="nm"><b>${esc(p.name)}</b>${p.note?`<small>${esc(p.note)}</small>`:''}${p.link?` <a class="mono" href="${esc(p.link)}" target="_blank" rel="noopener">連結</a>`:''}</span>
+    ${own(p.owner)}
+    <span class="pr">${money(p.priceLo)}${p.priceHi!==p.priceLo?`–${p.priceHi.toLocaleString('en-US')}`:''}</span>
+    <span class="mono qt">× ${p.qty}</span>
+    <span class="steps">${steps.map(([k,l],j)=>`${j?'<em></em>':''}<span class="${j<=idx(p.status)?'on':''} ${j===idx(p.status)?'cur':''}">${l}</span>`).join('')}</span>
+  </div>`).join('')}
+</section>${foot()}`;
+}
+
+/* ── DATA ── */
+function viewData(){
+  const cell=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+  return `<section class="wrap">
+  <div class="bar2"><h2 class="ttl">實驗成果</h2><span class="mono">${D.results.length} 筆</span></div>
+  <div class="rs">${D.results.map((r,i)=>{const p=P.find(x=>x.n===r.phase);return `<article class="tile rc" id="r-${r.id}" style="animation-delay:${i*60}ms">
+    <span class="mono">${esc(r.kind)} · ${fmtDay(r.date)}${p?` · STATION ${pad(p.n)} ${esc(p.name)}`:''}</span>
+    <h3>${esc(r.title)}</h3><p>${esc(r.summary)}</p>
+    ${r.headers?`<table><thead><tr>${r.headers.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${(r.rows||[]).map(row=>`<tr>${row.map(c=>`<td>${cell(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>`:''}
+    ${r.file?`<span class="fp">${esc(r.file)}</span>`:''}
+  </article>`}).join('')}</div>
+  <div class="sec"><span class="mono">進度紀錄 · ${D.log.length} 筆</span></div>
+  ${logList(D.log)}
+</section>${foot()}`;
+}
+function foot(){
+  const last=D.log[0];
+  return `<footer class="wrap"><div class="foot"><span class="mono">資料 data.json${last?` · 最後更新 ${fmtDay(last.date)}`:''} · 由 Claude 維護</span><a class="mono" href="../../">← 資料庫 Data Tank</a></div></footer>`;
+}
+
+/* ── 階段、任務詳情（唯讀） ── */
+function openPhase(n){
+  const p=P.find(x=>x.n===n),s=phaseStat(p),rs=D.results.filter(r=>r.phase===n);
+  const d=$('#dlg');
+  d.innerHTML=`<button class="ib x" aria-label="關閉" onclick="this.closest('dialog').close()"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <span class="mono">STATION ${pad(n)} · ${wr(p.start,p.end)} · ${wkRange(p.start,p.end)}</span>
+    <h2>${esc(p.name)} <span class="mono">${Math.round(s.sum)}% · ${s.dn}/${s.ts.length} 件</span></h2>
+    <ul class="tl">${s.ts.map(t=>`<li class="${isDone(t)?'done':''}" data-t="${t.id}"><span class="st">${stGlyph(t)}</span><span class="tt">${esc(t.title)}${dots(t)}</span><span class="mono ${isLate(t)?'late':''}">${wr(t.start,t.end)}</span></li>`).join('')}</ul>
+    ${rs.length?`<div class="res">${rs.map(r=>`<a href="#data/${r.id}"><span class="mono">成果</span><b>${esc(r.title)}</b>${ARROW}</a>`).join('')}</div>`:''}`;
+  if(!d.open)d.showModal();
+}
+
+function openTask(id){
+  const t=T.find(x=>x.id===id);if(!t)return;
+  const p=P.find(x=>x.n===t.phase);
+  const lv=v=>`<span class="lv">${[1,2,3].map(i=>`<i class="${i<=v?'on':''}"></i>`).join('')}</span>`;
+  const pr=isDone(t)?100:+t.progress||0;
+  const d=$('#dlg');
+  d.innerHTML=`<button class="ib x" aria-label="關閉" onclick="this.closest('dialog').close()"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <span class="mono">STATION ${pad(p.n)} · ${esc(p.name)}</span>
+    <h2>${esc(t.title)}</h2>
+    <dl>
+      <dt>負責人</dt><dd class="whos">${t.owners.map(own).join('')}</dd>
+      <dt>週次</dt><dd>${wr(t.start,t.end)} <span class="mono">· ${wkRange(t.start,t.end)}</span></dd>
+      <dt>狀態</dt><dd class="${isLate(t)?'late':''}">${stLabel(t)}</dd>
+      <dt>進度</dt><dd style="display:flex;align-items:center;gap:10px"><span class="meter" style="flex:1"><i style="width:${pr}%"></i></span><span class="mono">${pr}%</span></dd>
+      <dt>重要度</dt><dd>${lv(t.imp)}</dd>
+      <dt>緊急度</dt><dd>${lv(t.urg)}</dd>
+      <dt>備註</dt><dd>${t.note?esc(t.note):'<span class="mono">—</span>'}</dd>
+    </dl>`;
+  if(!d.open)d.showModal();
+}
+$('#dlg').addEventListener('click',e=>{if(e.target.id==='dlg')return e.target.close();const t=e.target.closest('[data-t]');if(t)openTask(t.dataset.t)});
+
+/* ── 路由 ── */
+function render(keep){
+  const [v,arg]=(location.hash.slice(1)||'home').split('/');
+  const view=({home:viewHome,tasks:viewTasks,parts:viewParts,data:viewData}[v]||viewHome);
+  $$('#tabs a').forEach(a=>a.classList.toggle('on',a.dataset.v===(view===viewHome?'home':v)));
+  if($('#dlg').open)$('#dlg').close();
+  $('#app').innerHTML=view();
+  setupSolid();
+  if(keep)return;   // 收納／展開：不重播動畫、不捲回頂端
+  $('#app').style.animation='none';$('#app').offsetWidth;$('#app').style.animation='';
+  if(v==='data'&&arg){const el=$('#r-'+arg);if(el){el.classList.add('hl');el.scrollIntoView({block:'start'})}}
+  else scrollTo(0,0);
+}
+$('#app').addEventListener('click',e=>{
+  const f=e.target.closest('[data-fold]');if(f){fold[f.dataset.fold]=!fold[f.dataset.fold];return render(true)}
+  const cv=e.target.closest('[data-cv]');if(cv){ui.cv=cv.dataset.cv;store.set('cv',ui.cv);return render(true)}
+  const ph=e.target.closest('[data-p]');if(ph){if(Date.now()-dragged<300)return;return openPhase(+ph.dataset.p)}
+  const t=e.target.closest('[data-t]');if(t)return openTask(t.dataset.t);
+  const o=e.target.closest('#fo button');if(o){ui.own=o.dataset.o;store.set('own',ui.own);return render()}
+  const v=e.target.closest('#fv button');if(v){ui.view=v.dataset.v;store.set('view',ui.view);return render()}
+});
+if('scrollRestoration' in history)history.scrollRestoration='manual';
+addEventListener('hashchange',()=>render());
+
+/* ── 淺色／深色 ── */
+const sysDark=matchMedia('(prefers-color-scheme: dark)');
+function applyTheme(t){if(t)document.documentElement.dataset.theme=t;else delete document.documentElement.dataset.theme}
+applyTheme(store.get('theme'));
+$('#theme').onclick=()=>{const dark=document.documentElement.dataset.theme?document.documentElement.dataset.theme==='dark':sysDark.matches;const t=dark?'light':'dark';applyTheme(t===(sysDark.matches?'dark':'light')?null:t);store.set('theme',document.documentElement.dataset.theme||'')};
+
+/* ── 載入資料 ── */
+fetch('data.json',{cache:'no-cache'}).then(r=>r.json()).then(d=>{
+  D=d;P=d.project.phases;T=d.tasks;N=d.project.weeks;M=d.project.members;
+  const [y,m,dd]=d.project.start.split('-').map(Number);START=new Date(y,m-1,dd);
+  const q=+new URLSearchParams(location.search).get('w');
+  W=q||Math.floor((Date.now()-START.getTime())/(7*DAY))+1;W=Math.max(1,Math.min(N,W));
+  HERE=P.find(p=>p.start<=W&&ofPhase(p).some(t=>!isDone(t)))||P.find(p=>p.start<=W&&W<=p.end)||P[P.length-1];
+  $('#hw').textContent=`SAILBOAT · W${pad(W)} / ${N}`;
+  render();
+}).catch(e=>{$('#app').innerHTML=`<div class="wrap empty" style="padding:80px 28px">資料載入失敗：${esc(e.message)}</div>`});
+</script>
+</body>
+</html>

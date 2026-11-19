@@ -1,5 +1,14 @@
 [
   {
+    "id": "sailboat",
+    "title": "無人帆船專題・工作站",
+    "desc": "自動控制無人帆船：航線進度、甘特圖、零件預算、實驗成果",
+    "url": "web/sailboat/",
+    "shot": "sailboat.jpg",
+    "group": "專題",
+    "date": "2026-11-20"
+  },
+  {
     "id": "nkust-racing-dashboard",
     "title": "NKUST Racing・工作台",
     "desc": "賽車團隊工作台",
@@ -72,6 +81,16 @@
     "date": "2026-10-12"
   },
   {
+    "id": "tesla-spacex",
+    "title": "Tesla 與 SpaceX 最新發展：從賣產品到賣服務",
+    "desc": "第三組報告（網頁版，可用方向鍵換頁，下載為 PDF）：Robotaxi、Starship、Starlink、2026 Q3 財報與四個追問",
+    "url": "web/tesla-spacex/",
+    "shot": "tesla-spacex.jpg",
+    "download": "web/tesla-spacex/tesla-spacex.pdf",
+    "group": "課程報告",
+    "date": "2026-11-15"
+  },
+  {
     "id": "missile-journey",
     "title": "認識軍工產業：從一枚 1.3 億元的飛彈說起",
     "desc": "通識報告：全球化的挑戰與因應（網頁版，下載為 PDF）",
@@ -101,6 +120,7 @@
   },
   {
     "id": "ev-motor-drive",
+    "order": 2,
     "title": "第五章 電動車馬達驅動控制與電能轉換",
     "desc": "重點報告（網頁版，可用方向鍵換頁）：轉換器、功率半導體、變頻器、預充電路，含 800V、SiC 等新技術",
     "url": "/reports/ev-motor-drive/",
@@ -109,12 +129,22 @@
     "date": "2026-10-23"
   },
   {
+    "id": "ev-charging-hybrid",
+    "order": 3,
+    "title": "第七章 混合動力車",
+    "desc": "重點報告（網頁版，可用方向鍵換頁）：從結構、電池、用途三件事看懂混動車，含豐田 THS、本田 e:HEV 與 2026 新車",
+    "url": "/reports/ev-charging-hybrid/",
+    "shot": "ev-charging-hybrid.jpg",
+    "group": "課程報告",
+    "date": "2026-11-16"
+  },
+  {
     "id": "hs-project",
     "title": "高中專題：車輛非廢氣排放回收",
     "desc": "高中專題簡報（網頁版，含 3D 模型與轉場動畫）",
     "url": "/reports/hs-project/",
     "shot": "hs-project.jpg",
-    "group": "高中專題",
+    "group": "專題",
     "date": "2026-10-12"
   },
   {
