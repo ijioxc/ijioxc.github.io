@@ -147,6 +147,44 @@ main{position:relative;z-index:1;animation:fade .45s both}
 .cx-foot .sp{flex:1}
 .ttl-h{margin:0 0 2px;font-size:22px;font-weight:650;letter-spacing:-.01em}
 
+/* 3D 色立體：直軸＝整體完成度；每個階段一個方向（像色相），由下往上；方塊一顆 10%，往外越鮮豔，越上越亮 */
+.sc{position:relative;height:calc(var(--lv) * 5 + 190px);perspective:1500px;perspective-origin:50% 40%;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;--lv:34px;--u:22px;--h:15px;--d:18px;overflow:hidden;margin:0 -22px}
+.sc.drag{cursor:grabbing}
+.so{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;transform:translateY(10px) rotateX(var(--rx)) rotateY(var(--ry))}
+.so *{transform-style:preserve-3d}
+.ax3{position:absolute;left:0;top:0}
+.ax3 i{position:absolute;left:-7px;top:calc(var(--lv) * -4 - 20px);width:14px;height:calc(var(--lv) * 8 + 40px);background:linear-gradient(to top,var(--fg) var(--v),var(--panel) var(--v));box-shadow:inset 0 0 0 1px var(--ring)}
+.ax3 i:nth-child(2){transform:rotateY(90deg)}
+.bx{position:absolute;left:0;top:0;transform:translateY(var(--y)) rotateY(var(--a))}
+.cb{position:absolute;left:0;top:0;transform:translateX(var(--x))}
+.cb i{position:absolute;left:0;top:0;background:var(--c);backface-visibility:visible}
+.cb .f,.cb .k{width:var(--l);height:var(--h)}
+.cb .f{transform:translate3d(0,calc(var(--h) / -2),calc(var(--d) / 2))}
+.cb .k{transform:translate3d(0,calc(var(--h) / -2),calc(var(--d) / -2))}
+.cb .t,.cb .m{width:var(--l);height:var(--d)}
+.cb .t{transform:translate3d(0,calc(var(--h) / -2 - var(--d) / 2),0) rotateX(90deg);filter:brightness(1.18)}
+.cb .m{transform:translate3d(0,calc(var(--h) / 2 - var(--d) / 2),0) rotateX(90deg);filter:brightness(.7)}
+.cb .s,.cb .e{width:var(--d);height:var(--h);filter:brightness(.86)}
+.cb .s{transform:translate3d(calc(var(--d) / -2),calc(var(--h) / -2),0) rotateY(90deg)}
+.cb .e{transform:translate3d(calc(var(--l) - var(--d) / 2),calc(var(--h) / -2),0) rotateY(90deg)}
+.cb.ghost i{background:none;box-shadow:inset 0 0 0 1px var(--ring);filter:none}
+.cb.ghost{opacity:.5}
+.cb.ghost .k,.cb.ghost .m,.cb.ghost .s,.cb.ghost .e{display:none}
+.bx.here .cb:not(.ghost) .f{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55)}
+.l3{position:absolute;left:0;top:0;transform:translateX(var(--x)) rotateY(calc(-1 * (var(--a) + var(--ry)))) rotateX(calc(-1 * var(--rx)))}
+.l3 button{position:absolute;left:0;top:0;transform:translate(6px,-50%);display:flex;align-items:center;gap:6px;border:0;background:var(--bar);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:var(--fg);border-radius:999px;padding:3px 10px 3px 6px;font-size:12px;font-weight:600;white-space:nowrap;cursor:pointer;box-shadow:0 0 0 1px var(--ring)}
+.l3 button i{width:10px;height:10px;border-radius:3px;background:var(--c);flex:none}
+.l3 button em{font-style:normal;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:10px;color:var(--mute);font-weight:500}
+.l3 button:hover{box-shadow:0 0 0 1.5px var(--fg)}
+.bx.here .l3 button{background:var(--hot);color:#fff;box-shadow:none}
+.bx.here .l3 button em{color:#fff;opacity:.85}
+.bx.ahead .l3 button{color:var(--mute);font-weight:500}
+.e3{position:absolute;left:0;top:0;transform:translateY(var(--y)) rotateY(calc(-1 * var(--ry))) rotateX(calc(-1 * var(--rx)))}
+.e3 span{position:absolute;left:0;top:0;transform:translate(-50%,-50%);font-size:10px;white-space:nowrap}
+.cvs{display:flex;gap:2px;padding:2px;background:var(--panel);border-radius:999px}
+.cvs button{border:0;background:none;color:var(--mute);font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:10px;letter-spacing:.08em;padding:4px 10px;border-radius:999px;cursor:pointer}
+.cvs button.on{background:var(--btn);color:var(--on-btn)}
+
 /* 優先順序：十字軸，無底色。上＝重要、右＝緊急 */
 .qx{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;margin:20px 26px 6px 0}
 .qx::before{content:"";position:absolute;left:50%;top:-14px;bottom:0;width:1.5px;margin-left:-.75px;background:var(--fg)}
@@ -349,7 +387,7 @@ const ARROW='<svg viewBox="0 0 16 16"><path d="M4 8h8M8.5 4.5 12 8l-3.5 3.5"/></
 const CHECK='<svg viewBox="0 0 12 12"><path d="M2.5 6.2 5 8.6l4.6-5"/></svg>';
 
 let D,P,T,W,N,START,M;
-let ui={own:store.get('own')||'all',view:store.get('view')||'gantt'};
+let ui={own:store.get('own')||'all',view:store.get('view')||'gantt',cv:store.get('cv')||'3d'};
 
 /* ── 週次與日期 ── */
 const wkDate=n=>new Date(START.getTime()+(n-1)*7*DAY);
@@ -384,7 +422,7 @@ function viewHome(){
   return `
 <section class="wrap home">
   <div class="col">
-    <div class="tile o2">${chromo()}</div>
+    <div class="tile o2">${ui.cv==='flat'?chromo():chart3d()}</div>
     <div class="tile o4">
       <h3 class="hd"><span class="mono">優先順序</span><span class="mono" style="margin-left:auto">四週內未完成</span></h3>
       ${quad()}
@@ -432,6 +470,67 @@ function phaseStat(p){
   const sum=Object.values(by).reduce((a,b)=>a+b,0);
   return {ts,by,sum,dn:ts.filter(isDone).length};
 }
+// 3D 色立體
+const HUE=i=>(8+i*45)%360;
+function solid3d(){
+  const all=avg(T);
+  const cube=(k,f,c,ghost)=>`<span class="cb ${ghost?'ghost':''}" style="--x:calc(10px + ${k} * var(--u));--l:calc((var(--u) - 3px) * ${f});--c:${c}"><i class="f"></i><i class="k"></i><i class="t"></i><i class="m"></i><i class="s"></i><i class="e"></i></span>`;
+  // 一週一圈：W01 在最底層，往上疊。過去週的完成度存在 data.json 的 weekly，這一週用目前資料即時算
+  const layers=[];
+  for(let w=1;w<=W;w++){
+    const snap=w===W?Object.fromEntries(P.map(p=>[p.n,phaseStat(p).sum])):(D.weekly||{})[w];
+    if(snap)layers.push({w,snap});
+  }
+  const rows=Math.max(layers.length,4),half=(rows-1)/2;
+  const brs=layers.map(({w,snap},li)=>{
+    const live=w===W,y=`calc(var(--lv) * ${(half-li).toFixed(1)})`;
+    return P.map((p,i)=>{
+      const h=HUE(i),a=`${i*45}deg`,v=(snap[p.n]||0)/10,L=live?46:58;
+      let cubes='';
+      for(let k=0;k<10;k++){const f=Math.max(0,Math.min(1,v-k));
+        cubes+=f>0?cube(k,f.toFixed(3),`hsl(${h} ${live?22+k*7:16+k*4}% ${L}%)`,false):(live?cube(k,1,'',true):'')}
+      const lab=live?`<div class="l3" style="--x:calc(16px + 10 * var(--u));--a:${a}"><button data-p="${p.n}" style="--c:hsl(${h} 80% 46%)"><i></i>${esc(p.name)}<em>${Math.round(snap[p.n]||0)}%</em></button></div>`:'';
+      return `<div class="bx ${live?phaseState(p):''}" style="--y:${y};--a:${a}">${cubes}${lab}</div>`;
+    }).join('');
+  }).join('');
+  const top=`calc(var(--lv) * ${-half-1})`,bot=`calc(var(--lv) * ${half+1})`;
+  return `<div class="sc" id="sc"><div class="so" id="so" style="--rx:${RX}deg;--ry:${RY}deg">
+    <div class="ax3" style="--v:${all}%"><i></i><i></i></div>
+    <div class="e3" style="--y:${top}"><span class="mono">W${pad(N)} · 口試完成</span></div>
+    <div class="e3" style="--y:${bot}"><span class="mono">W01 · ${md(START)} 開始</span></div>
+    ${brs}</div></div>`;
+}
+let RX=-16,RY=-28,spinId=0,drag=null,dragged=0,hoverSc=false,lastT=0;
+const still=matchMedia('(prefers-reduced-motion: reduce)');
+function spin(t){
+  const so=$('#so');if(!so){spinId=0;return}
+  if(!drag&&!hoverSc&&!still.matches&&lastT)RY+=(t-lastT)*.006;
+  lastT=t;so.style.setProperty('--ry',RY.toFixed(2)+'deg');so.style.setProperty('--rx',RX.toFixed(2)+'deg');
+  spinId=requestAnimationFrame(spin);
+}
+function setupSolid(){
+  const sc=$('#sc');if(!sc)return;
+  const u=Math.max(8,Math.min(22,(sc.clientWidth/2-96)/10));
+  sc.style.setProperty('--u',u+'px');sc.style.setProperty('--lv',(u<14?28:34)+'px');
+  sc.style.setProperty('--h',(u<14?11:15)+'px');sc.style.setProperty('--d',(u<14?12:18)+'px');
+  sc.onpointerenter=e=>{if(e.pointerType==='mouse')hoverSc=true};
+  sc.onpointerleave=()=>{hoverSc=false};
+  sc.onpointerdown=e=>{drag={x:e.clientX,y:e.clientY,ry:RY,rx:RX,moved:false,id:e.pointerId}};
+  sc.onpointermove=e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+    if(!drag.moved&&Math.hypot(dx,dy)>5){drag.moved=true;sc.classList.add('drag');try{sc.setPointerCapture(drag.id)}catch(_){}}
+    if(drag.moved){RY=drag.ry+dx*.4;RX=Math.max(-40,Math.min(-4,drag.rx-dy*.25))}};
+  sc.onpointerup=sc.onpointercancel=()=>{if(drag&&drag.moved)dragged=Date.now();drag=null;sc.classList.remove('drag')};
+  if(!spinId){lastT=0;spinId=requestAnimationFrame(spin)}
+}
+addEventListener('resize',()=>{if($('#sc'))setupSolid()});
+function chart3d(){
+  const done=P.filter(p=>phaseState(p)==='done');
+  return `<h3 class="hd"><span class="mono">色立體 · 階段完成度</span><span class="mono" style="margin-left:auto">整體 <b style="color:var(--fg)">${avg(T)}%</b></span>${cvSwitch()}</h3>
+  ${solid3d()}
+  <div class="cx-foot"><span class="mono">8 個階段繞軸一圈 · 一顆方塊 10%，伸到第 10 顆＝完成 · 一週疊一層 · 拖曳旋轉，點階段看工作</span><span class="sp"></span>
+    ${done.length?`<button class="tg ${fold.phase?'':'on'}" data-fold="phase"><i>▸</i>已完成 ${done.length} 階段</button>`:''}</div>`;
+}
+const cvSwitch=()=>`<span class="cvs" id="cv"><button data-cv="3d" class="${ui.cv!=='flat'?'on':''}">3D</button><button data-cv="flat" class="${ui.cv==='flat'?'on':''}">平面</button></span>`;
 function chromo(){
   const all=avg(T),done=P.filter(p=>phaseState(p)==='done');
   const rows=P.map((p,i)=>{
@@ -445,7 +544,7 @@ function chromo(){
     </div>`;
     return `<div class="br ${st}" data-p="${p.n}" title="點開看這個階段">${side==='L'?arm:''}<span class="nd"></span>${side==='R'?arm:''}</div>`;
   }).join('');
-  return `<h3 class="hd"><span class="mono">色體圖 · 階段完成度</span><span class="mono" style="margin-left:auto">整體 <b style="color:var(--fg)">${all}%</b></span></h3>
+  return `<h3 class="hd"><span class="mono">色體圖 · 階段完成度</span><span class="mono" style="margin-left:auto">整體 <b style="color:var(--fg)">${all}%</b></span>${cvSwitch()}</h3>
   <div class="chromo">
     <span class="mono cx-end">100% · 口試完成</span>
     <div class="cx-rows"><div class="cx-ax" style="--v:${all}%"><i></i></div>${rows}</div>
@@ -596,6 +695,7 @@ function render(keep){
   $$('#tabs a').forEach(a=>a.classList.toggle('on',a.dataset.v===(view===viewHome?'home':v)));
   if($('#dlg').open)$('#dlg').close();
   $('#app').innerHTML=view();
+  setupSolid();
   if(keep)return;   // 收納／展開：不重播動畫、不捲回頂端
   $('#app').style.animation='none';$('#app').offsetWidth;$('#app').style.animation='';
   if(v==='data'&&arg){const el=$('#r-'+arg);if(el){el.classList.add('hl');el.scrollIntoView({block:'start'})}}
@@ -603,7 +703,8 @@ function render(keep){
 }
 $('#app').addEventListener('click',e=>{
   const f=e.target.closest('[data-fold]');if(f){fold[f.dataset.fold]=!fold[f.dataset.fold];return render(true)}
-  const ph=e.target.closest('[data-p]');if(ph)return openPhase(+ph.dataset.p);
+  const cv=e.target.closest('[data-cv]');if(cv){ui.cv=cv.dataset.cv;store.set('cv',ui.cv);return render(true)}
+  const ph=e.target.closest('[data-p]');if(ph){if(Date.now()-dragged<300)return;return openPhase(+ph.dataset.p)}
   const t=e.target.closest('[data-t]');if(t)return openTask(t.dataset.t);
   const o=e.target.closest('#fo button');if(o){ui.own=o.dataset.o;store.set('own',ui.own);return render()}
   const v=e.target.closest('#fv button');if(v){ui.view=v.dataset.v;store.set('view',ui.view);return render()}
