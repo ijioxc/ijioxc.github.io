@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Data Tank・空間原型</title>
+<style>
+:root{--bg:#ececec;--ink:#111;--mut:#777;--line:rgba(0,0,0,.14);--amber:#c98a1b}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"PingFang TC","Noto Sans TC",system-ui,sans-serif}
+body{overscroll-behavior:none}
+#vp{position:fixed;inset:0;overflow:hidden;perspective:1000px;perspective-origin:50% 34%;background:radial-gradient(ellipse at 50% 34%,#f6f6f6 0%,#ececec 45%,#dcdcdc 100%)}
+#space{position:absolute;left:50%;top:34%;width:0;height:0;transform-style:preserve-3d;will-change:transform}
+.axis{position:absolute;left:-1px;top:-150px;width:2px;transform-origin:top;transform:rotateX(-90deg);background:linear-gradient(#000,rgba(0,0,0,.25))}
+.tick{position:absolute;top:-150px;height:1px;background:rgba(0,0,0,.35);transform-style:preserve-3d}
+.hang{position:absolute;left:0;width:1px;background:rgba(0,0,0,.35);opacity:var(--o,1)}
+.p{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d;cursor:pointer}
+.ring{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d;animation:spin var(--dur,80s) linear infinite;animation-delay:var(--del,0s)}
+@keyframes spin{from{transform:rotateX(-18deg) rotateY(0)}to{transform:rotateX(-18deg) rotateY(360deg)}}
+.c{position:absolute;left:-46px;top:-26px;width:92px;height:52px;border-radius:4px;overflow:hidden;background:#111;box-shadow:0 0 0 1px rgba(0,0,0,.18);opacity:var(--o,1);transform:rotateY(var(--a)) translateZ(var(--r,170px)) rotateY(90deg) translateY(var(--y,0px))}
+.c img{width:100%;height:100%;object-fit:cover;display:block}
+.c.blank{background:rgba(255,255,255,.35);box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.c.todo{background:transparent;box-shadow:none;border:1px dashed rgba(0,0,0,.45)}
+.c.stim{background:rgba(201,138,27,.16);box-shadow:none;border:1px dashed var(--amber)}
+.seed{position:absolute;left:-13px;top:-13px;width:26px;height:26px;border-radius:50%;background:#111;opacity:var(--o,1)}
+.lab{position:absolute;left:-160px;top:150px;width:320px;text-align:center;opacity:var(--lo,1)}
+.lab b{display:block;font-size:22px;font-weight:700;letter-spacing:.02em}
+.lab small{display:block;margin-top:4px;font-size:12px;color:var(--mut);letter-spacing:.08em}
+.lab i{display:block;margin-top:6px;font-style:normal;font-size:13px;color:var(--amber)}
+.p.cur:hover .ring{animation-play-state:paused}
+.p.cur .c[data-k]:hover{box-shadow:0 0 0 2px #111}
+#pv{right:44px;top:56px;width:min(340px,34vw);padding:8px;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 40px rgba(0,0,0,.14);letter-spacing:0;pointer-events:none}
+#pv img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:6px;display:block}
+#pv b{display:block;margin:8px 2px 2px;font-size:14px;color:var(--ink)}
+#pv small{display:block;margin:0 2px 2px;font-size:11px}
+.p.cur .lab b{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
+
+.hud{position:fixed;z-index:5;font-size:12px;color:var(--mut);letter-spacing:.1em}
+#top{left:16px;right:16px;top:12px;z-index:6;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+#top strong{color:var(--ink);font-size:13px;margin-right:6px}
+.chip{border:1px solid var(--line);background:rgba(255,255,255,.7);color:var(--ink);border-radius:99px;padding:6px 12px;font:inherit;font-size:12px;letter-spacing:.02em;cursor:pointer}
+.chip:hover{background:#fff}
+.side{top:42%;writing-mode:vertical-rl;opacity:.55}
+#sl{left:10px}#sr{right:34px}
+#rail{right:10px;top:46%;transform:translateY(-50%);display:flex;flex-direction:column;gap:5px;align-items:center}
+#rail{align-items:flex-end}
+#rail button{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;color:#888;letter-spacing:.02em}
+#rail .g{width:18px;height:18px;line-height:18px;text-align:center;font-size:12px;border-radius:50%}
+#rail .n{display:none;font-size:12.5px;white-space:nowrap}
+#rail .n em{font-style:normal;font-size:10.5px;color:#aaa;margin-left:6px}
+#rail button:hover{color:#111}
+#rail button.on{color:#111;font-weight:600}
+#rail button.on .g{color:#fff;background:#111}
+body.list #rail{padding:10px 8px 10px 14px;background:rgba(245,245,245,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:12px;right:8px;gap:4px;max-height:70vh;overflow-y:auto}
+body.list #rail .n{display:inline}
+body.list #sr{right:auto;left:calc(100% - 250px)}
+body.list #pv{right:auto;left:16px;top:56px}
+.chip.tog{margin-left:auto}
+body.list #vp{perspective-origin:calc(50% - 100px) 34%}
+body.list #space{left:calc(50% - 100px)}
+#dock{left:0;right:0;bottom:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(245,245,245,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;gap:18px;align-items:stretch;min-height:118px;letter-spacing:0}
+.blk{min-width:150px;max-width:260px;display:flex;flex-direction:column;gap:6px}
+.blk.wide{flex:1;max-width:none;min-width:0}
+.blk h4{margin:0;font-size:11px;font-weight:600;color:var(--mut);letter-spacing:.14em}
+.blk p{margin:0;font-size:13px;line-height:1.5;color:var(--ink)}
+.blk p.q{color:var(--amber)}
+.strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px}
+.strip a{flex:none;width:132px;color:inherit;text-decoration:none;font-size:12px;line-height:1.35}
+.strip img{width:132px;height:74px;object-fit:cover;border-radius:5px;display:block;margin-bottom:4px;background:#ccc;box-shadow:0 0 0 1px var(--line)}
+.strip span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#legend{left:16px;bottom:136px;opacity:.8}
+@media(max-width:700px){
+  .side,#legend,#pv{display:none}
+  #dock{flex-direction:column;gap:8px;min-height:0;max-height:44vh;overflow-y:auto}
+  .blk{max-width:none}
+  .lab b{font-size:19px}
+  #vp{perspective-origin:50% 28%}#space{top:28%}
+}
+</style>
+</head>
+<body>
+<div id="vp"><div id="space"></div></div>
+<div id="scroller"></div>
+
+<div class="hud" id="top"><strong>手邊</strong><span id="tray"></span><button class="chip tog" id="tog">清單</button></div>
+<div class="hud side" id="sl">給自己看</div>
+<div class="hud side" id="sr">給別人看</div>
+<div class="hud" id="legend">● 未開始　◔ 進行中　○ 完成　∿ 持續更新</div>
+<div class="hud" id="rail"></div>
+<div class="hud" id="dock"></div>
+<div class="hud" id="pv" hidden></div>
+
+<script>
+const GLYPH={seed:'●',doing:'◔',done:'○',live:'∿'};
+const STATE={seed:'未開始',doing:'進行中',done:'完成',live:'持續更新'};
+/* who: self=給自己看 show=給別人看 ； kind: make=做出東西 know=理解事情
+   狀態、歸屬和「下一步」都是示範用的猜測，之後由 projects.json 取代 */
+let P=[], TRAY=[];
+const GAP=950, AHEAD=350, ROOT='../';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const get=f=>fetch(ROOT+f,{cache:'no-cache'}).then(r=>r.json()).catch(()=>[]);
+let items={}, els=[], cur=-1, cam=0, mx=0, my=0, tmx=0, tmy=0;
+
+function thumbs(it,max){
+  if(it.kind==='site')return [ROOT+'sites/'+it.d.shot];
+  const s=it.d.slides,n=Math.min(max,s.length),out=[];
+  for(let i=0;i<n;i++)out.push(ROOT+'decks/'+encodeURIComponent(it.d.id)+'/'+s[Math.floor(i*s.length/n)].replace(/^s-/,'t-'));
+  return out;
+}
+const img=src=>`<img src="${esc(src)}" onerror="this.onerror=null;this.src=this.src.replace('/t-','/s-')" draggable="false" alt="">`;
+function pool(p,n){
+  const lists=p.its.map(it=>thumbs(it,n)),out=[];
+  for(let k=0;out.length<n&&lists.some(l=>l[k]);k++)lists.forEach((l,li)=>{if(l[k]&&out.length<n)out.push({s:l[k],k:li})});
+  const base=out.slice();
+  while(out.length&&out.length<Math.min(6,n))out.push(base[out.length%base.length]);
+  return out;
+}
+function spread(imgs,n){   // 圖片平均分到 n 個位置，其餘留空
+  const out=[];
+  for(let i=0;i<n;i++){
+    const a=Math.floor(i*imgs.length/n),b=Math.floor((i-1)*imgs.length/n);
+    out.push(i===0||a!==b?imgs[a]:null);
+  }
+  return out;
+}
+function shape(p){
+  const card=(a,inner,cls='',extra='',k)=>`<span class="c ${cls}"${k==null?'':` data-k="${k}"`} style="--a:${a.toFixed(1)}deg${extra}">${inner}</span>`;
+  const pic=(a,o,extra='')=>card(a,img(o.s),'',extra,o.k);
+  if(p.state==='seed'){
+    return '<div class="seed"></div><div class="ring" style="--dur:50s">'+[0,1,2,3,4].map(i=>card(i*72,'','stim',';--r:150px')).join('')+'</div>';
+  }
+  if(p.state==='live'){   // 一直長的線：螺旋
+    const im=pool(p,24),n=26;let h='';
+    for(let i=0;i<n;i++)h+=pic(i*30,im[i%im.length],`;--y:${((i-(n-1)/2)*9).toFixed(0)}px`);
+    return `<div class="ring">${h}</div>`;
+  }
+  const n=16,gap=p.state==='doing'?5:0;
+  const slots=spread(pool(p,n-gap),n-gap);
+  let h=slots.map((s,i)=>s?pic(i*360/n,s):card(i*360/n,'','blank')).join('');
+  for(let i=n-gap;i<n;i++)h+=card(i*360/n,'','todo');
+  return `<div class="ring">${h}</div>`;
+}
+function build(){
+  const sp=$('#space');
+  const L=P.length*GAP+400;
+  let h=`<div class="axis" style="height:${L}px;transform:translateZ(300px) rotateX(-90deg)"></div>`;
+  P.forEach((p,i)=>{
+    const meta=[p.dom,p.its.length?p.its.length+' 件':'還沒有內容',STATE[p.state]].join(' · ');
+    h+=`<div class="tick" data-i="${i}"></div>
+    <div class="p" data-i="${i}"><div class="hang"></div>${shape(p)}
+      <div class="lab"><b>${GLYPH[p.state]} ${esc(p.name)}</b><small>${esc(meta)}</small>${p.next&&p.state!=='done'?`<i>${esc(p.next)}</i>`:''}</div>
+    </div>`;
+  });
+  sp.innerHTML=h;
+  els=[...sp.querySelectorAll('.p')];
+  els.forEach((el,i)=>{el.style.setProperty('--dur',(70+i*7%40)+'s');el.style.setProperty('--del',-(i*13%60)+'s');el.onclick=e=>{const c=e.target.closest('.c[data-k]');if(c&&i===cur)open(P[i].its[+c.dataset.k].href,'_blank','noopener');else go(i)};
+    el.onmouseover=e=>{const c=e.target.closest('.c[data-k]');if(c&&i===cur)peek(P[i].its[+c.dataset.k],c.querySelector('img').src)};
+    el.onmouseleave=()=>peek()});
+  $('#rail').innerHTML=P.map((p,i)=>`<button data-i="${i}" title="${esc(p.name)}"><span class="n">${esc(p.name)}<em>${esc(p.dom)}</em></span><span class="g">${GLYPH[p.state]}</span></button>`).join('');
+  $('#rail').onclick=e=>{const b=e.target.closest('button');if(b)go(+b.dataset.i)};
+  $('#tray').innerHTML=TRAY.map(id=>{const i=P.findIndex(p=>p.id===id);return i<0?'':`<button class="chip" data-i="${i}">${GLYPH[P[i].state]} ${esc(P[i].name)}</button>`}).join(' ');
+  $('#tray').onclick=e=>{const b=e.target.closest('button');if(b)go(+b.dataset.i)};
+  place();
+}
+function place(){
+  const X=Math.max(60,Math.min(380,innerWidth*.27));
+  els.forEach((el,i)=>{
+    const p=P[i],x=(p.who==='self'?-1:1)*X,y=125+(i%3-1)*22,z=-i*GAP-AHEAD;
+    const hg=el.querySelector('.hang');hg.style.top=-(y+150)+'px';hg.style.height=(y+150-(p.state==='seed'?16:p.state==='live'?120:62))+'px';
+    el.dataset.z=z;el.style.transform=`translate3d(${x}px,${y}px,${z}px)`;
+    const t=$(`.tick[data-i="${i}"]`);
+    t.style.width=X+'px';t.style.left=(x<0?-X:0)+'px';t.style.transform=`translateZ(${z}px)`;
+  });
+  $('#scroller').style.height=((P.length-1)*GAP+innerHeight)+'px';
+}
+const go=i=>scrollTo({top:Math.max(0,Math.min(P.length-1,i))*GAP,behavior:'smooth'});
+
+function peek(it,src){
+  const pv=$('#pv');
+  if(!it){pv.hidden=true;return}
+  pv.hidden=false;
+  pv.innerHTML=`<img src="${esc(src.replace('/t-','/s-'))}" alt=""><b>${esc(it.title)}</b><small>${it.kind==='deck'?it.d.slides.length+' 頁 · '+(it.date||''):esc(it.d.desc||'網站')} · 點卡片打開</small>`;
+}
+function dock(p){
+  const strip=p.its.length?`<div class="strip">${p.its.map(it=>`<a href="${esc(it.href)}" target="_blank" rel="noopener">${img(thumbs(it,1)[0])}<span>${esc(it.title)}</span></a>`).join('')}</div>`:'<p>還沒有內容。第一份資料放進來後會出現在這裡。</p>';
+  const B={
+    all:`<div class="blk wide"><h4>全貌</h4>${strip}</div>`,
+    prog:`<div class="blk"><h4>${p.state==='done'?'過去的進度':'進度'}</h4><p class="${p.state==='done'?'':'q'}">${esc(p.state==='done'?'已完成'+(p.last?'，最後更新 '+p.last:''):(p.next||'還沒寫下一步'))}</p></div>`,
+    stim:`<div class="blk"><h4>新的刺激</h4><p>${p.state==='seed'?'5 個空位，等資料進來':'目前沒有新資料'}<br><span style="color:var(--mut);font-size:11px">之後由 AI 和手機收件匣放進來</span></p></div>`,
+  };
+  const order={doing:['prog','all'],live:['prog','all'],done:['all','stim','prog'],seed:['stim','prog','all']}[p.state];
+  $('#dock').innerHTML=order.map(k=>B[k]).join('');
+}
+let last=0;
+function frame(t=0){
+  const k=1-Math.exp(-Math.min(200,t-last)/110);last=t;   // 依實際經過時間追上，不受畫面更新率影響
+  cam+=(scrollY-cam)*k;if(Math.abs(scrollY-cam)<.5)cam=scrollY;mx+=(tmx-mx)*k*.6;my+=(tmy-my)*k*.6;
+  $('#space').style.transform=`translateZ(${cam.toFixed(1)}px) rotateY(${(mx*5).toFixed(2)}deg) rotateX(${(-my*3).toFixed(2)}deg)`;
+  els.forEach(el=>{
+    const d=-(+el.dataset.z+cam);   // 在鏡頭前方多遠
+    if(d<-80||d>3200){el.style.display='none';return}
+    el.style.display='';
+    const o=Math.max(0,Math.min(1,(d+80)/300,1-(d-600)/2000));
+    el.style.setProperty('--o',o.toFixed(3));
+    el.style.setProperty('--lo',Math.max(0,Math.min(o,1-(d-450)/600)).toFixed(3));
+  });
+  const i=Math.max(0,Math.min(P.length-1,Math.round(scrollY/GAP)));
+  if(i!==cur){
+    cur=i;els.forEach((el,k)=>el.classList.toggle('cur',k===i));
+    document.querySelectorAll('#rail button').forEach((b,k)=>b.classList.toggle('on',k===i));
+    dock(P[i]);peek();
+  }
+  requestAnimationFrame(frame);
+}
+addEventListener('mousemove',e=>{tmx=e.clientX/innerWidth-.5;tmy=e.clientY/innerHeight-.5});
+addEventListener('resize',place);
+$('#tog').onclick=()=>document.body.classList.toggle('list');
+if(innerWidth>=900)document.body.classList.add('list');
+addEventListener('keydown',e=>{
+  if(e.key==='ArrowDown'||e.key==='ArrowRight'){e.preventDefault();go(cur+1)}
+  if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();go(cur-1)}
+});
+Promise.all([get('decks.json'),get('sites.json'),fetch('projects.json',{cache:'no-cache'}).then(r=>r.json())]).then(([d,s,pj])=>{
+  P=pj.projects;TRAY=pj.tray||[];
+  d.forEach(x=>items[x.id]={kind:'deck',d:x,title:x.title,date:x.date,href:ROOT+'play.html?deck='+encodeURIComponent(x.id)});
+  s.forEach(x=>items[x.id]={kind:'site',d:x,title:x.title,href:x.url});
+  P.forEach(p=>{p.its=p.items.map(id=>items[id]).filter(Boolean);p.last=p.its.map(i=>i.date).filter(Boolean).sort().pop()});
+  build();frame();
+});
+</script>
+</body>
+</html>

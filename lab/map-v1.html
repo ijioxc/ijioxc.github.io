@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Data Tank・地圖原型</title>
+<style>
+:root{--bg:#ececec;--ink:#111;--mut:#7a7a7a;--line:rgba(0,0,0,.14);--amber:#c98a1b}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:-apple-system,"PingFang TC","Noto Sans TC",system-ui,sans-serif}
+button{font:inherit;color:inherit}
+#vp{position:fixed;inset:0;perspective:1200px;perspective-origin:50% 44%;background:radial-gradient(ellipse at 50% 44%,#f7f7f7 0%,#ececec 50%,#dedede 100%);touch-action:none;cursor:grab}
+#vp:active{cursor:grabbing}
+.stage{position:absolute;left:50%;top:44%;width:0;height:0;transform-style:preserve-3d;transition:opacity .5s,scale .6s cubic-bezier(.2,.7,.2,1)}
+#globe,#book{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d}
+
+/* 地圖：只有線和點 */
+.ln{position:absolute;background:#111}
+.axis{left:-1px;width:2px}
+.circ{position:absolute;border:1px solid rgba(0,0,0,.28);border-radius:50%}
+.circ.dash{border-style:dashed;border-color:rgba(0,0,0,.22)}
+.spoke{position:absolute;left:0;top:0;height:1px;background:rgba(0,0,0,.2);transform-origin:left center}
+.bb{position:absolute;left:0;top:0;width:0;height:0}   /* 永遠面向鏡頭 */
+.dom{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;font-size:13px;font-weight:600;letter-spacing:.2em;color:#111}
+.cap{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;font-size:11px;letter-spacing:.16em;color:var(--mut)}
+.pt{all:unset;position:absolute;left:-7px;top:-7px;display:flex;align-items:center;gap:7px;white-space:nowrap;cursor:pointer;font-size:13px;color:#222;opacity:var(--f,1)}
+.pt svg{flex:none;width:14px;height:14px;overflow:visible}
+.pt svg *{fill:none;stroke:#111;stroke-width:1.6}
+.pt svg .fill{fill:#111}
+.pt:hover{color:#000;font-weight:600;opacity:1}
+.pt:hover svg{transform:scale(1.4)}
+.drop{position:absolute;left:0;width:1px;background:rgba(0,0,0,.16)}
+
+/* 進入一個點：書頁環 */
+body:not(.in) #bookstage{opacity:0;scale:.5;pointer-events:none}
+body.in #mapstage{opacity:.1;scale:.62;pointer-events:none}
+body.listmode #mapstage{opacity:0;pointer-events:none}
+.spine{position:absolute;left:-3px;top:-58px;width:6px;height:116px;border-radius:3px;background:#111}
+.pg{position:absolute;left:0;top:-48px;width:170px;height:96px;margin-left:16px;transform-origin:-16px 50%;transform:rotateY(var(--a));border-radius:0 5px 5px 0;overflow:hidden;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.2);cursor:pointer}
+.pg img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.pg.blank{background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(0,0,0,.09);cursor:default}
+.pg.todo{background:transparent;box-shadow:none;border:1px dashed rgba(0,0,0,.45);cursor:default}
+.pg.stim{background:rgba(201,138,27,.14);box-shadow:none;border:1px dashed var(--amber);cursor:default}
+
+.hud{position:fixed;z-index:5}
+#top{left:16px;right:16px;top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px}
+#top strong{font-size:13px;margin-right:4px}
+.chip{border:1px solid var(--line);background:rgba(255,255,255,.7);border-radius:99px;padding:6px 12px;font-size:12px;cursor:pointer}
+.chip:hover,.chip.on{background:#111;color:#fff;border-color:#111}
+.sp{margin-left:auto}
+#legend{left:16px;bottom:16px;font-size:11.5px;line-height:1.9;color:var(--mut);letter-spacing:.06em}
+#legend b{color:#333;font-weight:600}
+body.in #legend,body.listmode #legend{display:none}
+#head{left:0;right:0;top:64px;text-align:center;pointer-events:none;transition:opacity .4s}
+body:not(.in) #head{opacity:0}
+#head b{display:block;font-size:24px;letter-spacing:.04em}
+#head small{display:block;margin-top:4px;font-size:12px;color:var(--mut);letter-spacing:.1em}
+#back{left:16px;top:60px}
+body:not(.in) #back,body:not(.in) #dock{display:none}
+#dock{left:0;right:0;bottom:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(245,245,245,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;gap:18px;min-height:118px}
+.blk{min-width:150px;max-width:260px;display:flex;flex-direction:column;gap:6px}
+.blk.wide{flex:1;max-width:none;min-width:0}
+.blk h4{margin:0;font-size:11px;font-weight:600;color:var(--mut);letter-spacing:.14em}
+.blk p{margin:0;font-size:13px;line-height:1.5}
+.blk p.q{color:var(--amber)}
+.strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px}
+.strip a{flex:none;width:132px;color:inherit;text-decoration:none;font-size:12px;line-height:1.35}
+.strip img{width:132px;height:74px;object-fit:cover;border-radius:5px;display:block;margin-bottom:4px;background:#ccc;box-shadow:0 0 0 1px var(--line)}
+.strip span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* 快速瀏覽：純文字清單 */
+#list{inset:56px 0 0 0;overflow-y:auto;padding:20px 24px 60px;display:none;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:26px 28px;align-content:start}
+body.listmode:not(.in) #list{display:grid}
+#list h3{margin:0 0 8px;font-size:12px;letter-spacing:.2em;color:var(--mut);font-weight:600;border-bottom:1px solid #111;padding-bottom:6px}
+#list .pt{position:static;display:flex;padding:6px 0;font-size:14.5px;opacity:1}
+#list .pt em{font-style:normal;font-size:11px;color:var(--mut);margin-left:auto;padding-left:10px}
+@media(max-width:700px){#dock{flex-direction:column;gap:8px;max-height:40vh;overflow-y:auto}.blk{max-width:none}#legend{font-size:10.5px;line-height:1.7}}
+</style>
+</head>
+<body>
+<div id="vp">
+  <div class="stage" id="mapstage"><div id="globe"></div></div>
+  <div class="stage" id="bookstage"><div id="book"></div></div>
+</div>
+<div class="hud" id="top"><strong>手邊</strong><span id="tray"></span><span class="sp"></span>
+  <button class="chip on" data-m="map">地圖</button><button class="chip" data-m="list">清單</button></div>
+<div class="hud" id="legend"></div>
+<div class="hud" id="head"></div>
+<button class="hud chip" id="back">← 回地圖</button>
+<div class="hud" id="list"></div>
+<div class="hud" id="dock"></div>
+
+<script>
+const STATE={seed:'未開始',doing:'進行中',done:'完成',live:'持續更新'};
+const ICON={
+  seed:'<svg viewBox="-8 -8 16 16"><circle r="5" class="fill"/></svg>',
+  doing:'<svg viewBox="-8 -8 16 16"><circle r="6" stroke-dasharray="27 11" transform="rotate(-90)"/></svg>',
+  done:'<svg viewBox="-8 -8 16 16"><circle r="6"/></svg>',
+  live:'<svg viewBox="-8 -8 16 16"><circle r="6.5"/><circle r="3"/></svg>'};
+const ROOT='../', TILT=-16;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const get=f=>fetch(ROOT+f,{cache:'no-cache'}).then(r=>r.json()).catch(()=>[]);
+let P=[],TRAY=[],DOMS=[],items={},pts=[],R=260,H=140,yaw=-24,bookRot=0,cur=null,idle=0;
+
+function thumbs(it,max){
+  if(it.kind==='site')return [ROOT+'sites/'+it.d.shot];
+  const s=it.d.slides,n=Math.min(max,s.length),out=[];
+  for(let i=0;i<n;i++)out.push(ROOT+'decks/'+encodeURIComponent(it.d.id)+'/'+s[Math.floor(i*s.length/n)].replace(/^s-/,'t-'));
+  return out;
+}
+const img=src=>`<img src="${esc(src)}" onerror="this.onerror=null;this.src=this.src.replace('/t-','/s-')" draggable="false" alt="">`;
+function pool(p,n){
+  const lists=p.its.map(it=>thumbs(it,n)),out=[];
+  for(let k=0;out.length<n&&lists.some(l=>l[k]);k++)lists.forEach((l,li)=>{if(l[k]&&out.length<n)out.push({s:l[k],k:li})});
+  const base=out.slice();
+  while(out.length&&out.length<Math.min(6,n))out.push(base[out.length%base.length]);
+  return out;
+}
+
+/* ---------- 地圖：角度=領域　半徑=給誰看　高度=型態 ---------- */
+function layout(){
+  R=Math.max(120,Math.min(innerWidth*.34,innerHeight*.33,300));H=R*.56;
+  const seen={};
+  P.forEach(p=>{
+    const key=p.dom+p.who+p.kind,n=P.filter(q=>q.dom+q.who+q.kind===key).length,k=seen[key]=(seen[key]||0)+1;
+    const sector=360/DOMS.length;
+    p.th=DOMS.indexOf(p.dom)*sector+(n>1?(k-1-(n-1)/2)*Math.min(26,sector*.6/(n-1)):0)+(p.who==='self'?-9:9);
+    p.r=(p.who==='self'?.42:.96)*R;
+    p.y=(p.kind==='know'?-1:1)*H*.62+((k%2)?-1:1)*(n>2?H*.14:0);
+    const t=p.th*Math.PI/180;p.x=p.r*Math.sin(t);p.z=p.r*Math.cos(t);
+  });
+}
+function buildMap(){
+  layout();
+  const bb=(x,y,z,inner)=>`<div class="bb" style="transform:translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,${z.toFixed(1)}px) rotateY(calc(var(--yaw)*-1)) rotateX(${-TILT}deg)">${inner}</div>`;
+  const circ=(r,y,cls='')=>`<div class="circ ${cls}" style="left:${-r}px;top:${-r}px;width:${2*r}px;height:${2*r}px;transform:translateY(${y}px) rotateX(90deg)"></div>`;
+  let h=`<div class="ln axis" style="top:${-H-26}px;height:${2*H+52}px"></div>`;
+  h+=circ(R,0)+circ(R*.42,0,'dash')+circ(R,-H,'dash')+circ(R,H,'dash');
+  DOMS.forEach((d,i)=>{
+    const th=i*360/DOMS.length,t=th*Math.PI/180;
+    h+=`<div class="spoke" style="width:${R}px;transform:rotateY(${th-90}deg)"></div>`;
+    h+=bb(R*1.17*Math.sin(t),0,R*1.17*Math.cos(t),`<span class="dom">${esc(d)}</span>`);
+  });
+  h+=bb(0,-H-42,0,'<span class="cap">理解事情</span>')+bb(0,H+42,0,'<span class="cap">做出東西</span>');
+  P.forEach((p,i)=>{
+    h+=`<div class="drop" style="top:${Math.min(0,p.y)}px;height:${Math.abs(p.y)}px;transform:translate3d(${p.x.toFixed(1)}px,0,${p.z.toFixed(1)}px) rotateY(calc(var(--yaw)*-1))"></div>`;
+    h+=bb(p.x,p.y,p.z,`<button class="pt" data-i="${i}">${ICON[p.state]}<span>${esc(p.name)}</span></button>`);
+  });
+  $('#globe').innerHTML=h;
+  pts=[...document.querySelectorAll('#globe .pt')];
+}
+function buildList(){
+  $('#list').innerHTML=DOMS.map(d=>`<section><h3>${esc(d)}</h3>${P.map((p,i)=>p.dom!==d?'':`<button class="pt" data-i="${i}">${ICON[p.state]}<span>${esc(p.name)}</span><em>${p.its.length||'—'}</em></button>`).join('')}</section>`).join('');
+  $('#tray').innerHTML=TRAY.map(id=>{const i=P.findIndex(p=>p.id===id);return i<0?'':`<button class="chip" data-i="${i}">${esc(P[i].name)}</button>`}).join(' ');
+  $('#legend').innerHTML='<b>角度</b> 領域　<b>內圈</b> 給自己看　<b>外圈</b> 給別人看<br><b>上層</b> 理解事情　<b>下層</b> 做出東西<br>● 未開始　◔ 進行中　○ 完成　◎ 持續更新　·　拖曳旋轉';
+}
+
+/* ---------- 書頁環：像把活頁本翻開 360 度 ---------- */
+function openBook(i){
+  const p=cur=P[i],n=16,gap=p.state==='doing'?4:0;
+  const pg=(k,inner,cls='',it)=>`<span class="pg ${cls}"${it==null?'':` data-k="${it}"`} style="--a:${(k*360/n).toFixed(1)}deg">${inner}</span>`;
+  let h='';
+  if(p.state==='seed')for(let k=0;k<n;k++)h+=k%3?'':pg(k,'','stim');
+  else{
+    const im=pool(p,n-gap);
+    for(let k=0;k<n-gap;k++){const a=Math.floor(k*im.length/(n-gap)),b=Math.floor((k-1)*im.length/(n-gap));h+=im.length&&(k===0||a!==b)?pg(k,img(im[a].s),'',im[a].k):pg(k,'','blank')}
+    for(let k=n-gap;k<n;k++)h+=pg(k,'','todo');
+  }
+  $('#book').innerHTML=h+'<div class="spine"></div>';
+  $('#head').innerHTML=`<b>${esc(p.name)}</b><small>${[p.dom,p.its.length?p.its.length+' 件':'還沒有內容',STATE[p.state],p.who==='show'?'給別人看':'給自己看'].map(esc).join(' · ')}</small>`;
+  dock(p);bookRot=20;document.body.classList.add('in');
+}
+const closeBook=()=>{document.body.classList.remove('in');cur=null};
+function dock(p){
+  const strip=p.its.length?`<div class="strip">${p.its.map(it=>`<a href="${esc(it.href)}" target="_blank" rel="noopener">${img(thumbs(it,1)[0])}<span>${esc(it.title)}</span></a>`).join('')}</div>`:'<p>還沒有內容。第一份資料放進來後會出現在這裡。</p>';
+  const B={
+    all:`<div class="blk wide"><h4>全貌</h4>${strip}</div>`,
+    prog:`<div class="blk"><h4>${p.state==='done'?'過去的進度':'進度'}</h4><p class="${p.state==='done'?'':'q'}">${esc(p.state==='done'?'已完成'+(p.last?'，最後更新 '+p.last:''):(p.next||'還沒寫下一步'))}</p></div>`,
+    stim:`<div class="blk"><h4>新的刺激</h4><p>${p.state==='seed'?'空白頁，等資料進來':'目前沒有新資料'}</p></div>`};
+  $('#dock').innerHTML={doing:['prog','all'],live:['prog','all'],done:['all','stim','prog'],seed:['stim','prog','all']}[p.state].map(k=>B[k]).join('');
+}
+
+/* ---------- 互動 ---------- */
+let drag=null,last=0;
+$('#vp').addEventListener('pointerdown',e=>{drag={x:e.clientX,moved:0,t:e.target};idle=0});
+addEventListener('pointermove',e=>{
+  if(!drag)return;const dx=e.clientX-drag.x;drag.x=e.clientX;drag.moved+=Math.abs(dx);
+  if(cur)bookRot+=dx*.45;else yaw+=dx*.4;
+});
+addEventListener('pointerup',()=>{
+  if(drag&&drag.moved<6){
+    const t=drag.t,b=t.closest('.pt'),g=t.closest('.pg[data-k]');
+    if(b)openBook(+b.dataset.i);
+    else if(g&&cur)open(cur.its[+g.dataset.k].href,'_blank','noopener');
+    else if(cur&&!t.closest('.pg'))closeBook();
+  }
+  drag=null;
+});
+document.addEventListener('click',e=>{
+  const b=e.target.closest('#list .pt,#tray .chip');if(b)return openBook(+b.dataset.i);
+  const m=e.target.closest('[data-m]');
+  if(m){closeBook();document.body.classList.toggle('listmode',m.dataset.m==='list');document.querySelectorAll('[data-m]').forEach(x=>x.classList.toggle('on',x===m))}
+});
+$('#back').onclick=closeBook;
+addEventListener('keydown',e=>{if(e.key==='Escape')closeBook()});
+addEventListener('resize',()=>{buildMap()});
+function frame(t=0){
+  const dt=Math.min(100,t-last);last=t;idle+=dt;
+  if(!drag){if(cur)bookRot+=dt*.006;else if(idle>2500)yaw+=dt*.004}
+  $('#globe').style.cssText=`--yaw:${yaw.toFixed(2)}deg;transform:rotateX(${TILT}deg) rotateY(${yaw.toFixed(2)}deg)`;
+  $('#book').style.transform=`rotateX(-14deg) rotateY(${bookRot.toFixed(2)}deg)`;
+  const s=Math.sin(yaw*Math.PI/180),c=Math.cos(yaw*Math.PI/180);
+  pts.forEach((el,i)=>{const p=P[i],zc=p.x*s+p.z*c;el.style.setProperty('--f',(.34+.66*(zc/R+1)/2).toFixed(2))});
+  requestAnimationFrame(frame);
+}
+Promise.all([get('decks.json'),get('sites.json'),fetch('projects.json',{cache:'no-cache'}).then(r=>r.json())]).then(([d,s,pj])=>{
+  P=pj.projects;TRAY=pj.tray||[];DOMS=[...new Set(P.map(p=>p.dom))];
+  d.forEach(x=>items[x.id]={kind:'deck',d:x,title:x.title,date:x.date,href:ROOT+'play.html?deck='+encodeURIComponent(x.id)});
+  s.forEach(x=>items[x.id]={kind:'site',d:x,title:x.title,href:x.url});
+  P.forEach(p=>{p.its=p.items.map(id=>items[id]).filter(Boolean);p.last=p.its.map(i=>i.date).filter(Boolean).sort().pop()});
+  buildMap();buildList();frame();
+});
+</script>
+</body>
+</html>
