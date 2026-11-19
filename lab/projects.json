@@ -1,22 +1,67 @@
 {
- "說明": "who: self=給自己看 show=給別人看；kind: make=做出東西 know=理解事情；state: seed=未開始 doing=進行中 done=完成 live=持續更新。items 填 decks.json / sites.json 的 id。",
- "tray": ["capstone", "racing", "officer"],
- "projects": [
-  {"id": "capstone", "name": "專題", "dom": "專題", "who": "self", "kind": "make", "state": "doing", "next": "這週的工作和進度在工作站", "items": ["sailboat"]},
-  {"id": "officer", "name": "幹部招募", "dom": "系學會", "who": "self", "kind": "make", "state": "doing", "next": "說明會結束後，補上成果和檢討", "items": ["20261018-officer-recruit-briefing", "20261015-officer-recruit"]},
-  {"id": "racing", "name": "NKUST Racing 工作台", "dom": "車隊", "who": "show", "kind": "make", "state": "live", "next": "下次會議的討論紀錄放這裡", "items": ["nkust-racing-dashboard", "nkust-racing-blueprint", "nkust-racing-essay", "nkust-racing-deck"]},
-  {"id": "xmas", "name": "聖誕晚會", "dom": "系學會", "who": "self", "kind": "make", "state": "doing", "next": "12/22 前把圖做完", "items": ["event-kit"]},
-  {"id": "sa-visual", "name": "系學會活動主視覺", "dom": "系學會", "who": "self", "kind": "make", "state": "done", "items": ["20261015-weekly-meeting", "20261012-freshman-tea"]},
-  {"id": "fsae-recruit", "name": "車隊招募", "dom": "車隊", "who": "show", "kind": "make", "state": "done", "items": ["20261012-fsae-recruit", "20261012-fsae-recruit-a4"]},
-  {"id": "calendar", "name": "系學會月曆", "dom": "系學會", "who": "self", "kind": "make", "state": "done", "items": ["20261012-calendar-covers", "calendar"]},
-  {"id": "missile", "name": "認識軍工產業", "dom": "課程", "who": "show", "kind": "know", "state": "done", "items": ["missile-journey"]},
-  {"id": "tesla-spacex", "name": "Tesla 與 SpaceX", "dom": "課程", "who": "show", "kind": "know", "state": "done", "items": ["tesla-spacex"]},
-  {"id": "ev", "name": "電動車", "dom": "課程", "who": "show", "kind": "know", "state": "done", "items": ["20260929-bms-ch3", "ev-motor-drive", "ev-charging-hybrid"]},
-  {"id": "study", "name": "刷題與單字", "dom": "課程", "who": "self", "kind": "know", "state": "done", "items": ["quiz"]},
-  {"id": "dynamics", "name": "動力學報告", "dom": "課程", "who": "show", "kind": "know", "state": "done", "items": ["dynamics"]},
-  {"id": "talks", "name": "系學會講座", "dom": "系學會", "who": "self", "kind": "know", "state": "done", "items": ["20260929-my-life", "20260929-a4"]},
-  {"id": "plc", "name": "PLC 輸送帶檢貨", "dom": "課程", "who": "show", "kind": "make", "state": "done", "items": ["20260929-0604-plc"]},
-  {"id": "company", "name": "公司作品", "dom": "公司", "who": "show", "kind": "make", "state": "done", "items": ["ijiock", "towan", "jcut-auto-imposition"]},
-  {"id": "hs", "name": "高中專題", "dom": "專題", "who": "show", "kind": "make", "state": "done", "items": ["hs-project"]}
- ]
+ "說明": "色體圖自動從 decks.json / sites.json 取每個群組最新的 MAX 件（照 date），不用在這裡登記。這裡只放選填的補充：tray＝頂端「手邊」放哪幾件（填作品 id）；works＝個別作品的狀態，state: seed 未開始、doing 進行中、done 完成（預設）、live 持續更新；progress: 0–10 決定線長；next: 下一步；who: self 給自己看、show 給別人看（預設）。",
+ "tray": [
+  "sailboat",
+  "nkust-racing-dashboard",
+  "20261018-officer-recruit-briefing"
+ ],
+ "works": {
+  "sailboat": {
+   "state": "doing",
+   "next": "這週的工作和進度在工作站",
+   "who": "self"
+  },
+  "20261018-officer-recruit-briefing": {
+   "state": "doing",
+   "next": "說明會結束後，補上成果和檢討",
+   "who": "self"
+  },
+  "20261015-officer-recruit": {
+   "state": "doing",
+   "next": "說明會結束後，補上成果和檢討",
+   "who": "self"
+  },
+  "nkust-racing-dashboard": {
+   "state": "live",
+   "next": "下次會議的討論紀錄放這裡"
+  },
+  "nkust-racing-blueprint": {
+   "state": "live",
+   "next": "下次會議的討論紀錄放這裡"
+  },
+  "nkust-racing-essay": {
+   "state": "live",
+   "next": "下次會議的討論紀錄放這裡"
+  },
+  "nkust-racing-deck": {
+   "state": "live",
+   "next": "下次會議的討論紀錄放這裡"
+  },
+  "event-kit": {
+   "state": "doing",
+   "next": "12/22 前把圖做完",
+   "who": "self"
+  },
+  "20261015-weekly-meeting": {
+   "who": "self"
+  },
+  "20261012-freshman-tea": {
+   "who": "self"
+  },
+  "20261012-calendar-covers": {
+   "who": "self"
+  },
+  "calendar": {
+   "who": "self"
+  },
+  "quiz": {
+   "who": "self"
+  },
+  "20260929-my-life": {
+   "who": "self"
+  },
+  "20260929-a4": {
+   "who": "self"
+  }
+ }
 }

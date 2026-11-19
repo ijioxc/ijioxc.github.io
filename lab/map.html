@@ -29,7 +29,7 @@ button{font:inherit;color:inherit}
 .row .end svg{display:block;width:14px;height:14px;overflow:visible}
 .row svg *{fill:none;stroke:#111;stroke-width:1.6}
 .row svg .fill{fill:#111}
-.row .nm{position:absolute;left:14px;bottom:6px;font-size:13.5px;white-space:nowrap;color:#222}
+.row .nm{position:absolute;left:14px;bottom:6px;max-width:calc(100% - 28px);overflow:hidden;text-overflow:ellipsis;font-size:13.5px;white-space:nowrap;color:#222}
 .row .ct{position:absolute;bottom:-7px;font-size:11px;color:var(--mut);white-space:nowrap;letter-spacing:.06em}
 .branch:not(.on) .ct{display:none}
 .branch.on .row:hover .nm{font-weight:700;color:#000}
@@ -152,7 +152,8 @@ function pool(p,n){
 /* ---------- 地圖 ---------- */
 function buildMap(){
   L=Math.max(150,Math.min(innerWidth*(innerWidth<700?.56:.4),400));RG=Math.max(26,Math.min(36,innerHeight*.045));
-  const per=DOMS.map(d=>P.map((p,i)=>({p,i})).filter(o=>o.p.dom===d).sort((a,b)=>comp(a.p)-comp(b.p)));   // 短的在上、長的在下 → 樹形
+  // 每個群組只畫最新的 MAX 件；再照完成度排：短的在上、長的在下 → 樹形（一樣長的新的在上）
+  const per=DOMS.map(d=>P.map((p,i)=>({p,i})).filter(o=>o.p.dom===d).sort((a,b)=>(b.p.last||'').localeCompare(a.p.last||'')).slice(0,MAX).sort((a,b)=>comp(a.p)-comp(b.p)));
   const maxN=Math.max(...per.map(a=>a.length)),y0=maxN*RG/2+10;
   const circ=(r,cls='')=>`<div class="circ ${cls}" style="left:${-r}px;top:${-r}px;width:${2*r}px;height:${2*r}px;transform:translateY(${y0}px) rotateX(90deg)"></div>`;
   let h=`<div class="axis" style="top:${y0-maxN*RG-46}px;height:${maxN*RG+46}px"></div>`+circ(L)+circ(L*.5,'dash');
@@ -163,13 +164,13 @@ function buildMap(){
       b+=`<button class="row" data-i="${o.i}" data-d="${di}" style="top:${y}px;width:${L}px">
         <span class="bar" style="width:${w.toFixed(0)}px"></span><span class="rest" style="left:${w.toFixed(0)}px;width:${(L-w).toFixed(0)}px"></span>
         <span class="end" style="left:${w.toFixed(0)}px">${ICON[o.p.state]}</span>
-        <span class="nm">${esc(o.p.name)}</span><span class="ct" style="left:${L+18}px">${STATE[o.p.state]}${o.p.its.length?' · '+o.p.its.length+' 件':''}</span></button>`;
+        <span class="nm">${esc(o.p.name)}</span><span class="ct" style="left:${L+18}px">${STATE[o.p.state]}${o.p.last?' · '+o.p.last.replace(/-/g,'.'):''}</span></button>`;
     });
     h+=`<div class="branch" data-d="${di}">${b}</div>`;
   });
   $('#globe').innerHTML=h;
   brs=[...document.querySelectorAll('#globe .branch')];
-  $('#doms').innerHTML=DOMS.map((d,i)=>`<button data-d="${i}">${esc(d)}<em>${String(per[i].length).padStart(2,'0')}</em></button>`).join('');
+  $('#doms').innerHTML=DOMS.map((d,i)=>`<button data-d="${i}">${esc(d)}<em>${String(P.filter(p=>p.dom===d).length).padStart(2,'0')}</em></button>`).join('');
   setFocus(focus);
 }
 const CLEAR=108;   // 閱讀中的方向兩側各讓出這麼多度，其他方向擠到左半邊
@@ -182,7 +183,7 @@ function setFocus(i){
   angT=ang.map((a,k)=>{const j=((k-focus)%n+n)%n;return j===0?ang[focus]:ang[focus]+CLEAR+(n>2?(j-1)*(360-2*CLEAR)/(n-2):0)});
 }
 function buildList(){
-  $('#list').innerHTML=DOMS.map(d=>`<section><h3>${esc(d)}</h3>${P.map((p,i)=>p.dom!==d?'':`<button class="pt" data-i="${i}">${ICON[p.state]}<span>${esc(p.name)}</span><em>${p.its.length||'—'}</em></button>`).join('')}</section>`).join('');
+  $('#list').innerHTML=DOMS.map(d=>`<section><h3>${esc(d)}</h3>${P.map((p,i)=>({p,i})).filter(o=>o.p.dom===d).sort((a,b)=>(b.p.last||'').localeCompare(a.p.last||'')).map(({p,i})=>`<button class="pt" data-i="${i}">${ICON[p.state]}<span>${esc(p.name)}</span><em>${(p.last||'').replace(/-/g,'.')||'—'}</em></button>`).join('')}</section>`).join('');
   $('#tray').innerHTML=TRAY.map(id=>{const i=P.findIndex(p=>p.id===id);return i<0?'':`<button class="chip" data-i="${i}">${esc(P[i].name)}</button>`}).join(' ');
   $('#legend').innerHTML='線越長 = 完成度越高　·　滾輪、拖曳或按 ← → 換領域';
 }
@@ -199,7 +200,7 @@ function openBook(i){
     for(let k=n-gap;k<n;k++)h+=pg(k,'','todo');
   }
   $('#book').innerHTML=h+'<div class="spine"></div>';
-  $('#head').innerHTML=`<b>${esc(p.name)}</b><small>${[p.dom,p.its.length?p.its.length+' 件':'還沒有內容',STATE[p.state],p.who==='show'?'給別人看':'給自己看'].map(esc).join(' · ')}</small>`;
+  $('#head').innerHTML=`<b>${esc(p.name)}</b><small>${[p.dom,(p.last||'').replace(/-/g,'.'),STATE[p.state],p.who==='self'?'給自己看':'給別人看'].filter(Boolean).map(esc).join(' · ')}</small>`;
   dock(p);bookRot=20;document.body.classList.add('in');
 }
 const closeBook=()=>{document.body.classList.remove('in');cur=null};
@@ -261,11 +262,17 @@ function frame(t=0){
   brs.forEach((b,i)=>{if(!drag)ang[i]+=norm(angT[i]-ang[i])*k;b.style.transform=`rotateY(${ang[i].toFixed(2)}deg)`;const a=(yaw+ang[i])*Math.PI/180;b.classList.toggle('back',Math.cos(a)<0);b.classList.toggle('on',i===focus)});
   requestAnimationFrame(frame);
 }
-Promise.all([get('decks.json'),get('sites.json'),fetch('projects.json',{cache:'no-cache'}).then(r=>r.json())]).then(([d,s,pj])=>{
-  P=pj.projects;TRAY=pj.tray||[];DOMS=[...new Set(P.map(p=>p.dom))];
-  d.forEach(x=>items[x.id]={kind:'deck',d:x,title:x.title,date:x.date,href:ROOT+'play.html?deck='+encodeURIComponent(x.id)});
-  s.forEach(x=>items[x.id]={kind:'site',d:x,title:x.title,href:x.url});
-  P.forEach(p=>{p.its=p.items.map(id=>items[id]).filter(Boolean);p.last=p.its.map(i=>i.date).filter(Boolean).sort().pop()});
+/* 資料：總列表（decks.json、sites.json）的每一件作品就是一條線，方向＝它在首頁的群組（照 groups.json 的順序）。
+   新作品加進總列表就會自動出現，擠掉那個群組最舊的一條。projects.json 只放選填的補充（狀態、下一步、手邊） */
+const MAX=8;
+Promise.all([get('decks.json'),get('sites.json'),get('groups.json'),fetch('projects.json',{cache:'no-cache'}).then(r=>r.json()).catch(()=>({}))]).then(([d,s,gs,pj])=>{
+  d.forEach(x=>items[x.id]={kind:'deck',d:x,title:x.title,date:x.date,group:x.group,href:ROOT+'play.html?deck='+encodeURIComponent(x.id)});
+  s.forEach(x=>items[x.id]={kind:'site',d:x,title:x.title,date:x.date,group:x.group,href:x.url});
+  const W=pj.works||{};
+  P=Object.entries(items).map(([id,it])=>({id,name:it.title,dom:it.group||'未分類',state:'done',who:'show',...W[id],its:[it],last:it.date}));
+  DOMS=[...gs,'未分類'].filter((g,i,a)=>a.indexOf(g)===i&&P.some(p=>p.dom===g));
+  P.forEach(p=>{if(!DOMS.includes(p.dom))DOMS.push(p.dom)});
+  TRAY=(pj.tray||[]).filter(id=>P.some(p=>p.id===id));
   buildMap();buildList();frame();
 });
 </script>

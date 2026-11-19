@@ -6,7 +6,7 @@
 ## 首頁陳列方式（`index.html`）
 
 頂列的設定鈕可以切換首頁的陳列方式，選擇記在瀏覽器的 `localStorage.layout`：`chromo` 色體圖（預設，整頁嵌入 `lab/map.html`）、`ring` 環形（`mapView`）、`time` 時間線（`timeView`）。
-色體圖的資料在 `lab/projects.json`，新作品要加進對應專案的 `items` 才會出現在色體圖；規則看 `lab/README.md`。
+色體圖自動從 `decks.json`／`sites.json` 取每個群組最新 8 件（照 `date`），新作品不用另外登記，但一定要填 `date` 和 `group`。`lab/projects.json` 只放選填的狀態、下一步和「手邊」；規則看 `lab/README.md`。
 要加新的陳列方式：寫一個回傳 HTML 的 view 函式，在 `LAYOUTS`、`render()` 和 `#pop` 各加一項。右下角的大標題清單用 `gidx()`，各種陳列方式共用。
 時間線照 `date` 排；`sites.json` 的網站也要填 `date`。
 
