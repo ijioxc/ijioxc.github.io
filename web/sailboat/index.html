@@ -200,7 +200,8 @@ main{position:relative;z-index:1;animation:fade .45s both}
 .grow .tt{font-size:12.5px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .grow.done .tt{color:var(--mute)}
 .gb{position:absolute;top:5px;bottom:5px;border-radius:6px;overflow:hidden;display:flex;align-items:center;padding:0 7px;
-  background:color-mix(in srgb,var(--oc1) 16%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--oc1) 45%,transparent)}
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--oc1) 45%,transparent)}
+.gb::before{content:"";position:absolute;inset:0;background:var(--ocg);opacity:.2}
 .gb i{position:absolute;left:0;top:0;bottom:0;width:var(--p);background:var(--ocg);opacity:.55}
 .gb em{position:relative;font-style:normal;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:9px;font-weight:700;color:var(--oc1)}
 .grow.done .gb i{opacity:.8}
@@ -290,7 +291,7 @@ main{position:relative;z-index:1;animation:fade .45s both}
   .axis{left:52px}
   .hub{align-items:flex-start;text-align:left;padding:10px 16px 20px 88px}
   .hub .dot{position:absolute;left:49px;bottom:0;margin:0}
-  .stn{grid-template-columns:76px 1fr;align-items:start;min-height:0;padding:22px 16px 22px 14px;gap:0 0}
+  .stn{grid-template-columns:76px minmax(0,1fr);align-items:start;min-height:0;padding:22px 16px 22px 14px;gap:0 0}
   .stn .L{grid-column:2;grid-row:1;justify-self:start;align-items:flex-start;text-align:left;padding:0 0 10px 6px;max-width:none}
   .stn .R{grid-column:2;grid-row:2;padding-left:0;width:100%}
   .orbit{grid-column:1;grid-row:1/span 2;width:76px;height:96px;--r:30px;--w:20px;align-self:start}
