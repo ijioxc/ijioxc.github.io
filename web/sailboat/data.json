@@ -1,0 +1,799 @@
+{
+ "_說明": "無人帆船專題工作站的全部資料。Claude 每次做完專題工作後更新這份檔案，網頁會直接讀它。欄位規則見 README.md。",
+ "project": {
+  "title": "自動控制無人帆船",
+  "start": "2026-11-16",
+  "weeks": 24,
+  "budget": 50000,
+  "members": {
+   "me": "Mr.張",
+   "mate": "隊友",
+   "claude": "Claude"
+  },
+  "phases": [
+   {
+    "n": 1,
+    "name": "模擬",
+    "start": 1,
+    "end": 2
+   },
+   {
+    "n": 2,
+    "name": "採購",
+    "start": 1,
+    "end": 3
+   },
+   {
+    "n": 3,
+    "name": "組裝",
+    "start": 3,
+    "end": 5
+   },
+   {
+    "n": 4,
+    "name": "接線",
+    "start": 4,
+    "end": 6
+   },
+   {
+    "n": 5,
+    "name": "岸上測試",
+    "start": 7,
+    "end": 8
+   },
+   {
+    "n": 6,
+    "name": "下水",
+    "start": 9,
+    "end": 16
+   },
+   {
+    "n": 7,
+    "name": "分析報告",
+    "start": 17,
+    "end": 20
+   },
+   {
+    "n": 8,
+    "name": "口試",
+    "start": 21,
+    "end": 24
+   }
+  ]
+ },
+ "tasks": [
+  {
+   "id": "t01",
+   "title": "安裝 ArduPilot SITL 帆船模擬",
+   "owners": [
+    "claude"
+   ],
+   "phase": 1,
+   "start": 1,
+   "end": 1,
+   "status": "done",
+   "progress": 100,
+   "imp": 2,
+   "urg": 1,
+   "note": "~/ardupilot；模擬/run_sitl.sh"
+  },
+  {
+   "id": "t02",
+   "title": "安裝 QGroundControl 地面站",
+   "owners": [
+    "claude"
+   ],
+   "phase": 1,
+   "start": 1,
+   "end": 1,
+   "status": "done",
+   "progress": 100,
+   "imp": 2,
+   "urg": 1,
+   "note": ""
+  },
+  {
+   "id": "t03",
+   "title": "實驗一：逆風性能（不可航行角 × 風速）",
+   "owners": [
+    "claude"
+   ],
+   "phase": 1,
+   "start": 1,
+   "end": 1,
+   "status": "done",
+   "progress": 100,
+   "imp": 2,
+   "urg": 1,
+   "note": "45° 最快；模擬/output/exp1_upwind.png"
+  },
+  {
+   "id": "t04",
+   "title": "學會用 QGC 畫航點、改參數",
+   "owners": [
+    "me",
+    "mate"
+   ],
+   "phase": 1,
+   "start": 1,
+   "end": 2,
+   "status": "todo",
+   "progress": 0,
+   "imp": 2,
+   "urg": 2,
+   "note": "跟著模擬/README.md 跑一次 mission_test.py"
+  },
+  {
+   "id": "t05",
+   "title": "實驗二：風向計誤差對航行的影響",
+   "owners": [
+    "claude"
+   ],
+   "phase": 1,
+   "start": 2,
+   "end": 2,
+   "status": "todo",
+   "progress": 0,
+   "imp": 2,
+   "urg": 2,
+   "note": "風向加 ±5/10/20° 雜訊與偏差，比較 VMG 與搶風次數"
+  },
+  {
+   "id": "t06",
+   "title": "學帆船原理：視風、迎風角、搶風",
+   "owners": [
+    "me",
+    "mate"
+   ],
+   "phase": 1,
+   "start": 1,
+   "end": 4,
+   "status": "todo",
+   "progress": 0,
+   "imp": 2,
+   "urg": 1,
+   "note": "Claude 出題考"
+  },
+  {
+   "id": "t07",
+   "title": "硬體選型表",
+   "owners": [
+    "claude"
+   ],
+   "phase": 2,
+   "start": 1,
+   "end": 1,
+   "status": "done",
+   "progress": 100,
+   "imp": 3,
+   "urg": 2,
+   "note": "提案文件「硬體選型」分頁"
+  },
+  {
+   "id": "t08",
+   "title": "找指導教授確認題目",
+   "owners": [
+    "me"
+   ],
+   "phase": 2,
+   "start": 1,
+   "end": 2,
+   "status": "todo",
+   "progress": 0,
+   "imp": 3,
+   "urg": 3,
+   "note": "帶提案文件與模擬結果"
+  },
+  {
+   "id": "t09",
+   "title": "查 DragonFlite 95 台灣價格並下單",
+   "owners": [
+    "me"
+   ],
+   "phase": 2,
+   "start": 1,
+   "end": 2,
+   "status": "todo",
+   "progress": 0,
+   "imp": 3,
+   "urg": 3,
+   "note": "確認 RTR 附的接收機有 iBus 或 PPM"
+  },
+  {
+   "id": "t10",
+   "title": "下單飛控、GPS、數傳",
+   "owners": [
+    "me"
+   ],
+   "phase": 2,
+   "start": 1,
+   "end": 2,
+   "status": "todo",
+   "progress": 0,
+   "imp": 3,
+   "urg": 3,
+   "note": "Pixhawk 6C Mini＋M10 GPS；SiK 頻段先確認"
+  },
+  {
+   "id": "t11",
+   "title": "下單 ESP32＋AS5600",
+   "owners": [
+    "mate"
+   ],
+   "phase": 2,
+   "start": 1,
+   "end": 2,
+   "status": "todo",
+   "progress": 0,
+   "imp": 2,
+   "urg": 3,
+   "note": "約 NT$400，清單在 ESP32風向模組/README.md"
+  },
+  {
+   "id": "t12",
+   "title": "找測試水域",
+   "owners": [
+    "me"
+   ],
+   "phase": 2,
+   "start": 1,
+   "end": 3,
+   "status": "todo",
+   "progress": 0,
+   "imp": 3,
+   "urg": 2,
+   "note": "校內水池或附近湖泊，確認能不能放模型船"
+  },
+  {
+   "id": "t13",
+   "title": "確認 SiK 數傳台灣合法頻段",
+   "owners": [
+    "claude"
+   ],
+   "phase": 2,
+   "start": 2,
+   "end": 2,
+   "status": "todo",
+   "progress": 0,
+   "imp": 2,
+   "urg": 2,
+   "note": "433 或 915 MHz"
+  },
+  {
+   "id": "t14",
+   "title": "ESP32 風向模組程式＋模擬驗證",
+   "owners": [
+    "claude"
+   ],
+   "phase": 3,
+   "start": 1,
+   "end": 1,
+   "status": "done",
+   "progress": 100,
+   "imp": 2,
+   "urg": 1,
+   "note": "9 個角度誤差 0.0°；編譯通過"
+  },
+  {
+   "id": "t15",
+   "title": "ESP32 風向模組桌上實測",
+   "owners": [
+    "me"
+   ],
+   "phase": 3,
+   "start": 3,
+   "end": 3,
+   "status": "todo",
+   "progress": 0,
+   "imp": 2,
+   "urg": 2,
+   "note": "Arduino IDE 燒錄，序列埠看角度，z 設零點"
+  },
+  {
+   "id": "t16",
+   "title": "組裝船殼、舵機、帆機",
+   "owners": [
+    "me"
+   ],
+   "phase": 3,
+   "start": 3,
+   "end": 5,
+   "status": "todo",
+   "progress": 0,
+   "imp": 3,
+   "urg": 2,
+   "note": ""
+  },
+  {
+   "id": "t17",
+   "title": "量船艙尺寸給 Claude",
+   "owners": [
+    "me"
+   ],
+   "phase": 3,
+   "start": 3,
+   "end": 3,
+   "status": "todo",
+   "progress": 0,
+   "imp": 2,
+   "urg": 2,
+   "note": "艙口長寬、艙內深度、桅高"
+  },
+  {
+   "id": "t18",
+   "title": "設計電子艙與風標 3D 列印檔",
+   "owners": [
+    "claude"
+   ],
+   "phase": 3,
+   "start": 3,
+   "end": 4,
+   "status": "todo",
+   "progress": 0,
+   "imp": 2,
+   "urg": 2,
+   "note": "CadQuery 產 STL"
+  },
+  {
+   "id": "t19",
+   "title": "3D 列印、試裝",
+   "owners": [
+    "mate"
+   ],
+   "phase": 3,
+   "start": 4,
+   "end": 5,
+   "status": "todo",
+   "progress": 0,
+   "imp": 2,
+   "urg": 2,
+   "note": ""
+  },
+  {
+   "id": "t20",
+   "title": "實船參數檔（.param）",
+   "owners": [
+    "claude"
+   ],
+   "phase": 4,
+   "start": 2,
+   "end": 3,
+   "status": "todo",
+   "progress": 0,
+   "imp": 2,
+   "urg": 2,
+   "note": "舵／帆伺服對應、失聯保護、地理圍欄"
+  },
+  {
+   "id": "t21",
+   "title": "畫接線圖",
+   "owners": [
+    "claude"
+   ],
+   "phase": 4,
+   "start": 4,
+   "end": 4,
+   "status": "todo",
+   "progress": 0,
+   "imp": 2,
+   "urg": 2,
+   "note": ""
+  },
+  {
+   "id": "t22",
+   "title": "接線與刷 ArduPilot 韌體",
+   "owners": [
+    "mate"
+   ],
+   "phase": 4,
+   "start": 5,
+   "end": 6,
+   "status": "todo",
+   "progress": 0,
+   "imp": 3,
+   "urg": 2,
+   "note": "拍接線照片給 Claude 對"
+  },
+  {
+   "id": "t23",
+   "title": "岸測檢查清單",
+   "owners": [
+    "claude"
+   ],
+   "phase": 5,
+   "start": 6,
+   "end": 6,
+   "status": "todo",
+   "progress": 0,
+   "imp": 2,
+   "urg": 2,
+   "note": ""
+  },
+  {
+   "id": "t24",
+   "title": "校正羅盤、風向計、舵帆行程",
+   "owners": [
+    "me",
+    "mate"
+   ],
+   "phase": 5,
+   "start": 7,
+   "end": 8,
+   "status": "todo",
+   "progress": 0,
+   "imp": 3,
+   "urg": 2,
+   "note": ""
+  },
+  {
+   "id": "t25",
+   "title": "失聯保護測試",
+   "owners": [
+    "mate"
+   ],
+   "phase": 5,
+   "start": 8,
+   "end": 8,
+   "status": "todo",
+   "progress": 0,
+   "imp": 3,
+   "urg": 2,
+   "note": "關掉遙控器，船要自己停下或返航"
+  },
+  {
+   "id": "t26",
+   "title": "Log 分析工具",
+   "owners": [
+    "claude"
+   ],
+   "phase": 6,
+   "start": 2,
+   "end": 3,
+   "status": "todo",
+   "progress": 0,
+   "imp": 2,
+   "urg": 1,
+   "note": "讀 .bin，自動出航跡、風向、搶風圖"
+  },
+  {
+   "id": "t27",
+   "title": "手動遙控試航",
+   "owners": [
+    "me",
+    "mate"
+   ],
+   "phase": 6,
+   "start": 9,
+   "end": 10,
+   "status": "todo",
+   "progress": 0,
+   "imp": 3,
+   "urg": 2,
+   "note": "錄影、記當天風況"
+  },
+  {
+   "id": "t28",
+   "title": "航向 PID 調參",
+   "owners": [
+    "me"
+   ],
+   "phase": 6,
+   "start": 10,
+   "end": 12,
+   "status": "todo",
+   "progress": 0,
+   "imp": 3,
+   "urg": 2,
+   "note": "步階響應比較 3–4 組參數"
+  },
+  {
+   "id": "t29",
+   "title": "單一航點自動航行",
+   "owners": [
+    "me",
+    "mate",
+    "claude"
+   ],
+   "phase": 6,
+   "start": 12,
+   "end": 13,
+   "status": "todo",
+   "progress": 0,
+   "imp": 3,
+   "urg": 2,
+   "note": ""
+  },
+  {
+   "id": "t30",
+   "title": "逆風搶風與多航點實驗",
+   "owners": [
+    "me",
+    "mate",
+    "claude"
+   ],
+   "phase": 6,
+   "start": 13,
+   "end": 16,
+   "status": "todo",
+   "progress": 0,
+   "imp": 3,
+   "urg": 2,
+   "note": "每組重複 3 次以上，跟模擬比較"
+  },
+  {
+   "id": "t31",
+   "title": "分析出圖、報告初稿",
+   "owners": [
+    "claude"
+   ],
+   "phase": 7,
+   "start": 17,
+   "end": 19,
+   "status": "todo",
+   "progress": 0,
+   "imp": 3,
+   "urg": 2,
+   "note": ""
+  },
+  {
+   "id": "t32",
+   "title": "核對數據、改寫成自己的話",
+   "owners": [
+    "me",
+    "mate"
+   ],
+   "phase": 7,
+   "start": 18,
+   "end": 20,
+   "status": "todo",
+   "progress": 0,
+   "imp": 3,
+   "urg": 2,
+   "note": ""
+  },
+  {
+   "id": "t33",
+   "title": "海報與簡報",
+   "owners": [
+    "claude",
+    "me"
+   ],
+   "phase": 8,
+   "start": 21,
+   "end": 22,
+   "status": "todo",
+   "progress": 0,
+   "imp": 2,
+   "urg": 2,
+   "note": ""
+  },
+  {
+   "id": "t34",
+   "title": "口試準備",
+   "owners": [
+    "me",
+    "mate"
+   ],
+   "phase": 8,
+   "start": 22,
+   "end": 24,
+   "status": "todo",
+   "progress": 0,
+   "imp": 3,
+   "urg": 2,
+   "note": "Claude 模擬口委出題"
+  }
+ ],
+ "parts": [
+  {
+   "id": "p1",
+   "name": "Joysway DragonFlite 95 V3 RTR 船殼",
+   "owner": "me",
+   "priceLo": 15000,
+   "priceHi": 19000,
+   "qty": 1,
+   "status": "plan",
+   "paid": 0,
+   "link": "",
+   "note": "附 FlySky i6 遙控、舵機、帆機；先查台灣價格",
+   "order": 1
+  },
+  {
+   "id": "p2",
+   "name": "Holybro Pixhawk 6C Mini＋M10 GPS",
+   "owner": "me",
+   "priceLo": 6500,
+   "priceHi": 6500,
+   "qty": 1,
+   "status": "plan",
+   "paid": 0,
+   "link": "",
+   "note": "標準接頭，幾乎不用焊接",
+   "order": 2
+  },
+  {
+   "id": "p3",
+   "name": "SiK 數傳電台一對",
+   "owner": "me",
+   "priceLo": 1500,
+   "priceHi": 3000,
+   "qty": 1,
+   "status": "plan",
+   "paid": 0,
+   "link": "",
+   "note": "頻段待確認（433／915 MHz）",
+   "order": 3
+  },
+  {
+   "id": "p4",
+   "name": "ESP32 DevKit（ESP32-WROOM）",
+   "owner": "mate",
+   "priceLo": 150,
+   "priceHi": 250,
+   "qty": 1,
+   "status": "plan",
+   "paid": 0,
+   "link": "",
+   "note": "風向模組主板",
+   "order": 4
+  },
+  {
+   "id": "p5",
+   "name": "AS5600 磁編碼器模組＋徑向磁鐵",
+   "owner": "mate",
+   "priceLo": 150,
+   "priceHi": 250,
+   "qty": 1,
+   "status": "plan",
+   "paid": 0,
+   "link": "",
+   "note": "磁鐵距晶片 0.5–3 mm",
+   "order": 5
+  },
+  {
+   "id": "p6",
+   "name": "電池、防水盒、接頭、備品",
+   "owner": "me",
+   "priceLo": 3000,
+   "priceHi": 3000,
+   "qty": 1,
+   "status": "plan",
+   "paid": 0,
+   "link": "",
+   "note": "",
+   "order": 6
+  }
+ ],
+ "log": [
+  {
+   "id": "l05",
+   "date": "2026-11-19",
+   "who": "claude",
+   "text": "建立專題工作站（這個頁面）",
+   "ts": 5
+  },
+  {
+   "id": "l04",
+   "date": "2026-11-19",
+   "who": "claude",
+   "text": "ESP32 風向模組程式完成，模擬器驗證 9 個角度誤差 0.0°，編譯通過",
+   "ts": 4
+  },
+  {
+   "id": "l03",
+   "date": "2026-11-19",
+   "who": "claude",
+   "text": "實驗一完成：不可航行角 45° 逆風最快（風 5 m/s 時 VMG 1.39 m/s）",
+   "ts": 3
+  },
+  {
+   "id": "l02",
+   "date": "2026-11-19",
+   "who": "claude",
+   "text": "裝好 ArduPilot SITL 與 QGroundControl，跑通 150 m 正方形航點任務",
+   "ts": 2
+  },
+  {
+   "id": "l01",
+   "date": "2026-11-19",
+   "who": "claude",
+   "text": "寫好專題提案與硬體選型（提案文件兩個分頁）",
+   "ts": 1
+  }
+ ],
+ "results": [
+  {
+   "id": "r1",
+   "kind": "Simulation",
+   "date": "2026-11-19",
+   "order": 1,
+   "title": "實驗一：逆風性能",
+   "summary": "ArduPilot SITL 帆船模型，從起點到正上風 150 m。不可航行角 45° 在三種風速下都最快；35° 航程短但船速慢，55° 船速快但繞遠。表中為逆風有效速度 VMG（m/s）。",
+   "headers": [
+    "風速",
+    "35°",
+    "45°",
+    "55°"
+   ],
+   "rows": [
+    [
+     "3 m/s",
+     "0.97",
+     "**1.03**",
+     "0.99"
+    ],
+    [
+     "5 m/s",
+     "1.29",
+     "**1.39**",
+     "1.33"
+    ],
+    [
+     "8 m/s",
+     "1.65",
+     "**1.80**",
+     "1.66"
+    ]
+   ],
+   "file": "專題/模擬/output/exp1_upwind.png",
+   "phase": 1
+  },
+  {
+   "id": "r2",
+   "kind": "Verification",
+   "date": "2026-11-19",
+   "order": 2,
+   "title": "ESP32 風向模組：NMEA 格式驗證",
+   "summary": "用 Python 模擬 ESP32，送出與韌體相同格式的 $WIMWV 語句給 ArduPilot SITL，再讀飛控回報的視風角 AppWndDir。9 個角度全部一致，無效資料（V）有被忽略。韌體以 arduino-cli 編譯通過（程式 330 KB，占 25%）。",
+   "headers": [
+    "送出角度",
+    "飛控讀到",
+    "誤差"
+   ],
+   "rows": [
+    [
+     "0°",
+     "0.0°",
+     "0.0°"
+    ],
+    [
+     "45°",
+     "45.0°",
+     "0.0°"
+    ],
+    [
+     "90°",
+     "90.0°",
+     "0.0°"
+    ],
+    [
+     "135°",
+     "135.0°",
+     "0.0°"
+    ],
+    [
+     "180°",
+     "-180.0°",
+     "0.0°"
+    ],
+    [
+     "270°",
+     "-90.0°",
+     "0.0°"
+    ],
+    [
+     "359°",
+     "-1.0°",
+     "0.0°"
+    ],
+    [
+     "123°（無效 V）",
+     "維持 -1.0°",
+     "有忽略"
+    ]
+   ],
+   "file": "專題/模擬/test_nmea_windvane.py",
+   "phase": 1
+  }
+ ]
+}
