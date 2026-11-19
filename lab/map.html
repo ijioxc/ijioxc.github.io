@@ -267,7 +267,7 @@ function frame(t=0){
 const MAX=8;
 Promise.all([get('decks.json'),get('sites.json'),get('groups.json'),fetch('projects.json',{cache:'no-cache'}).then(r=>r.json()).catch(()=>({}))]).then(([d,s,gs,pj])=>{
   d.forEach(x=>items[x.id]={kind:'deck',d:x,title:x.title,date:x.date,group:x.group,href:ROOT+'play.html?deck='+encodeURIComponent(x.id)});
-  s.forEach(x=>items[x.id]={kind:'site',d:x,title:x.title,date:x.date,group:x.group,href:x.url});
+  s.forEach(x=>items[x.id]={kind:'site',d:x,title:x.title,date:x.date,group:x.group,href:/^[a-z]+:|^\//i.test(x.url)?x.url:ROOT+x.url});   // 站內網址（例如 web/sailboat/）是相對於首頁寫的
   const W=pj.works||{};
   P=Object.entries(items).map(([id,it])=>({id,name:it.title,dom:it.group||'未分類',state:'done',who:'show',...W[id],its:[it],last:it.date}));
   DOMS=[...gs,'未分類'].filter((g,i,a)=>a.indexOf(g)===i&&P.some(p=>p.dom===g));
