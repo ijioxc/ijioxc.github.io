@@ -5,36 +5,43 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>無人帆船專題</title>
 <meta name="description" content="高科大機械系自控組畢業專題：自動控制無人帆船工作站">
-<meta name="theme-color" content="#ececec" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0d0d0f" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f0eee6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#262624" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M18.2 11.8L18.9 12.3L19.5 12.8L20.1 13.3L20.5 13.9L20.9 14.5L21.3 15.1L21.5 15.7L21.6 16.3L21.7 16.9L21.7 17.5L21.6 18.1L21.4 18.6L21.2 19.1L20.8 19.6L20.4 19.9L19.9 20.3L19.4 20.6L18.8 20.8L18.2 20.9L17.5 21.0L16.8 21.0L16.1 20.9L15.4 20.7L14.6 20.5L13.9 20.1L13.1 19.8L12.4 19.3L11.7 18.8L11.0 18.2L10.4 17.5L9.8 16.8L9.3 16.0L8.8 15.2L8.4 14.4L8.0 13.6L7.9 13.1M7.3 9.2L7.4 8.4L7.5 7.6L7.7 6.9L7.9 6.2L8.3 5.5L8.6 4.9L9.0 4.4L9.5 4.0L10.0 3.6L10.5 3.3L11.0 3.1L11.6 3.0L12.1 3.0L12.7 3.1L13.2 3.2L13.8 3.5L14.3 3.8L14.7 4.2L15.2 4.7L15.6 5.2L15.9 5.8L16.2 6.5L16.4 7.2L16.6 8.0L16.7 8.8L16.7 9.6L16.7 10.5L16.6 11.4L16.4 12.2L16.1 13.1L15.8 14.0L15.4 14.8L15.0 15.6L14.4 16.4L13.9 17.1L13.6 17.5M10.5 20.0L9.8 20.3L9.0 20.6L8.3 20.8L7.5 20.9L6.8 21.0L6.1 21.0L5.5 20.9L4.9 20.7L4.3 20.4L3.8 20.1L3.4 19.8L3.0 19.3L2.7 18.9L2.5 18.3L2.3 17.8L2.3 17.2L2.3 16.6L2.4 16.0L2.6 15.4L2.9 14.8L3.3 14.2L3.7 13.6L4.2 13.0L4.8 12.5L5.4 12.0L6.2 11.6L6.9 11.2L7.7 10.9L8.6 10.6L9.5 10.4L10.4 10.2L11.3 10.1L12.2 10.1L13.2 10.2L14.1 10.3L14.5 10.4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Lora:wght@500;600&display=swap">
 <style>
-/* ── 色彩：沿用資料庫 Data Tank（淺灰底、黑字、細線），另加深色 ── */
+/* ── 色彩：Claude（Anthropic 官方色）。象牙底、近黑字、Claude 橘＝唯一重點色；版面照 NKUST Racing 工作台，頂列照 Data Tank ── */
 :root{
-  --bg:#ececec;--fg:#111113;--mute:#6c6c73;--faint:#a5a5ab;--line:rgba(0,0,0,.09);--panel:rgba(0,0,0,.05);--ring:rgba(0,0,0,.1);
-  --bar:rgba(246,246,246,.78);--glow:rgba(255,255,255,.6);--btn:#111113;--on-btn:#fff;--tile:rgba(255,255,255,.5);--tile-s:#f5f5f5;
-  --shadow:0 24px 50px -24px rgba(0,0,0,.35);--glass:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.42));--glass-edge:rgba(255,255,255,.8);
-  --hot:#ff5a1f;--late:#e5484d;--ok:#1f9d6b;
-  --me:#2f6cf6;--mate:#13a37b;--claude:#8b5cf6;
+  --bg:#f0eee6;--fg:#141413;--mute:#73726c;--faint:#a3a199;--line:rgba(20,20,19,.09);--line-2:rgba(20,20,19,.16);--panel:rgba(20,20,19,.05);--ring:rgba(20,20,19,.1);
+  --bar:rgba(240,238,230,.8);--glow:rgba(250,249,245,.7);--btn:#141413;--on-btn:#faf9f5;--tile:rgba(250,249,245,.7);--tile-s:#faf9f5;
+  --card-fill:#f8f7f2;--card-edge:rgba(255,255,255,.6);--card-hl:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -.5px 0 rgba(0,0,0,.03);--card-sh:0 1px 3px rgba(20,20,19,.04),0 12px 32px rgba(20,20,19,.06);
+  --shadow:0 24px 50px -24px rgba(20,20,19,.3);--glass:linear-gradient(145deg,rgba(250,249,245,.9),rgba(250,249,245,.5));--glass-edge:rgba(250,249,245,.9);
+  --hot:#d97757;--on-hot:#fff;--late:#c4553f;--ok:#141413;
+  --me:#6a9bcc;--mate:#788c5d;--claude:#c46686;
+  --font-mono:"IBM Plex Mono",var(--font-mono);
+  --serif:Lora,Georgia,"Songti TC","Noto Serif TC",serif;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0d0d0f;--fg:#ededef;--mute:#8d8d95;--faint:#55555c;--line:rgba(255,255,255,.08);--panel:rgba(255,255,255,.06);--ring:rgba(255,255,255,.12);
-  --bar:rgba(18,18,20,.78);--glow:rgba(255,255,255,.05);--btn:#ededef;--on-btn:#111113;--tile:rgba(255,255,255,.035);--tile-s:#151517;
-  --shadow:0 24px 50px -24px rgba(0,0,0,.8);--glass:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.04));--glass-edge:rgba(255,255,255,.14);
-  --hot:#ff7340;--late:#ff6b6b;--ok:#3ccf91;--me:#6b95ff;--mate:#35c99a;--claude:#a98bff;color-scheme:dark;
+  --bg:#262624;--fg:#faf9f5;--mute:#b0aea5;--faint:#7c7a74;--line:rgba(250,249,245,.08);--line-2:rgba(250,249,245,.16);--panel:rgba(250,249,245,.06);--ring:rgba(250,249,245,.12);
+  --bar:rgba(38,38,36,.8);--glow:rgba(250,249,245,.03);--btn:#faf9f5;--on-btn:#141413;--tile:rgba(48,48,46,.74);--tile-s:#30302e;
+  --card-fill:#30302e;--card-edge:rgba(255,255,255,.09);--card-hl:inset 0 1px 0 rgba(255,255,255,.06),inset 0 -.5px 0 rgba(0,0,0,.18);--card-sh:0 1px 3px rgba(0,0,0,.18),0 12px 32px rgba(0,0,0,.28);
+  --shadow:0 24px 50px -24px rgba(0,0,0,.7);--glass:linear-gradient(145deg,rgba(250,249,245,.12),rgba(250,249,245,.03));--glass-edge:rgba(250,249,245,.12);
+  --hot:#e0825f;--on-hot:#fff;--late:#e5735f;--ok:#faf9f5;--me:#8db4dc;--mate:#9bb07e;--claude:#d68aa3;color-scheme:dark;
 }}
 :root[data-theme="dark"]{
-  --bg:#0d0d0f;--fg:#ededef;--mute:#8d8d95;--faint:#55555c;--line:rgba(255,255,255,.08);--panel:rgba(255,255,255,.06);--ring:rgba(255,255,255,.12);
-  --bar:rgba(18,18,20,.78);--glow:rgba(255,255,255,.05);--btn:#ededef;--on-btn:#111113;--tile:rgba(255,255,255,.035);--tile-s:#151517;
-  --shadow:0 24px 50px -24px rgba(0,0,0,.8);--glass:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.04));--glass-edge:rgba(255,255,255,.14);
-  --hot:#ff7340;--late:#ff6b6b;--ok:#3ccf91;--me:#6b95ff;--mate:#35c99a;--claude:#a98bff;color-scheme:dark;
+  --bg:#262624;--fg:#faf9f5;--mute:#b0aea5;--faint:#7c7a74;--line:rgba(250,249,245,.08);--line-2:rgba(250,249,245,.16);--panel:rgba(250,249,245,.06);--ring:rgba(250,249,245,.12);
+  --bar:rgba(38,38,36,.8);--glow:rgba(250,249,245,.03);--btn:#faf9f5;--on-btn:#141413;--tile:rgba(48,48,46,.74);--tile-s:#30302e;
+  --card-fill:#30302e;--card-edge:rgba(255,255,255,.09);--card-hl:inset 0 1px 0 rgba(255,255,255,.06),inset 0 -.5px 0 rgba(0,0,0,.18);--card-sh:0 1px 3px rgba(0,0,0,.18),0 12px 32px rgba(0,0,0,.28);
+  --shadow:0 24px 50px -24px rgba(0,0,0,.7);--glass:linear-gradient(145deg,rgba(250,249,245,.12),rgba(250,249,245,.03));--glass-edge:rgba(250,249,245,.12);
+  --hot:#e0825f;--on-hot:#fff;--late:#e5735f;--ok:#faf9f5;--me:#8db4dc;--mate:#9bb07e;--claude:#d68aa3;color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{-webkit-tap-highlight-color:transparent;scroll-padding-top:80px}
 body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,"SF Pro Text","PingFang TC","Noto Sans TC",sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0 0 auto;height:520px;background:radial-gradient(60% 100% at 50% 0,var(--glow),transparent 70%);pointer-events:none;z-index:0}
-.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+.mono{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
 .wrap{max-width:1320px;margin:0 auto;padding:0 28px}
 button{font:inherit;color:inherit}
 a{color:inherit}
@@ -47,7 +54,7 @@ header .wrap{display:flex;align-items:center;gap:16px;height:60px}
 .brand b{font-size:15px;font-weight:650;white-space:nowrap}
 .brand .mono{overflow:hidden;text-overflow:ellipsis}
 .tabs{display:flex;padding:3px;background:var(--panel);border-radius:999px}
-.tabs a{display:block;color:var(--mute);text-decoration:none;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11px;letter-spacing:.14em;padding:7px 14px;border-radius:999px;transition:color .2s,background .2s}
+.tabs a{display:block;color:var(--mute);text-decoration:none;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;padding:7px 14px;border-radius:999px;transition:color .2s,background .2s}
 .tabs a:hover{color:var(--fg)}
 .tabs a.on{background:var(--btn);color:var(--on-btn)}
 .ib{display:grid;place-items:center;flex:none;width:36px;height:36px;border:0;border-radius:999px;background:var(--panel);color:var(--mute);cursor:pointer;transition:color .2s}
@@ -58,7 +65,7 @@ main{position:relative;z-index:1;animation:fade .45s both}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}}
 
 /* ── 共用 ── */
-.tile{background:var(--tile);border-radius:18px;box-shadow:inset 0 0 0 1px var(--ring);padding:16px 20px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);min-width:0}
+.tile{background:var(--card-fill);border:.5px solid var(--card-edge);border-radius:20px;box-shadow:var(--card-hl),var(--card-sh);padding:20px 22px 22px;min-width:0}
 .tile>h3,.sec h3{margin:0 0 14px;display:flex;align-items:center;gap:10px}
 .sec{display:flex;align-items:center;gap:14px;margin:0 0 20px}
 .sec::after{content:"";flex:1;height:1px;background:var(--line)}
@@ -69,7 +76,7 @@ main{position:relative;z-index:1;animation:fade .45s both}
 .who{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--mute);white-space:nowrap}
 .whos{display:inline-flex;gap:10px;flex-wrap:wrap}
 .chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--ring);font-size:12px;color:var(--mute);white-space:nowrap}
-.chip.here{background:var(--hot);color:#fff;box-shadow:none}
+.chip.here{background:var(--hot);color:var(--on-hot);box-shadow:none}
 .chip.done{background:var(--btn);color:var(--on-btn);box-shadow:none}
 .late{color:var(--late)!important}
 .empty{color:var(--mute);font-size:13px;padding:14px 0}
@@ -96,7 +103,7 @@ main{position:relative;z-index:1;animation:fade .45s both}
 .stats .wide{grid-column:1/-1}
 .stats .wide b{font-size:15px}
 /* 收納按鈕 */
-.tg{display:inline-flex;align-items:center;gap:7px;border:0;background:var(--panel);color:var(--mute);border-radius:999px;padding:6px 12px;cursor:pointer;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:10.5px;letter-spacing:.08em;white-space:nowrap;transition:color .2s}
+.tg{display:inline-flex;align-items:center;gap:7px;border:0;background:var(--panel);color:var(--mute);border-radius:999px;padding:6px 12px;cursor:pointer;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;white-space:nowrap;transition:color .2s}
 .tg:hover{color:var(--fg)}
 .tg i{font-style:normal;display:inline-block;transition:transform .2s}
 .tg.on i{transform:rotate(90deg)}
@@ -177,10 +184,10 @@ main{position:relative;z-index:1;animation:fade .45s both}
 .l3{position:absolute;left:0;top:0;transform:translateY(var(--y)) rotateY(var(--a)) translateZ(var(--r)) rotateY(calc(-1 * (var(--a) + var(--ry)))) rotateX(calc(-1 * var(--rx)))}
 .l3 button{position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:flex;align-items:center;gap:5px;border:0;background:var(--bar);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:var(--fg);border-radius:999px;padding:3px 9px 3px 6px;font-size:12px;font-weight:600;white-space:nowrap;cursor:pointer;box-shadow:0 0 0 1px var(--ring)}
 .l3 button i{width:9px;height:9px;border-radius:3px;background:var(--c);flex:none}
-.l3 button em{font-style:normal;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:10px;color:var(--mute);font-weight:500}
+.l3 button em{font-style:normal;font-family:var(--font-mono);font-size:10px;color:var(--mute);font-weight:500}
 .l3 button:hover{box-shadow:0 0 0 1.5px var(--fg)}
-.bx.here .l3 button{background:var(--hot);color:#fff;box-shadow:none}
-.bx.here .l3 button em{color:#fff;opacity:.85}
+.bx.here .l3 button{background:var(--hot);color:var(--on-hot);box-shadow:none}
+.bx.here .l3 button em{color:var(--on-hot);opacity:.85}
 .bx.ahead .l3 button{color:var(--mute);font-weight:500}
 .bx.fold .l3 button{background:var(--fg);color:var(--on-btn);box-shadow:none}
 .bx.fold .l3 button em{color:var(--on-btn);opacity:.7}
@@ -190,7 +197,7 @@ main{position:relative;z-index:1;animation:fade .45s both}
 .cx-foot>.mono{white-space:normal}
 @media (max-width:440px){.l3 button{font-size:11px;padding:2px 7px 2px 5px}.l3 button em{display:none}}
 .cvs{display:flex;gap:2px;padding:2px;background:var(--panel);border-radius:999px}
-.cvs button{border:0;background:none;color:var(--mute);font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:10px;letter-spacing:.08em;padding:4px 10px;border-radius:999px;cursor:pointer}
+.cvs button{border:0;background:none;color:var(--mute);font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;padding:4px 10px;border-radius:999px;cursor:pointer}
 .cvs button.on{background:var(--btn);color:var(--on-btn)}
 
 /* 優先順序：十字軸，無底色。上＝重要、右＝緊急 */
@@ -234,7 +241,7 @@ main{position:relative;z-index:1;animation:fade .45s both}
 /* ── TASKS ── */
 .bar2{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:32px 0 20px}
 .bar2 .sp{flex:1}
-.ttl{margin:0;font-size:28px;font-weight:650;letter-spacing:-.01em}
+.ttl{margin:0;font-family:var(--serif);font-size:28px;font-weight:600;letter-spacing:-.01em}
 .load{margin-bottom:16px;padding:18px 0 16px}
 .gs{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
 .gin{min-width:820px;padding:0 18px}
@@ -243,7 +250,7 @@ main{position:relative;z-index:1;animation:fade .45s both}
 .g .gw{position:relative;height:100%;min-height:30px}
 .grid-bg{background-image:linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:calc(100% / var(--n)) 100%}
 .ruler .gw{display:grid;grid-template-columns:repeat(var(--n),1fr);min-height:0}
-.ruler .gw span{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:9px;letter-spacing:.04em;color:var(--mute);padding:0 0 6px 3px;border-left:1px solid var(--line)}
+.ruler .gw span{font-family:var(--font-mono);font-size:9px;letter-spacing:.04em;color:var(--mute);padding:0 0 6px 3px;border-left:1px solid var(--line)}
 .ruler .gw span.cur{color:var(--hot);font-weight:700;border-left-color:var(--hot)}
 .nowl{position:absolute;top:0;bottom:0;width:1px;background:var(--hot);opacity:.55;pointer-events:none;z-index:1}
 .gph{margin-top:14px}
@@ -259,13 +266,13 @@ main{position:relative;z-index:1;animation:fade .45s both}
   box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--oc1) 45%,transparent)}
 .gb::before{content:"";position:absolute;inset:0;background:var(--ocg);opacity:.2}
 .gb i{position:absolute;left:0;top:0;bottom:0;width:var(--p);background:var(--ocg);opacity:.55}
-.gb em{position:relative;font-style:normal;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:9px;font-weight:700;color:var(--oc1)}
+.gb em{position:relative;font-style:normal;font-family:var(--font-mono);font-size:9px;font-weight:700;color:var(--oc1)}
 .grow.done .gb i{opacity:.8}
 .grow.done .gb em{color:#fff}
 .grow.late .gb{box-shadow:inset 0 0 0 1.5px var(--late)}
 /* 人力色塊圖：每人每週同時在做幾件 */
 .lr .gw{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:2px;height:30px}
-.lr .gw span{border-radius:4px;background:color-mix(in srgb,var(--c) var(--k),var(--panel));display:grid;place-items:center;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:9px;color:#fff;font-weight:700}
+.lr .gw span{border-radius:4px;background:color-mix(in srgb,var(--c) var(--k),var(--panel));display:grid;place-items:center;font-family:var(--font-mono);font-size:9px;color:#fff;font-weight:700}
 .lr .gw span.z{background:var(--panel)}
 .lr .gl{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500}
 .lr+.lr{margin-top:4px}
@@ -307,18 +314,18 @@ main{position:relative;z-index:1;animation:fade .45s both}
 .rs{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:16px;margin-bottom:48px}
 .rc{padding:22px 24px;animation:rise .6s cubic-bezier(.2,.7,.2,1) both;scroll-margin-top:90px}
 .rc.hl{box-shadow:inset 0 0 0 1.5px var(--hot)}
-.rc h3{margin:8px 0 8px;font-size:19px;font-weight:650;line-height:1.35}
+.rc h3{margin:8px 0 8px;font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.35}
 .rc p{margin:0 0 14px;color:var(--mute);font-size:14px}
 .rc table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
 .rc th{font-weight:500;color:var(--mute);font-size:12px;text-align:left;padding:7px 8px;border-bottom:1px solid var(--ring)}
 .rc td{padding:7px 8px;border-bottom:1px solid var(--line)}
 .rc td b{color:var(--hot);font-weight:700}
-.rc .fp{display:block;margin-top:14px;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11.5px;color:var(--mute);word-break:break-all}
+.rc .fp{display:block;margin-top:14px;font-family:var(--font-mono);font-size:11.5px;color:var(--mute);word-break:break-all}
 
 /* ── 任務詳情 ── */
 .dlg{width:min(460px,calc(100vw - 32px));padding:26px;border:0;border-radius:18px;background:var(--bg);color:var(--fg);box-shadow:0 0 0 1px var(--ring),var(--shadow)}
 .dlg::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(4px)}
-.dlg h2{margin:8px 0 16px;font-size:20px;line-height:1.35;font-weight:650}
+.dlg h2{margin:8px 0 16px;font-family:var(--serif);font-size:20px;line-height:1.35;font-weight:600}
 .dlg dl{display:grid;grid-template-columns:72px 1fr;gap:10px 14px;margin:0;font-size:14px}
 .dlg dt{color:var(--mute);font-size:12px;padding-top:2px}
 .dlg dd{margin:0}
@@ -327,6 +334,110 @@ main{position:relative;z-index:1;animation:fade .45s both}
 .lv i{width:16px;height:5px;border-radius:3px;background:var(--panel)}
 .lv i.on{background:var(--fg)}
 .foot{padding:28px 0 60px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+
+
+/* ── HOME：照 NKUST Racing 工作台首頁。左上 3D、右上月曆、左下本週重點、右下象限；下排不放卡片底 ── */
+.hv-mono{font:500 11px/1.3 var(--font-mono);letter-spacing:.04em;color:var(--faint);font-variant-numeric:tabular-nums}
+.hv-eyebrow{font:600 11px/1.3 var(--font-mono);letter-spacing:.14em;color:var(--mute);text-transform:uppercase}
+.hv-empty{font-size:12px;color:var(--faint);padding:8px 0}
+.hv-big{font:700 15px/1 var(--font-mono);color:var(--fg);margin-right:2px}
+.hv-home{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:16px;grid-template-areas:"car cal" "list matrix";padding-top:28px;padding-bottom:40px}
+.hv-area-car{grid-area:car}.hv-area-cal{grid-area:cal}.hv-area-list{grid-area:list}.hv-area-matrix{grid-area:matrix}
+.hv-card{min-width:0;display:flex;flex-direction:column}
+.hv-card.hv-bare{background:none;border:0;box-shadow:none;padding:20px 6px 8px;backdrop-filter:none;-webkit-backdrop-filter:none}
+.hv-area-list.hv-bare{padding-right:40px}
+.hv-area-matrix.hv-bare{padding-left:28px}
+.hv-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;min-height:24px}
+.hv-head .r{display:flex;align-items:center;gap:12px}
+.hv-area-car .sc{flex:1 0 auto}
+.hv-area-car .so{top:calc(100% - var(--u) * 5.1 - 44px)}   /* 前排標籤不要被卡片底切到 */
+.hv-car-foot{display:flex;justify-content:flex-end;margin-top:4px}
+/* 點陣月曆 */
+.hv-cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.hv-cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.hv-cal-wd{font:500 10px var(--font-mono);color:var(--faint);text-align:center;padding-bottom:6px}
+.hv-day{height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.hv-dot{display:block;border-radius:50%;background:var(--fg);flex:none;width:6px;height:6px}
+.hv-dot.n2{width:8px;height:8px}.hv-dot.n3{width:10px;height:10px}
+.hv-dot--empty{width:4px;height:4px;background:var(--line-2);margin:2px 0}
+.hv-day-num{font:500 10px/1 var(--font-mono);color:var(--faint);font-variant-numeric:tabular-nums}
+.hv-day.is-wk .hv-day-num{color:var(--mute)}
+.hv-day.is-past{opacity:.4}
+.hv-day.has-log .hv-dot{background:none;box-shadow:inset 0 0 0 1.5px var(--faint)}
+.hv-day.has-late .hv-dot{background:var(--hot);box-shadow:none}
+.hv-day.is-today .hv-day-num{color:var(--hot);font-weight:700}
+.hv-day.is-today .hv-dot--empty{width:8px;height:8px;background:var(--hot);margin:0}
+.hv-day.is-today.has-due .hv-dot{background:var(--hot);box-shadow:none}
+.hv-agenda{margin-top:14px;padding-top:12px;border-top:.5px solid var(--line-2)}
+.hv-agenda .hv-eyebrow{margin-bottom:6px;display:block}
+.hv-agenda-row{width:100%;display:grid;grid-template-columns:44px 1fr auto;align-items:baseline;gap:8px;border:0;background:none;padding:6px 0;cursor:pointer;text-align:left;color:var(--fg)}
+.hv-agenda-title{font-size:13px;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hv-agenda-row:hover .hv-agenda-title{color:var(--fg)}
+.hv-agenda-owner{font-size:11px;color:var(--faint);white-space:nowrap}
+/* 本週重點 */
+.hv-list{display:flex;flex-direction:column}
+.hv-list-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:.5px solid var(--line-2)}
+.hv-list-row:last-child{border-bottom:0}
+.hv-check{width:16px;height:16px;flex:none;border-radius:50%;border:1.5px solid var(--faint)}
+.hv-list-row.is-done .hv-check{background:var(--faint);border-color:transparent}
+.hv-list-main{flex:1;min-width:0;display:flex;align-items:baseline;gap:8px;border:0;background:none;padding:0;cursor:pointer;text-align:left;color:var(--fg)}
+.hv-list-title{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hv-list-main:hover .hv-list-title{color:var(--hot)}
+.hv-list-owner{font-size:11px;color:var(--faint);flex:none}
+.hv-list-due{flex:none}
+.hv-list-due.is-late{color:var(--hot)}
+.hv-list-due.is-now{color:var(--fg)}
+.hv-list-row.is-done .hv-list-title{color:var(--faint);text-decoration:line-through}
+/* 四象限 */
+.hv-matrix{position:relative;flex:1;min-height:300px}
+.hv-axis{position:absolute;background:var(--line-2);pointer-events:none}
+.hv-axis--x{left:0;right:0;top:50%;height:1px}
+.hv-axis--y{top:0;bottom:0;left:50%;width:1px}
+.hv-axis--x::after,.hv-axis--y::after{content:"";position:absolute;width:5px;height:5px;border-radius:50%;background:var(--faint)}
+.hv-axis--x::after{right:-2px;top:-2px}.hv-axis--y::after{top:-2px;left:-2px}
+.hv-q{position:absolute;font:500 10px var(--font-mono);letter-spacing:.08em;color:var(--faint);padding:4px 6px}
+.hv-q--tl{left:0;top:0}.hv-q--tr{right:0;top:0;color:var(--mute)}.hv-q--bl{left:0;bottom:0}.hv-q--br{right:0;bottom:0}
+.hv-pin{position:absolute;transform:translate(-5px,-50%);display:inline-flex;align-items:center;gap:7px;border:0;background:none;padding:3px 0;cursor:pointer;max-width:46%;z-index:1;color:var(--fg)}
+.hv-pin i{width:10px;height:10px;border-radius:50%;background:var(--fg);flex:none;transition:transform .15s}
+.hv-pin span{font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hv-pin.is-left{flex-direction:row-reverse;transform:translate(calc(-100% + 5px),-50%)}
+.hv-pin:hover{z-index:2}.hv-pin:hover span{color:var(--fg)}.hv-pin:hover i{transform:scale(1.25)}
+.hv-pin.is-late i{background:var(--hot)}
+@media (max-width:768px){
+  .hv-home{grid-template-columns:minmax(0,1fr);grid-template-areas:"car" "cal" "matrix" "list";gap:12px;padding-top:16px}
+  .hv-card{padding:16px 16px 18px}
+  .hv-card.hv-bare,.hv-area-list.hv-bare,.hv-area-matrix.hv-bare{padding:16px 4px 8px}
+  .hv-matrix{min-height:280px}
+  .hv-pin{max-width:48%}
+}
+
+/* ── REPORT ── */
+.rp-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:32px 0 20px}
+.cbtn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:9px 18px;background:var(--btn);color:var(--on-btn);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;transition:opacity .2s}
+.cbtn:hover{opacity:.88}
+.cbtn.ghost{background:none;color:var(--fg);box-shadow:inset 0 0 0 1px var(--ring);padding:6px 14px;font-size:12px}
+.cbtn.ghost:hover{background:var(--panel)}
+.ch-list{display:flex;flex-direction:column;gap:16px;margin-bottom:48px}
+.chp{animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+.chp-h{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.chp-h h3{margin:0;font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.3}
+.chp-h .sp{flex:1}
+.ready{display:inline-flex;gap:5px}
+.ready i{width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--faint)}
+.ready i.on{background:var(--hot);box-shadow:none}
+.chp-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:16px}
+.chp-g ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.chp-g li{font-size:13.5px;line-height:1.5;min-width:0;padding:7px 0;border-bottom:.5px solid var(--line-2)}
+.chp-g li:last-child{border-bottom:0}
+.chp-g li small{display:block;color:var(--faint);font-size:12px}
+.chp-g li .hv-mono{margin-right:8px}
+.chp-g li a{text-decoration:none}
+.chp-g li a:hover b{color:var(--hot)}
+.chp-g li b{font-weight:600}
+@media (max-width:760px){.chp-g{grid-template-columns:1fr;gap:12px}}
+
+/* 換頁不播淡入動畫：在背景分頁或慢的機器上會看起來像跳格 */
+main,main *{animation:none!important}
 
 /* ── 窄螢幕 ── */
 @media (max-width:1060px){
@@ -378,7 +489,7 @@ main{position:relative;z-index:1;animation:fade .45s both}
     <b>無人帆船</b><span class="mono" id="hw"></span>
   </a>
   <nav class="tabs" id="tabs">
-    <a href="#home" data-v="home">HOME</a><a href="#tasks" data-v="tasks">TASKS</a><a href="#parts" data-v="parts">PARTS</a><a href="#data" data-v="data">DATA</a>
+    <a href="#home" data-v="home">HOME</a><a href="#tasks" data-v="tasks">TASKS</a><a href="#parts" data-v="parts">PARTS</a><a href="#data" data-v="data">DATA</a><a href="#report" data-v="report">REPORT</a>
   </nav>
   <button class="ib" id="theme" title="切換淺色／深色" aria-label="切換淺色／深色"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg></button>
 </div></header>
@@ -423,46 +534,80 @@ const avg=ts=>ts.length?Math.round(ts.reduce((s,t)=>s+(isDone(t)?100:+t.progress
 /* ── HOME ── */
 let fold={phase:true,focus:true};   // 已完成的階段、本週已完成的工作預設收起來
 function viewHome(){
-  const week=T.filter(t=>(inWeek(t)||isLate(t))&&!isDone(t)).sort((a,b)=>isLate(b)-isLate(a)||b.imp-a.imp||a.end-b.end);
+  const open=T.filter(t=>(inWeek(t)||isLate(t))&&!isDone(t)).sort((a,b)=>isLate(b)-isLate(a)||a.end-b.end||b.imp-a.imp);
   const weekDone=T.filter(t=>inWeek(t)&&isDone(t));
-  const late=T.filter(isLate);
-  const next=P.find(p=>p.start>W);
+  const now=new Date();
   return `
-<section class="wrap home">
-  <div class="col">
-    <div class="tile o2">${ui.cv==='flat'?chromo():chart3d()}</div>
-    <div class="tile o4">
-      <h3 class="hd"><span class="mono">優先順序</span><span class="mono" style="margin-left:auto">四週內未完成</span></h3>
-      ${quad()}
-    </div>
+<section class="wrap hv-home">
+  <div class="tile hv-card hv-area-car">${ui.cv==='flat'?chromo():chart3d()}</div>
+  <div class="tile hv-card hv-area-cal">
+    <div class="hv-head"><span class="hv-eyebrow">Calendar</span><span class="hv-mono">${now.getMonth()+1}月${now.getDate()}日 週${'日一二三四五六'[now.getDay()]}</span></div>
+    ${calendar()}
   </div>
-  <div class="col">
-    <div class="tile wk o1">
-      <span class="mono">THIS WEEK · 第 ${W} 週</span>
-      <div class="big">W${pad(W)}<small>/ ${N}</small></div>
-      <span class="mono">${wkRange(W)}</span>
-      <div class="meter"><i style="width:${avg(T)}%"></i></div>
-      <div class="pct"><span>整體完成度</span><b>${avg(T)}%</b></div>
-      <div class="stats">
-        <div><span class="mono">本週要做</span><b>${week.length}<small class="mono"> 件</small></b></div>
-        <div><span class="mono">延遲</span><b class="${late.length?'late':''}">${late.length}<small class="mono"> 件</small></b></div>
-        <div class="wide"><span class="mono">目前階段</span><b>${pad(HERE.n)} ${esc(HERE.name)} <span class="mono">${wr(HERE.start,HERE.end)}</span></b></div>
-        <div class="wide"><span class="mono">接下來</span><b>${next?`${pad(next.n)} ${esc(next.name)} <span class="mono">W${pad(next.start)} 起 · ${md(wkDate(next.start))}</span>`:'—'}</b></div>
-      </div>
-    </div>
-    <div class="tile o3">
-      <h3 class="hd"><span class="mono">本週重點</span><span class="mono" style="margin-left:auto">${weekDone.length} / ${week.length+weekDone.length} 完成</span></h3>
-      <div class="fl">${week.map(focusRow).join('')}${week.length?'':'<div class="empty">本週的工作都做完了</div>'}</div>
-      ${weekDone.length?`<button class="tg ${fold.focus?'':'on'}" data-fold="focus"><i>▸</i>已完成 ${weekDone.length} 件</button>${fold.focus?'':`<div class="fl">${weekDone.map(focusRow).join('')}</div>`}`:''}
-    </div>
+  <div class="hv-card hv-bare hv-area-list">
+    <div class="hv-head"><span class="hv-eyebrow">本週重點</span><span class="hv-mono"><b class="hv-big">${open.length}</b> 件待辦</span></div>
+    <div class="hv-list">${open.map(t=>listRow(t)).join('')}${weekDone.map(t=>listRow(t)).join('')}${open.length+weekDone.length?'':'<div class="hv-empty">本週沒有工作</div>'}</div>
   </div>
-</section>
-<section class="wrap home-log">
-  <div class="sec"><span class="mono">進度紀錄 · LOG</span></div>
-  ${logList(D.log.slice(0,5))}
-  ${D.log.length>5?`<p><a class="mono" href="#data">全部 ${D.log.length} 筆 →</a></p>`:''}
+  <div class="hv-card hv-bare hv-area-matrix">
+    <div class="hv-head"><span class="hv-eyebrow">優先順序</span><span class="hv-mono">W${pad(W)}–${pad(Math.min(N,W+3))}</span></div>
+    ${matrix()}
+  </div>
 </section>
 ${foot()}`;
+}
+// 一週的「到期日」＝那週的星期日
+const dueDate=t=>new Date(wkDate(t.end).getTime()+6*DAY);
+const dayKey=d=>`${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+const names=t=>t.owners.map(o=>esc(M[o]||o)).join('、');
+function dueText(t){
+  if(isDone(t))return '完成';
+  if(isLate(t))return `晚 ${W-t.end} 週`;
+  return t.end===W?'本週':t.end===W+1?'下週':`W${pad(t.end)}`;
+}
+function listRow(t){
+  const d=isDone(t),cls=d?'':isLate(t)?'is-late':t.end===W?'is-now':'';
+  return `<div class="hv-list-row ${d?'is-done':''}"><span class="hv-check"></span>
+    <button class="hv-list-main" data-t="${t.id}"><span class="hv-list-title">${esc(t.title)}</span><span class="hv-list-owner">${names(t)}</span></button>
+    <span class="hv-mono hv-list-due ${cls}">${dueText(t)}</span></div>`;
+}
+// 點陣月曆：從本週一起 4 週。實心點＝那天有工作到期（越多越大，延遲為橘），空心圈＝那天有進度紀錄
+function calendar(){
+  const from=wkDate(W),today=new Date();today.setHours(0,0,0,0);
+  const due={},logs=new Set(D.log.map(l=>{const [y,m,d]=l.date.split('-').map(Number);return dayKey(new Date(y,m-1,d))}));
+  for(const t of T){if(isDone(t))continue;const k=dayKey(dueDate(t));(due[k]=due[k]||[]).push(t)}
+  let cells='';
+  for(let i=0;i<28;i++){
+    const d=new Date(from.getTime()+i*DAY),k=dayKey(d),ts=due[k]||[];
+    const cls=[d<today?'is-past':'',dayKey(today)===k?'is-today':'',i%7>=5?'is-wk':'',ts.length?'has-due':'',ts.some(isLate)?'has-late':'',!ts.length&&logs.has(k)?'has-log':''].join(' ');
+    const dot=ts.length||logs.has(k)?`<i class="hv-dot n${Math.min(3,ts.length||1)}"></i>`:'<i class="hv-dot hv-dot--empty"></i>';
+    cells+=`<div class="hv-day ${cls}" title="${md(d)}${ts.length?' · '+ts.map(t=>esc(t.title)).join('、'):''}">${dot}<span class="hv-day-num">${d.getDate()===1||i===0?md(d):d.getDate()}</span></div>`;
+  }
+  const next=T.filter(t=>!isDone(t)&&t.end>=W).sort((a,b)=>a.end-b.end||b.imp-a.imp).slice(0,3);
+  return `<div class="hv-cal-nav"><span class="hv-mono">${md(from)} – ${md(new Date(from.getTime()+27*DAY))}</span><span class="hv-mono">W${pad(W)} / ${N}</span></div>
+  <div class="hv-cal-grid">${'一二三四五六日'.split('').map(w=>`<span class="hv-cal-wd">${w}</span>`).join('')}${cells}</div>
+  <div class="hv-agenda"><span class="hv-eyebrow">接下來</span>
+    ${next.map(t=>`<button class="hv-agenda-row" data-t="${t.id}"><span class="hv-mono">${md(dueDate(t))}</span><span class="hv-agenda-title">${esc(t.title)}</span><span class="hv-agenda-owner">${names(t)}</span></button>`).join('')||'<div class="hv-empty">沒有待辦</div>'}
+  </div>`;
+}
+// 四象限：上＝重要、右＝緊急。每格的點從角落往軸心排開，最多 8 件（延遲、到期近、分數高的先）
+function matrix(){
+  const imp=t=>t.imp>=3,urg=t=>t.urg>=3||t.end<=W+1||isLate(t);
+  const items=T.filter(t=>!isDone(t)&&t.start<=W+1).sort((a,b)=>isLate(b)-isLate(a)||a.end-b.end||(b.imp+b.urg)-(a.imp+a.urg)).slice(0,8);
+  const placed=[];
+  for(const [I,U] of [[1,0],[1,1],[0,0],[0,1]]){
+    const g=items.filter(t=>imp(t)==I&&urg(t)==U),n=g.length;
+    g.forEach((t,k)=>{
+      const f=n>1?k/(n-1):.5;
+      const y=I?16+f*Math.min(26,n*7):58+f*Math.min(26,n*7);
+      const x=U?88-f*22:12+f*22;
+      placed.push({t,x,y});
+    });
+  }
+  return `<div class="hv-matrix"><span class="hv-axis hv-axis--x"></span><span class="hv-axis hv-axis--y"></span>
+    <span class="hv-q hv-q--tl">重要・不急</span><span class="hv-q hv-q--tr">重要・緊急</span><span class="hv-q hv-q--bl">一般・不急</span><span class="hv-q hv-q--br">一般・緊急</span>
+    ${placed.map(p=>`<button class="hv-pin ${p.x>50?'is-left':''} ${isLate(p.t)?'is-late':''}" style="left:${p.x}%;top:${p.y}%" data-t="${p.t.id}" title="${esc(p.t.title)}"><i></i><span>${esc(p.t.title)}</span></button>`).join('')}
+    ${placed.length?'':'<div class="hv-empty" style="position:absolute;left:0;right:0;top:56%;text-align:center">沒有待辦</div>'}
+  </div>`;
 }
 function focusRow(t){
   return `<button class="fr ${isDone(t)?'done':''}" data-t="${t.id}">
@@ -479,7 +624,7 @@ function phaseStat(p){
   return {ts,by,sum,dn:ts.filter(isDone).length};
 }
 // 3D 色立體（照 Data Tank 首頁的軸＋卡片環）：底層 8 個階段，往上每層是各階段的第 k 件工作
-const HUE=i=>(8+i*45)%360;
+const HUE=i=>[15,210,85,335,35,190,60,260][i%8];   // Anthropic 插畫色：陶土、天藍、橄欖、無花果、牛皮紙、仙人掌、馬尼拉、石楠
 let openDone=new Set();   // 已完成、但被點開來看的階段
 const folded=p=>phaseState(p)==='done'&&fold.phase&&!openDone.has(p.n);
 function solid3d(){
@@ -502,20 +647,19 @@ function solid3d(){
       const tv=(isDone(t)?100:+t.progress||0)/10,n=Math.max(1,Math.ceil(tv)),tip=` data-t="${t.id}" title="${esc(t.title)} · ${Math.round(tv*10)}%"`;
       for(let k=0;k<n;k++){const f=Math.max(0,Math.min(1,tv-k));cs+=card(`t ${f>0?'':'e'}`,yOf(j+1),a,k,f,col(h,k,j+1),tip)}
     });
-    const lab=`<div class="l3" style="--y:${yOf(0)};--a:${a};--r:${rad(fd?2.4:10.6)}"><button data-p="${p.n}"${fd?' data-open="1" title="點一下展開"':''} style="--c:hsl(${h} 70% 50%)"><i></i>${st==='done'?'✓ ':''}${esc(p.name)}<em>${Math.round(s.sum)}%</em></button></div>`;
+    const lab=`<div class="l3" style="--y:${yOf(0)};--a:${a};--r:${rad(fd?2.4:10.6)}"><button data-p="${p.n}"${fd?' data-open="1" title="點一下展開"':''} style="--c:hsl(${h} 45% 50%)"><i></i>${st==='done'?'✓ ':''}${esc(p.name)}<em>${Math.round(s.sum)}%</em></button></div>`;
     return `<div class="bx ${st}${fd?' fold':''}">${cs}${lab}</div>`;
   }).join('');
   return `<div class="sc" id="sc" style="--n:${layers}"><div class="so" id="so" style="--rx:${RX}deg;--ry:${RY}deg;--top:${yOf(layers-1)};--bot:${yOf(0)};--hh:calc(var(--u) * .42);--w:calc(var(--u) * 1.3)">
     <div class="ax3" style="--v:${all}%"><i></i><i></i><b></b></div>
     <div class="fl3"><i class="half" style="--d:calc(var(--u) * ${2*(R0+4.5*S)})"></i><i style="--d:calc(var(--u) * ${2*(R0+9.5*S)})"></i></div>
-    <div class="e3" style="--y:calc(${yOf(layers-1)} - var(--u) * .9)"><span class="mono">↑ 每層一件工作</span></div>
     ${brs}</div></div>`;
 }
 let RX=-20,RY=-28,spinId=0,drag=null,dragged=0,hoverSc=false,lastT=0;
 const still=matchMedia('(prefers-reduced-motion: reduce)');
 function spin(t){
   const so=$('#so');if(!so){spinId=0;return}
-  if(!drag&&!hoverSc&&!still.matches&&lastT)RY+=(t-lastT)*.006;   // 跟 Data Tank 一樣 60 秒轉一圈
+     // 跟 Data Tank 一樣 60 秒轉一圈
   lastT=t;so.style.setProperty('--ry',RY.toFixed(2)+'deg');so.style.setProperty('--rx',RX.toFixed(2)+'deg');
   spinId=requestAnimationFrame(spin);
 }
@@ -528,17 +672,16 @@ function setupSolid(){
   sc.onpointerdown=e=>{drag={x:e.clientX,y:e.clientY,ry:RY,rx:RX,moved:false,id:e.pointerId}};
   sc.onpointermove=e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
     if(!drag.moved&&Math.hypot(dx,dy)>5){drag.moved=true;sc.classList.add('drag');try{sc.setPointerCapture(drag.id)}catch(_){}}
-    if(drag.moved){RY=drag.ry+dx*.4;RX=Math.max(-40,Math.min(-4,drag.rx-dy*.25))}};
+    if(drag.moved){RY=drag.ry+dx*.4;RX=Math.max(-40,Math.min(-4,drag.rx-dy*.25));if(!spinId)spinId=requestAnimationFrame(t=>{spinId=0;const so=$('#so');if(so){so.style.setProperty('--ry',RY.toFixed(2)+'deg');so.style.setProperty('--rx',RX.toFixed(2)+'deg')}})}};
   sc.onpointerup=sc.onpointercancel=()=>{if(drag&&drag.moved)dragged=Date.now();drag=null;sc.classList.remove('drag')};
-  if(!spinId){lastT=0;spinId=requestAnimationFrame(spin)}
+  const so=$('#so');if(so){so.style.setProperty('--ry',RY.toFixed(2)+'deg');so.style.setProperty('--rx',RX.toFixed(2)+'deg')}
 }
 addEventListener('resize',()=>{if($('#sc'))setupSolid()});
 function chart3d(){
   const done=P.filter(p=>phaseState(p)==='done');
-  return `<h3 class="hd"><span class="mono">色立體 · 階段完成度</span><span class="mono" style="margin-left:auto">整體 <b style="color:var(--fg)">${avg(T)}%</b></span>${cvSwitch()}</h3>
+  return `<div class="hv-head"><span class="hv-eyebrow">Phases</span><span class="r"><span class="hv-mono"><b class="hv-big">${avg(T)}%</b> 整體</span>${cvSwitch()}</span></div>
   ${solid3d()}
-  <div class="cx-foot"><span class="mono">底層＝8 個階段 · 往外一格 10% · 往上一層一件工作（先開始的在下、顏色深）· 拖曳旋轉</span><span class="sp"></span>
-    ${done.length?`<button class="tg ${fold.phase?'':'on'}" data-fold="phase"><i>▸</i>已完成 ${done.length} 階段</button>`:''}</div>`;
+  ${done.length?`<div class="hv-car-foot"><button class="tg ${fold.phase?'':'on'}" data-fold="phase"><i>▸</i>已完成 ${done.length} 階段</button></div>`:''}`;
 }
 const cvSwitch=()=>`<span class="cvs" id="cv"><button data-cv="3d" class="${ui.cv!=='flat'?'on':''}">3D</button><button data-cv="flat" class="${ui.cv==='flat'?'on':''}">平面</button></span>`;
 function chromo(){
@@ -554,14 +697,13 @@ function chromo(){
     </div>`;
     return `<div class="br ${st}" data-p="${p.n}" title="點開看這個階段">${side==='L'?arm:''}<span class="nd"></span>${side==='R'?arm:''}</div>`;
   }).join('');
-  return `<h3 class="hd"><span class="mono">色體圖 · 階段完成度</span><span class="mono" style="margin-left:auto">整體 <b style="color:var(--fg)">${all}%</b></span>${cvSwitch()}</h3>
+  return `<div class="hv-head"><span class="hv-eyebrow">Phases</span><span class="r"><span class="hv-mono"><b class="hv-big">${all}%</b> 整體</span>${cvSwitch()}</span></div>
   <div class="chromo">
     <span class="mono cx-end">100% · 口試完成</span>
     <div class="cx-rows"><div class="cx-ax" style="--v:${all}%"><i></i></div>${rows}</div>
     <span class="mono cx-end">0% · ${md(START)} 開始</span>
   </div>
-  <div class="cx-foot"><span class="whos">${Object.keys(M).map(own).join('')}</span><span class="mono">一格 10%，伸到最外＝完成</span><span class="sp"></span>
-    ${done.length?`<button class="tg ${fold.phase?'':'on'}" data-fold="phase"><i>▸</i>已完成 ${done.length} 階段</button>`:''}</div>`;
+  ${done.length?`<div class="hv-car-foot"><button class="tg ${fold.phase?'':'on'}" data-fold="phase"><i>▸</i>已完成 ${done.length} 階段</button></div>`:''}`;
 }
 function quad(){
   // 重要＝重要度 3；緊急＝緊急度 3，或這週／下週到期，或已延遲。同一格內分數高的排前面、加粗
@@ -659,6 +801,50 @@ function viewData(){
   ${logList(D.log)}
 </section>${foot()}`;
 }
+/* ── REPORT：完成的工作、紀錄、實驗成果，照階段排進報告章節 ── */
+const CH_DEFAULT=[
+  {n:1,name:'動機與目標',phases:[0]},
+  {n:2,name:'模擬與方法',phases:[1]},
+  {n:3,name:'硬體與組裝',phases:[2,3,4]},
+  {n:4,name:'測試與實驗',phases:[5,6]},
+  {n:5,name:'分析與結論',phases:[7,8]}];
+const chapters=()=>D.project.chapters||CH_DEFAULT;
+function chMat(c){
+  const inC=n=>c.phases.includes(n??-1);
+  return {tasks:T.filter(t=>isDone(t)&&inC(t.phase)),logs:D.log.filter(l=>inC(l.phase)),res:D.results.filter(r=>inC(r.phase))};
+}
+function chText(c){
+  const m=chMat(c),out=[`## 第 ${c.n} 章 ${c.name}`];
+  if(m.tasks.length)out.push('','### 完成的工作',...m.tasks.map(t=>`- ${t.title}（${wr(t.start,t.end)}，${t.owners.map(o=>M[o]||o).join('、')}）${t.note?`：${t.note}`:''}`));
+  if(m.logs.length)out.push('','### 進度紀錄',...m.logs.map(l=>`- ${l.date} ${M[l.who]||l.who}：${l.text}`));
+  for(const r of m.res){
+    out.push('',`### 成果：${r.title}`,r.summary);
+    if(r.headers)out.push('',`| ${r.headers.join(' | ')} |`,`|${r.headers.map(()=>' --- ').join('|')}|`,...(r.rows||[]).map(row=>`| ${row.map(x=>String(x).replace(/\*\*/g,'')).join(' | ')} |`));
+    if(r.file)out.push(`檔案：${r.file}`);
+  }
+  if(out.length===1)out.push('','（還沒有素材）');
+  return out.join('\n');
+}
+function viewReport(){
+  const col=(h,items,f)=>`<div><div class="hv-head" style="margin-bottom:4px"><span class="hv-eyebrow">${h}</span><span class="hv-mono">${items.length}</span></div>${items.length?`<ul>${items.map(f).join('')}</ul>`:'<div class="hv-empty">—</div>'}</div>`;
+  return `<section class="wrap">
+  <div class="rp-top"><h2 class="ttl">報告</h2><button class="cbtn" data-copy="all">複製全部素材</button></div>
+  <div class="ch-list">${chapters().map((c,i)=>{const m=chMat(c),n=[m.tasks.length,m.logs.length,m.res.length];
+    return `<article class="tile chp" style="animation-delay:${i*50}ms">
+    <div class="chp-h"><span class="hv-mono">CH${c.n}</span><h3>${esc(c.name)}</h3><span class="ready" title="工作 ${n[0]} · 紀錄 ${n[1]} · 成果 ${n[2]}">${n.map(x=>`<i class="${x?'on':''}"></i>`).join('')}</span><span class="sp"></span><button class="cbtn ghost" data-copy="${c.n}">複製本章</button></div>
+    <div class="chp-g">
+      ${col('工作',m.tasks,t=>`<li><a href="javascript:void 0" data-t="${t.id}"><b>${esc(t.title)}</b></a><small>${wr(t.start,t.end)}${t.note?` · ${esc(t.note)}`:''}</small></li>`)}
+      ${col('紀錄',m.logs,l=>`<li><span class="hv-mono">${fmtDay(l.date)}</span>${esc(l.text)}</li>`)}
+      ${col('成果',m.res,r=>`<li><a href="#data/${r.id}"><b>${esc(r.title)}</b></a></li>`)}
+    </div></article>`}).join('')}</div>
+</section>${foot()}`;
+}
+async function copyText(txt,btn){
+  const old=btn.textContent;
+  try{await navigator.clipboard.writeText(txt)}
+  catch(e){const ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(_){}ta.remove()}
+  btn.textContent='已複製';setTimeout(()=>{btn.textContent=old},1600);
+}
 function foot(){
   const last=D.log[0];
   return `<footer class="wrap"><div class="foot"><span class="mono">資料 data.json${last?` · 最後更新 ${fmtDay(last.date)}`:''} · 由 Claude 維護</span><a class="mono" href="../../">← 資料庫 Data Tank</a></div></footer>`;
@@ -701,7 +887,7 @@ $('#dlg').addEventListener('click',e=>{if(e.target.id==='dlg')return e.target.cl
 /* ── 路由 ── */
 function render(keep){
   const [v,arg]=(location.hash.slice(1)||'home').split('/');
-  const view=({home:viewHome,tasks:viewTasks,parts:viewParts,data:viewData}[v]||viewHome);
+  const view=({home:viewHome,tasks:viewTasks,parts:viewParts,data:viewData,report:viewReport}[v]||viewHome);
   $$('#tabs a').forEach(a=>a.classList.toggle('on',a.dataset.v===(view===viewHome?'home':v)));
   if($('#dlg').open)$('#dlg').close();
   $('#app').innerHTML=view();
@@ -712,6 +898,7 @@ function render(keep){
   else scrollTo(0,0);
 }
 $('#app').addEventListener('click',e=>{
+  const cp=e.target.closest('[data-copy]');if(cp){const k=cp.dataset.copy,CH=chapters();return copyText(`# ${D.project.title} 報告素材\n\n`+(k==='all'?CH:CH.filter(c=>String(c.n)===k)).map(chText).join('\n\n'),cp)}
   const f=e.target.closest('[data-fold]');if(f){fold[f.dataset.fold]=!fold[f.dataset.fold];openDone.clear();return render(true)}
   const cv=e.target.closest('[data-cv]');if(cv){ui.cv=cv.dataset.cv;store.set('cv',ui.cv);return render(true)}
   if(Date.now()-dragged<300&&e.target.closest('#sc'))return;   // 剛拖曳轉完，不算點擊
