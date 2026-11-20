@@ -16,13 +16,13 @@ data.json    全部資料，只改這份
 | `project` | `start`（W1 的星期一）、`weeks`、`budget`、`members`（me／mate／claude 的顯示名）、`phases`（n、name、start、end 週） |
 | `tasks` | `id`、`title`、`owners`（me／mate／claude，可多人）、`phase`、`start`／`end`（週）、`status`（todo／doing／done）、`progress`（0–100）、`imp`／`urg`（1–3）、`note` |
 | `parts` | `id`、`name`、`owner`、`priceLo`／`priceHi`、`qty`、`status`（plan／ordered／arrived）、`paid`（實付，0 表示照 `priceHi` 算）、`link`、`note`、`order` |
-| `log` | `id`、`date`（YYYY-MM-DD）、`who`、`text`、`ts`（越大越新）。陣列新的在前 |
+| `log` | `id`、`phase`（所屬階段，0＝提案；沒填就不進 REPORT）、`date`（YYYY-MM-DD）、`who`、`text`、`ts`（越大越新）。陣列新的在前 |
 | `results` | `id`、`kind`、`date`、`phase`（掛在哪一站）、`title`、`summary`、`headers`、`rows`（`**x**` 會標成重點色）、`file`、`order` |
 
 ## 每次做完專題工作
 
 1. 任務做完：`status` 改 `done`、`progress` 改 100
-2. 在 `log` 最前面加一筆：日期、誰、做了什麼（一句話）
+2. 在 `log` 最前面加一筆：日期、誰、做了什麼（一句話），`phase` 填所屬階段
 3. 有實驗結果：在 `results` 加一筆，`phase` 填所屬階段
 4. 從 `origin/main` 開分支，只提交 `web/sailboat/data.json`，發 PR
 
@@ -34,3 +34,9 @@ data.json    全部資料，只改這份
 - 延遲＝`end` 週已過、還沒 `done`
 - 四象限：重要＝`imp` 3；緊急＝`urg` 3，或這週／下週到期，或已延遲
 - 資料庫首頁的卡片圖：headless Chrome 1280×800 截首頁，縮成 900 寬存到 `sites/sailboat.jpg`
+
+## 外觀
+
+- 版面照 NKUST Racing 工作台首頁：左上 3D 色立體、右上點陣月曆、左下本週重點、右下四象限
+- 顏色照 Claude（Anthropic 官方色）：象牙底 #F0EEE6、近黑字 #141413、Claude 橘 #D97757 為唯一重點色；Mr.張 天藍、隊友 橄欖、Claude 無花果
+- REPORT：照階段把完成的工作、`log`、`results` 排進 5 章（CH1 動機 phase 0、CH2 模擬 1、CH3 硬體 2–4、CH4 測試 5–6、CH5 結論 7–8），「複製本章」輸出 Markdown。要改章節就在 `project` 加 `chapters`
