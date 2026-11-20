@@ -491,7 +491,7 @@ main,main *{animation:none!important}
   <nav class="tabs" id="tabs">
     <a href="#home" data-v="home">HOME</a><a href="#tasks" data-v="tasks">TASKS</a><a href="#parts" data-v="parts">PARTS</a><a href="#data" data-v="data">DATA</a><a href="#report" data-v="report">REPORT</a>
   </nav>
-  <button class="ib" id="theme" title="切換淺色／深色" aria-label="切換淺色／深色"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg></button>
+  <button class="ib" id="theme" title="配色" aria-label="配色"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg></button>
 </div></header>
 <main id="app"></main>
 <dialog class="dlg" id="dlg"></dialog>
@@ -914,7 +914,14 @@ addEventListener('hashchange',()=>render());
 const sysDark=matchMedia('(prefers-color-scheme: dark)');
 function applyTheme(t){if(t)document.documentElement.dataset.theme=t;else delete document.documentElement.dataset.theme}
 applyTheme(store.get('theme'));
-$('#theme').onclick=()=>{const dark=document.documentElement.dataset.theme?document.documentElement.dataset.theme==='dark':sysDark.matches;const t=dark?'light':'dark';applyTheme(t===(sysDark.matches?'dark':'light')?null:t);store.set('theme',document.documentElement.dataset.theme||'')};
+// 三段：自動（跟系統）→ 淺色 → 深色。按鈕圖示跟著換
+const THEMES=[['','自動（跟系統）','<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/>'],
+  ['light','淺色','<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'],
+  ['dark','深色','<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/>']];
+function themeBtn(){const t=document.documentElement.dataset.theme||'',m=THEMES.find(x=>x[0]===t)||THEMES[0],b=$('#theme');
+  b.innerHTML=`<svg viewBox="0 0 24 24">${m[2]}</svg>`;b.title=b.ariaLabel=`配色：${m[1]}（點一下切換）`}
+themeBtn();
+$('#theme').onclick=()=>{const t=document.documentElement.dataset.theme||'',i=THEMES.findIndex(x=>x[0]===t),n=THEMES[(i+1)%3][0];applyTheme(n);store.set('theme',n);themeBtn()};
 
 /* ── 載入資料 ── */
 fetch('data.json',{cache:'no-cache'}).then(r=>r.json()).then(d=>{
